@@ -1,0 +1,170 @@
+/* **** Accordion to show comments ***** */
+.commentAcc {
+  margin: var(--stdMarginSmall) auto;
+  width: 86%;
+}
+
+.commentAccCollapse,
+.commentAccExpand {
+  padding: 0.3em;
+  background-color: var(--headerBlockBackground);
+  color: var(--headerBlockColour);
+  border: 1px solid var(--commentBorder);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.commentHeadShow {
+  font-size: 3em;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ***** comoments themseleves ***** */
+.commentHead {
+  width: 100%;
+  margin: 0.2em;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: var(--commentBoxOutline);
+}
+
+.commentDate {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.6em;
+  justify-self: flex-end;
+  align-self: flex-end;
+}
+
+.commentDate::before,
+.commentDate::after {
+  content: '--';
+}
+
+.commentsContainer,
+.commentForm {
+  max-height: 5000vh;
+  opacity: 1;
+  transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
+}
+
+.commentContainer,
+.commentForm {
+  width: 80%;
+  padding: var(--stdPaddingSmall);
+  margin: var(--stdMarginSmall) 0;
+}
+
+.commentContainer {
+  border: var(--commentBoxOutline);
+  color: var(--tabColour);
+  --indent: 0;
+  /* margin-left: var(--indent); */
+}
+
+.commentBody {
+  font-size: 0.8em;
+  text-align: left;
+}
+
+.replyContainer {
+  margin-left: 1em;
+}
+
+.commentContainer:nth-of-type(odd) {
+  background-color: var(--listOdd);
+}
+
+.commentContainer:nth-of-type(even) {
+  background-color: var(--listEven);
+}
+
+.replyContainer:nth-child(1) {
+  --indent: 2vw;
+  border-left: 3px solid var(--compColBrt1);
+}
+.replyContainer:nth-child(2) {
+  --indent: 4vw;
+  border-left: 3px solid var(--compColBrt2);
+}
+.replyContainer:nth-child(3) {
+  --indent: 6vw;
+  border-left: 3px solid var(--compColBrt3);
+}
+.replyContainer:nth-child(n + 4) {
+  --indent: 8vw;
+  border-left: 3px solid var(--compColBrt4);
+}
+
+.comment-input {
+  resize: none;
+  width: 50em;
+  max-width: 97%;
+  height: 3em;
+  font-size: 0.8em;
+}
+
+.commentForm,
+.commentReply {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.commentForm input[type='text'] {
+  width: 50em;
+  max-width: 97%;
+  height: 3em;
+  font-size: 0.8em;
+}
+
+.commentContainer input[type='submit'],
+.commentForm input[type='submit'],
+.replyForm {
+  font-family: OpenSans;
+  font-size: 0.7em;
+  width: auto;
+}
+
+.commentNotify {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.commentNotify label {
+  font-family: OpenSans;
+  font-size: 0.8em;
+  color: var(--commentBoxOutline);
+  background-color: inherit;
+}
+
+input[type='checkbox'] {
+  max-width: 10px;
+}
+
+.collapsed {
+  border: none;
+  padding: 0;
+  margin: 0;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+
+.hide {
+  display: none;
+}
+
+.username.band {
+  font-family: OpenSansBold;
+  color: #f00;
+}
+
+.band::after {
+  font-size: 0.4rem;
+  opacity: 0.5;
+  content: ' ::super important band member pathetic blue tick!::';
+}

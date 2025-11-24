@@ -1,0 +1,18 @@
+<div class="editOrder">
+    <a href = "/private/functions/interface/orders/print_order.php?order_id={{order_id}}" target="_blank" class="button">Generate PDF</a>
+    <a hx-get="/private/functions/interface/orders/edit_order.php?order_id={{order_id}}" hx-target="#editOrder_{{order_id}}" class="button">Edit Order</a>
+    <a hx-get="/private/functions/interface/orders/send_confirmation.php?order_id={{order_id}}" hx-target="#editOrder_{{order_id}}" class="button">Resend Confirmation Email</a>
+    <a hx-get="/private/functions/interface/orders/delete_order.php?order_id={{order_id}}" hx-confirm="Definitely delete order # {{order_id}}?" class="button">Delete Order</a>
+    {{^all_e_delivery}}
+        {{^rm_order_identifier}}
+            <a hx-get="/private/functions/interface/orders/submit_new_rm_orders.php?order_id={{order_id}}" hx-confirm="Definitely submit order # {{order_id}} to Royal Mail?" class="button">Submit to Royal Mail</a>
+        {{/rm_order_identifier}}
+    {{/all_e_delivery}}
+    {{^dispatched}}
+        <a hx-get="/private/functions/interface/orders/mark_dispatched.php?order_id={{order_id}}" hx-confirm="Definitely mark order # {{order_id}} as dispatched?" class="button" onclick="disableButton(event)">Mark As Dispatched</a>
+    {{/dispatched}}
+    {{#dispatched}}
+        <a hx-get="/private/functions/interface/orders/mark_dispatched.php?order_id={{order_id}}&undo=true" hx-confirm="Definitely mark order # {{order_id}} as not dispatched?" class="button" onclick="disableButton(event)">Mark As Not Dispatched</a>
+    {{/dispatched}}
+    
+</div>

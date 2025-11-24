@@ -1,0 +1,7 @@
+    <form hx-post="/functions/interface/blog/confirm_reset_pw.php" method="post" hx-target="#{{target}}">
+      <label for="userEmail">Email</label>
+      <input type="email" name="email" id="userEmail" autocomplete="email" required />
+      <div class="spacer"></div>
+      <input type="submit" value="Reset Password" />
+    </form>
+    <a hx-post="/functions/interface/blog/register_form.php?target={{target}}" hx-target="#userModal">Register</a> ||       <a hx-post="{{base_dir}}/php/loginForm.php?target={{target}}" hx-target="#{{target}}">Log In</a> 

@@ -1,0 +1,17 @@
+*.log
+*.DS_Store
+*.error_log
+*.debug_log
+*.htaccess
+tmp.html
+php.ini
+
+tmp/
+
+resources/resource_dirs/
+
+private/data/mailout/current_mailout.txt
+private/data/mailout/logs/
+private/data/orders/
+
+resources/resource_dirs/temp

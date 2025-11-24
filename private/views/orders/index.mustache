@@ -1,0 +1,79 @@
+{{>html_header}}
+
+    <section class="callout">
+      <h1>Order Management Page</h1>
+    </section>
+    <section class="content-container">
+      <form class="grid-2col" hx-post="/private/functions/interface/orders/submit_new_rm_orders.php" hx-target="#rmTarget" hx-confirm="Do you want to send the orders for the chosen area to Royal Mail for processing?" onsubmit="document.getElementById('submitOrders').classList.add('disabled'); document.getElementById('submitOrdersSpinner').classList.remove('hidden')">
+        <label for="orderZone">Orders to Submit</label>
+        <select id="orderZone" name="order_zone" style="width:fit-content">
+          <option value="0">UK</option>
+          <option value="2">USA</option>
+          <option value="1">ROW</option>
+          <option value="3">ALL</option>
+        </select>
+        <input id="submitOrders" class="button" type="submit" value="Generate Royal Mail Labels" />
+      </form>
+      <div id="rmTarget">
+        <div class="submitOrderSpinnerContainer">
+          <img id="submitOrdersSpinner" class="hidden" src="/serve/images/graphics/loading/gif/inline" />
+        </div>
+      </div>
+    </section>
+    <section class="content-container">
+      <button id="getRM" class="button" hx-get="/private/functions/interface/orders/get_rm_orders.php" hx-target="#rmUpdateResult" onclick="document.getElementById('getRM').classList.add('disabled'); document.getElementById('updateResultSpinner').classList.remove('hidden')">Update Dispatched Orders</button>
+      <p>This will send confirmation emails to the customers including download links for any e-delivery items. It will only update 100 orders at a time, if there are more than that outstanding this should be run until no more orders remain.</p>
+      <p>Go to <a class="stdLink" href="https://business.parcel.royalmail.com/orders/" target="_blank">Royal Mail Orders</a> to pay and download labels</p>
+      <button id="sendDownload" class="button" hx-get="/private/functions/interface/orders/send_download_links.php" hx-target="#rmUpdateResult" onclick="document.getElementById('sendDownload').classList.add('disabled'); document.getElementById('updateResultSpinner').classList.remove('hidden')">Send RIL Download Links</button>
+      <div id="rmUpdateResult">
+        <div class="updateResultSpinnerContainer">
+          <img id="updateResultSpinner" class="hidden" src="/serve/images/graphics/loading/gif/inline" />
+        </div>
+      </div>
+    </section>
+    <section class="content-container">
+      <h1>Current Picking List</h1>
+      <div id="pickingList" class="pickingList" hx-get="/private/functions/interface/orders/picking.php" hx-trigger="load, updateOrderList from:body"></div>
+      <h1>Orders</h1>
+      <div>
+        <label for="orderFilter">Filter Orders:</label>
+        <form id="orderFilterForm">
+            <select name="orderFilter" id="orderFilter" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="change" hx-target="#orderList">
+            <option value="all">All Orders</option>
+            <option value="failed">Payment Failed</option>
+            <option value="submitted">Submitted to RM</option>
+            <option value="dispatched">Dispatched</option>
+            <option value="new_uk" selected>New Orders (UK)</option>
+            <option value="new_usa">New Orders (USA)</option>
+            <option value="new_row">New Orders (ROW)</option>
+            </select>
+        </form>
+      </div>
+      <div id="orderList" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="load, updateOrderList from:body" hx-include="#orderFilterForm"></div>
+    </section>
+    <section class="content-container">
+      <h1>Transactions</h1>
+      <button hx-get="/private/functions/interface/orders/view_transactions.php" hx-target="#transactionResult" hx-trigger="click" onclick="disableButton(event)" hx-swap="innerHTML">View Transactions</button>
+      <div id="transactionResult"></div>
+    </section>
+    <section class="content-container">
+      <section class="importCSV">
+        <h1>Import Music Glue Orders</h1>
+        <p>Import orders from csv. Manually upload the csv to /private/data/orders/ with filename 'mg_orders.csv'</p>
+        <button class="button" hx-get="/private/functions/interface/orders/import_mg_csv.php" hx-swap="outerHTML" onclick="disableButton(event)">Import Now</button>
+      </section>
+    </section>
+    <script>
+      const copyLinkToClipboard = (e) => {
+        navigator.clipboard.writeText(e.target.previousElementSibling.innerText);
+        e.target.innerHTML = "Copied!";
+      };
+    </script>
+    <script type="text/javascript">
+    document.addEventListener('htmx:afterSettle', (e)=>{
+        e.target.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+    })
+  </script>
+  <script src="/js/filterElementsBySearch.js"></script>
+
+{{>html_footer}}

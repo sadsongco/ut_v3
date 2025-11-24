@@ -1,0 +1,5 @@
+<div class="spinner htmx-indicator" id="spinner">
+    <img src="/serve/images/graphics/loading/gif/inline" alt="loading spinner" />
+</div>
+
+<div hx-post="/controllers/audio_player.php" hx-trigger="load" hx-vals={{track}} hx-target="this" hx-swap="outerHTML" htmx-indicator="#spinner"></div>

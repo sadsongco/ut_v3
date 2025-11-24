@@ -1,0 +1,17 @@
+{{>email/emailHTMLHeader}}
+{{#order}}
+    <p>Dear {{name}},</p>
+    <p>Thank you for your order #{{order_id}}</p>
+    {{#download_items}}
+        {{#download_token}}
+        <p>You can download your digital copy of {{name}} <a href="{{host}}/shop/download/{{download_token}}" target="_blank">here</a> (note this link will only work once). If you have any issues please contact us on <a href="mailto:info@unbelievabletruth.co.uk">info@unbelievabletruth.co.uk</a>.</p>
+        {{/download_token}}
+        {{^download_token}}
+        <p>You will be sent a link to download your digital copy of {{name}} on {{disp_release_date}}</p>
+        {{/download_token}}
+    {{/download_items}}
+    <p>We really appreciate you ordering direct from us, it helps us to keep making more music!</p>
+    <p>Sincerely,<br><br>
+    Andy, Jason and Nigel<br>Unbelievable Truth</p>
+{{/order}}
+{{>email/emailHTMLFooter}}

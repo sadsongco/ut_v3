@@ -1,0 +1,19 @@
+
+<section class="articleContainer">
+    {{#article}}
+        {{>article}}
+    {{/article}}
+</section>
+<section class="articleLinks">
+    {{#next_article}}
+        <button hx-get="/content?article_id={{next_article}}" data-article_id="{{next_article}}" hx-target="#blog-content" hx-replace="innerHTML" hx-on:click="updateURL(event)">Next Blog</button>
+    {{/next_article}}
+    {{#prev_article}}
+        <button hx-get="/content?article_id={{prev_article}}" data-article_id="{{prev_article}}" hx-target="#blog-content" hx-replace="innerHTML" hx-on:click="updateURL(event)">Previous Blog</button>
+    {{/prev_article}}
+</section>
+<section class="commentForm" hx-get="/functions/interface/blog/comment_form.php?article_id={{article_id}}" hx-trigger="load">
+</section>
+<section class="comments">
+    {{>comments}}
+</section>

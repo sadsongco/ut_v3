@@ -1,0 +1,70 @@
+.content-container {
+  color: black;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: var(--darkShadow);
+  padding: 1em;
+  margin: var(--stdMarginSmall);
+}
+
+.content-container input {
+  display: block;
+}
+
+.carousel-preview {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+}
+
+.carouselTilePreview {
+  margin: 0.5em;
+  padding: 0.5em;
+  border: 1px solid black;
+}
+
+.carouselTilePreview img {
+  height: 300px;
+}
+
+.carousel-image-preview {
+  display: block;
+  max-width: 230px;
+  max-height: 95px;
+  width: auto;
+  height: auto;
+}
+
+.submitOrderSpinnerContainer img {
+  max-width: 70px;
+  max-height: 70px;
+}
+
+.list {
+}
+
+.listRow {
+  display: grid;
+  grid-template-columns: 25em 3em;
+  column-gap: 0.5em;
+  row-gap: 0.3em;
+  padding: 0.5em;
+  margin-bottom: 0.1em;
+}
+.listRow:nth-child(even) {
+  background-color: #444;
+}
+.listRow:nth-child(odd) {
+  background-color: #777;
+}
+
+.price {
+  float: right;
+}
+
+.priceHolder {
+  width: 6em;
+}

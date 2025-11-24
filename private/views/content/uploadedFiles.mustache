@@ -1,0 +1,17 @@
+{{#uploaded_files}}
+    <div class="fileUploaded">
+    {{#success}}
+        <p>
+            File {{filename}} uploaded. Add to article by copying and pasting {{>copyButton}}<br />
+            Float image to the right by adding '::r' inside your tag, to the left by adding '::l'
+        </p>
+    {{/success}}
+    {{^success}}
+        <p class="error">{{message}}</p>
+        {{#tag}}
+            {{>copyButton}}
+        {{/tag}}
+    {{/success}}
+    </div>
+{{/uploaded_files}}
+<div id="uploadProgress" hx-get="/private/functions/interface/content/file_upload_progress.php" hx-trigger="none" hx-swap="innerHTML" hx-target="this" hx-swap-oob="true"></div>

@@ -1,0 +1,18 @@
+    <header class="content-header" data-targetid="orderList" onclick="showHideOrders(event)">
+        <div class="accordion-title">{{num_orders}} order(s):</div>
+        <div class="accordion-indicator"><i class="fa-solid fa-chevron-right"></i></div>
+
+    </header>
+    <div id="filteredOrders" class="orderList">
+        {{>filterBox}}
+        {{#orders}} {{>order}} {{/orders}}
+        {{^orders}} No orders in current filter {{/orders}}
+        <div class="no-results-message">No orders in current filter</div>
+    </div>
+
+<script>
+    const showHideOrders = (e) => {
+        e.target.classList.toggle('showing');
+        document.getElementById('filteredOrders').classList.toggle('show');
+    }
+</script>

@@ -1,0 +1,7 @@
+{{^logged_in}}
+    {{>login_form}}
+{{/logged_in}}
+{{#logged_in}}
+    You are logged in.
+    <a hx-get="/functions/interface/blog/logout.php">Logout</a>
+{{/logged_in}}

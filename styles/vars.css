@@ -1,0 +1,79 @@
+:root {
+  /* margins */
+  --stdMarginSmall: 0.5rem;
+  --stdMarginMedium: 1rem;
+  --stdMarginBig: 1.8rem;
+
+  /* padding */
+  --stdPaddingSmall: 0.5rem;
+  --stdPaddingMedium: 1rem;
+  --stdPaddingBig: 1.8rem;
+
+  /* colours */
+  --stdBackground: #000000;
+  --stdColour: #fff;
+
+  --errorColour: #d22;
+
+  --anchorColour: #111;
+  --footerAnchorColour: #cccccf;
+
+  --AHlilac: #fff;
+  --transparent: #00000000;
+
+  --headerBlockBackground: #939393b1;
+  --headerBlockColour: #222;
+
+  --alertBackground: #222;
+  --alertColour: #f88;
+
+  --tabBackground: #bbb;
+  --tabColour: #111;
+
+  --tabHiddenBackground: #2a2a35;
+  --tabHiddenColour: #9a9090;
+
+  --tabHoverBackground: #050505;
+  --tabHoverColour: #ccc;
+
+  --articleText: #222;
+  --articleBackground: #fff9ff;
+  --articleBorder: #989;
+  --articleShadow: -3px -3px var(--stdMarginSmall) #d7dfdf;
+
+  --commentBorder: #797;
+
+  --listEven: #ddfffe;
+  --listOdd: #feeeff;
+
+  --transBlack: #00000060;
+
+  --commentBoxOutline: 1px solid #b1b1b1;
+
+  --compColBrt1: #01a0e499;
+  --compColBrt2: #bdd3dd99;
+  --compColBrt3: #00693b99;
+  --compColBrt4: #44650999;
+  --compColBrt5: #15650999;
+
+  --alertMsgBackground: #aaaaaae5;
+  --alertMsgColour: #600;
+
+  /* layout */
+  --alertOutPos: -4rem;
+  --alertInPos: var(--stdMarginSmall);
+
+  /* typography */
+  --stdFont: Inter, OpenSane, sans-serif;
+  --headingFont: Inter, OpenSansBold, sans-serif;
+  --fontBaseSize: 1em;
+  --stdLineHeight: 1.27em;
+  --fontSmall: 0.8em;
+  --fontHeading: 1.2em;
+
+  /* other */
+  --darkShadow: 0.5em 0.5em 0.45em #ccc;
+
+  /* animaation */
+  --stdTransitionTime: 900ms;
+}

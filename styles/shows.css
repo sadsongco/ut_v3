@@ -1,0 +1,9 @@
+.content-container {
+  padding: var(--stdPaddingSmall);
+}
+
+.bit-play-my-city-heading-text,
+.bit-follow-section-heading-text {
+  text-transform: lowercase !important;
+  font-size: 0.7em;
+}

@@ -1,0 +1,38 @@
+.cookieConsent {
+  display: none;
+  position: fixed;
+  left: 0;
+  bottom: 3px;
+  font-size: 0.8em;
+  background-color: rgba(0, 0, 0, 0);
+  color: black;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  transition: bottom 2s ease-in-out;
+}
+
+.cookieConsent.consentShow {
+  display: none;
+  bottom: 3px;
+}
+
+.cookieConsent.consentHidden {
+  display: none;
+  bottom: -10em;
+}
+
+.cookieConsentInnerContainer {
+  position: relative;
+  width: clamp(30em, 40%, 80em);
+  padding: 1.5em;
+  background-color: #fff;
+}
+
+.closeConsent {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 5;
+}

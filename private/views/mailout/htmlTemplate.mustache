@@ -1,0 +1,14 @@
+{{>htmlHeader}}
+
+<main>
+{{#heading}}
+    <h1>{{heading}}</h1>
+{{/heading}}
+<p>{{#name}}Hello {{name}}!{{/name}}
+{{^name}}Hi friend!{{/name}}</p>
+{{#html_content}}
+    {{{html_content}}}
+{{/html_content}}
+</main>
+
+{{>htmlFooter}}

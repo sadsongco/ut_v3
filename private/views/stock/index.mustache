@@ -1,0 +1,241 @@
+{{>html_header}}
+<section class="callout">
+    <h1>Stock Management Page</h1>
+</section>
+{{#items}}
+    <div id="item{{item_id}}-message"></div>
+    <section class="show accordion" id="item{{item_id}}">
+        <header data-targetid="item{{item_id}}">
+            <h2>{{name}}</h2>
+            <i class="fa-solid fa-plus"></i>
+        </header>
+        <div class="accordion-content" id="item{{item_id}}-content">
+            <form id="item{{item_id}}" hx-post="/private/functions/interface/stock/update_item.php" hx-target="#item{{item_id}}-message">
+                <div class="update-stock-item">
+                    <input type="hidden" name="item_id" value="{{item_id}}">
+                    <label for="item{{item_id}}_name" >Name</label>
+                    <input type="text" name="name" id="item{{item_id}}_name" value="{{name}}" autocomplete="off">
+                    <label for="item{{item_id}}_sku" >SKU</label>
+                    <input type="text" name="sku" id="item{{item_id}}_sku" value="{{sku}}">
+                    <label for="item{{item_id}}_price">Price</label>
+                    <input type="number" name="price" id="item{{item_id}}_price" step="0.50" value="{{price}}">
+                    <label for="item{{item_id}}_description">Description</label>
+                    <textarea name="description" id="item{{item_id}}_description" cols="10" rows="10">{{description}}</textarea>
+                    <label for="item{{item_id}}_category">Category</label>
+                    <select name="category" id="item{{item_id}}_category">
+                        {{#categories}}
+                            <option value="{{category}}" {{selected}}>{{category}}</option>
+                        {{/categories}}
+                    </select>
+                    <label for="item{{item_id}}_image" >Image</label>
+                    <input type="text" name="image" id="item{{item_id}}_image" value="{{image}}">
+                    <label for="item{{item_id}}_weight">Weight kg</label>
+                    <input type="number" name="weight" id="item{{item_id}}_weight" step="0.001" value="{{weight}}">
+                    <label for="item{{item_id}}_customs_description" >customs description</label>
+                    <input type="text" name="customs_description" id="item{{item_id}}_customs_description" value="{{customs_description}}">
+                    <label for="item{{item_id}}_customs_code">customs code</label>
+                    <input type="number" name="customs_code" id="item{{item_id}}_customs_code" step="1" value="{{customs_code}}">
+                    <label for="item{{item_id}}_stock">stock</label>
+                    <input type="number" name="stock" id="item{{item_id}}_stock" step="1" value="{{stock}}">
+                    <label for="item{{item_id}}_e_delivery">E-delivery</label>
+                    <input type="checkbox" name="e_delivery" id="item{{item_id}}_e_delivery" {{e_delivery}}>
+                    <label for="item{{item_id}}_download">Download (THIS HAS TO BE UPLOADED MANUALLY IF CHANGED)</label>
+                    <input type="text" name="download" id="item{{item_id}}_download" value="{{download}}" />
+                    <label for="item{{item_id}}_featured">featured</label>
+                    <input type="checkbox" name="featured" id="item{{item_id}}_featured" {{featured}}>
+                    <label for="item{{item_id}}_length_mm">length_mm</label>
+                    <input type="number" name="length_mm" id="item{{item_id}}_length_mm" step="1" value="{{length_mm}}">
+                    <label for="item{{item_id}}_width_mm">width_mm</label>
+                    <input type="number" name="width_mm" id="item{{item_id}}_width_mm" step="1" value="{{width_mm}}">
+                    <label for="item{{item_id}}_depth_mm">depth_mm</label>
+                    <input type="number" name="depth_mm" id="item{{item_id}}_depth_mm" step="1" value="{{depth_mm}}">
+                    <label for="item{{item_id}}_release_date">Release Date</label>
+                    <input type="date" name="release_date" id="item{{item_id}}_release_date" value="{{release_date}}">
+                    <label for="packaging_classification">Packaging Classification</label>
+                    <select name="packaging_classification" id="packaging_classification">
+                    {{#packaging_options}}
+                        <option value="{{name}}"{{selected}}>{{name}}</option>
+                    {{/packaging_options}}
+                    </select>
+                    <input type="submit" value="Update Item" name="update_item">
+                </div>
+            </form>
+            {{#options}}
+            <form hx-post="/private/functions/interface/stock/update_item.php">
+                <p>Option: {{option_name}}</p>
+                <div class="update-stock-item">
+                    <input type="hidden" name="item_option_id" value="{{item_option_id}}">
+                    <label for="item{{item_id}}_option{{option_id}}_stock">Stock</label>
+                    <input type="number" id="item{{item_id}}_option{{option_id}}_stock" name="option_stock" value="{{option_stock}}">
+                    <label for="item{{item_id}}_option{{option_id}}_weight">Weight (g)</label>
+                    <input type="number" id="item{{item_id}}_option{{option_id}}_weight" name="option_weight" value="{{option_weight}}">
+                    <input type="submit" value="Update Option Stock" name="update_option">
+                </div>
+            </form>
+            {{/options}}
+            <form hx-post="/private/functions/interface/stock/update_item.php">
+                <div class="update-stock-item">
+                    <input type="hidden" name="item_id" value="{{item_id}}">
+                    <label for="option_name">Option Name</label>
+                    <input type="text" name="option_name" id="option_name">
+                    <label for="option_price">Option Price</label>
+                    <input type="number" step="0.01" name="option_price" id="option_price">
+                    <label for="option_weight">Option Weight (g)</label>
+                    <input type="number" step="1" name="option_weight" id="option_weight">
+                    <label for="option_stock">Option Stock</label>
+                    <input type="number" step="1" name="option_stock" id="option_stock">
+                    <input type="submit" value="Add New Option" name="add_new_option">
+                </div>
+            </form>
+            <form hx-post="/private/functions/interface/stock/update_item.php" hx-confirm="Do you definitely want to delete this item? No undo">
+                <div class="update-stock-item">
+                    <input type="hidden" name="item_id" value="{{item_id}}">
+                    <input type="submit" value="Delete Item" name="delete_item">
+                </div>
+            </form>
+        </div>
+    </section>
+
+{{/items}}
+<section class="callout">
+    <h1>Add Item</h1>
+</section>
+<section class="show accordion" id="createItem">
+    <header data-targetid="createItem">
+        <h2>Create Item</h2>
+        <i class="fa-solid fa-plus"></i>
+    </header>
+    <div class="accordion-content" id="createItem-content">
+        <form hx-post="/private/functions/interface/stock/create_item.php" enctype="multipart/form-data" hx-target="#createResult">
+            <div class="update-stock-item">
+                <label for="item_name">Item Name</label>
+                <input type="text" name="name" id="item_name" autocomplete="off" required>
+                <label for="item_sku">Item SKU</label>
+                <input type="text" name="sku" id="item_sku" autocomplete="off">
+                <label for="item_price">Item Price</label>
+                <input type="number" name="price" id="item_price" step="0.1" required>
+                <label for="item_description">Item Description</label>
+                <textarea id="item_description" name="description" cols="15" rows="8" required></textarea>
+                <label for="item_category">Category</label>
+                <select name="category" id="item_category">
+                    {{#categories}}
+                        <option value="{{category}}" {{selected}}>{{category}}</option>
+                    {{/categories}}
+                </select>
+                <label for="item_image">Item Image</label>
+                <input type="file" name="files[]" id="item_image" required>
+                <label for="item_weight">Weight</label>
+                <input type="number" name="weight" id="item_weight" step="0.001" value="0">
+                <label for="item_customs_description" >customs description</label>
+                <input type="text" name="customs_description" id="item_customs_description" value="{{customs_description}}">
+                <label for="item_customs_code">customs code</label>
+                <input type="number" name="customs_code" id="item_customs_code" step="1" value="{{customs_code}}">
+                <label for="item_stock">stock</label>
+                <input type="number" name="stock" id="item_stock" step="1" value="0">
+                <label for="item{{item_id}}_e_delivery">E-delivery</label>
+                <input type="checkbox" name="e_delivery" id="item{{item_id}}_e_delivery">
+                <label for="item{{item_id}}_download">Download (THIS HAS TO BE UPLOADED MANUALLY)</label>
+                <input type="text" name="download" id="item{{item_id}}_download" />
+                <label for="item_featured">featured</label>
+                <input type="checkbox" name="featured" id="item_featured">
+                <label for="item_length_mm">length_mm</label>
+                <input type="number" name="length_mm" id="item_length_mm" step="1" value="0">
+                <label for="item_width_mm">width_mm</label>
+                <input type="number" name="width_mm" id="item_width_mm" step="1" value="0">
+                <label for="item_depth_mm">depth_mm</label>
+                <input type="number" name="depth_mm" id="item_depth_mm" step="1" value="0">
+                <label for="item{{item_id}}_release_date">Release Date</label>
+                <input type="date" name="release_date" id="item{{item_id}}_release_date">
+                <label for="packaging_classification">Packaging Classification</label>
+                <select name="packaging_classification" id="packaging_classification">
+                {{#packaging_options}}
+                    <option value="{{name}}">{{name}}</option>
+                {{/packaging_options}}
+                </select>
+                <input type="submit" value="Add Item">
+            </div>
+        </form>
+    </div>
+    <div id="createResult"></div>
+</section>
+<section class="callout">
+    <h1>Bundles</h1>
+</section>
+{{#bundles}}
+    <section class="show accordion" id="editBundle{{bundle_id}}">
+        <header data-targetid="editBundle{{bundle_id}}">
+            <h2>Bundle # {{bundle_id}}</h2>
+            <i class="fa-solid fa-plus"></i>
+        </header>
+        <div class="accordion-content" id="editBundle{{bundle_id}}-content">
+            <form hx-post="/private/functions/interface/stock/update_bundle.php">
+                <p>
+                    Bundle items:
+                    <ul>
+                    {{#items}}
+                        <li>{{name}}</li>
+                    {{/items}}
+                    </ul>
+                </p>
+                <p>
+                    Bundle stock: {{stock}}
+                </p>
+                <div class="update-stock-item">
+                    <input type="hidden" name="bundle_id" value="{{bundle_id}}">
+                    <label for="bundlePrice{{bundle_id}}">Price &pound;</label>
+                    <input type="number" step="0.5" id="bundlePrice{{bundle_id}}" name="price" value="{{price}}" />
+                    <label for="bundleActive{{bundle_id}}">Active</label>
+                    <input id="bundleActive{{bundle_id}}" type="checkbox" name="active" {{active}} />
+                    <input type="submit" value="Update Bundle" /> 
+                </div>
+            </form>
+        </div>
+    </section>
+{{/bundles}}
+<section class="callout">
+    <h1>Add Bundle</h1>
+</section>
+<section class="show accordion" id="createBundle">
+    <header data-targetid="createBundle">
+        <h2>Create Bundle</h2>
+        <i class="fa-solid fa-plus"></i>
+    </header>
+    <div class="accordion-content" id="createBundle-content">
+        <form hx-post="/private/functions/interface/stock/create_bundle.php">
+            <div class="update-stock-item">
+                <label for="bundle-item-1">bundle item 1</label>
+                <select name="bundle-item[]" id="bundle-item-1">
+                    {{#items}}
+                        <option value="{{item_id}}">{{name}}</option>
+                    {{/items}}
+                </select>
+                <button onclick="addBundleItem(event)">Add Bundle Item</button><div></div>
+                <label for="bundle_price">Price</label>
+                <input type="number" name="price" id="bundle_price" step="0.50" required>
+                <input type="submit" value="add Bundle">
+            </div>
+        </form>
+    </div>
+</section>
+
+<script>
+    const addBundleItem = (e) => {
+        e.preventDefault();
+        const container = document.getElementById('createBundle-content');
+        const els = document.querySelectorAll('[id^=bundle-item]');
+        const lastSelect = els[els.length - 1];
+        const lastLabel = document.querySelector(`[for=${lastSelect.id}]`)
+        const newSelect = lastSelect.cloneNode(true);
+        const newLabel = lastLabel.cloneNode(true);
+        const splitName = lastSelect.id.split("-");
+        splitName[splitName.length - 1] ++;
+        const newId = splitName.join("-");
+        newSelect.id = newId;
+        newLabel.setAttribute('for', newId);
+        newLabel.innerText = newId.replaceAll("-", " ");
+        lastSelect.insertAdjacentElement("afterend", newLabel);
+        newLabel.insertAdjacentElement("afterend", newSelect);
+        container.style.maxHeight = `${container.scrollHeight}px`;
+    }
+</script>
+{{>html_footer}}

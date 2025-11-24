@@ -1,0 +1,9 @@
+.update-stock-item {
+  display: grid;
+  grid-template-columns: 10em 1fr;
+  row-gap: var(--stdMarginSmall);
+  column-gap: var(--stdMarginSmall);
+  padding: var(--stdPaddingSmall);
+  border-bottom: 2px solid black;
+  border-radius: 5px;
+}

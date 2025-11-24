@@ -1,0 +1,77 @@
+{{>html_header}}
+{{>categories}}
+{{>cart_preview}}
+<section class="articleContainer">
+    <section class="articleBody">
+        <div class="articleHead">
+            <div class="articleTitle">Rich Inner Life</div>
+        </div>
+        <figure class="floatCentered">
+            <img style="max-width: 30%" src="/serve/images/images/UnbelievableTruth-RichInnerLife-web/jpg/inline">
+        </figure>
+        <p>
+            Our new album Rich Inner Life is out now on digital, vinyl and CD.<br>
+            You can pre-order through our webshop now, please scroll down.<br>
+            If you can find it on all your favourite <a href="https://unbelievabletruth.lnk.to/richinnerlife" target="_blank">streaming services</a>
+        </p>    
+    </section>
+</section>
+<div class='callout'><h1>SHOP</h1></div>
+<section class="cartContainer">
+    <section class='show items'>
+    <h2>Top Items</h2>
+    {{#featured}}
+        <section class='item'>
+            <a href="/shop/item/{{item_id}}">
+            <div class="link-container">
+                <p>{{name}}</p>
+                <p id="item{{item_id}}-price">&pound;{{price}}</p>
+                {{#image}}
+                <img src="{{image_path}}" alt="image" width="100">
+                {{/image}}
+            </div>
+            </a>
+            {{>item_interact}}
+        </section>
+    {{/featured}}
+    </section>
+    <section class="show bundles">
+        <h2>Bundles</h2>
+        {{#bundles}}
+            <section class="bundle">
+                <form hx-post='/functions/interface/shop/add_to_cart.php' hx-target='#bundleResult{{bundle_id}}' hx-swap='innerHTML'>
+                {{#items}}
+                    <div class="bundle-item">
+                        <p>{{name}}</p>
+                        {{#image}}
+                            <img src="{{image_path}}" alt="image" height="50px">
+                        {{/image}}
+                        {{>item_interact}}
+                    </div>
+                {{/items}}
+                {{>bundle_interact}}
+                </form>
+            </section>
+        {{/bundles}}
+    </section>
+    <section class='show items'>
+    <h2>Items</h2>
+    {{#items}}
+        <section class='item'>
+            <a href="/shop/item/{{item_id}}">
+            <div class="link-container">
+                <p>{{name}}</p>
+                <p id="item{{item_id}}-price">&pound;{{price}}</p>
+                {{#image}}
+                <img src="{{image_path}}" alt="image" width="100">
+                {{/image}}
+            </div>
+            </a>
+            {{>item_interact}}
+        </section>
+    {{/items}}
+    </section>
+    <div id="cartMessage"></div>
+</section>
+<script src="/js/shop/updateItemPrice.js"></script>
+{{>html_footer}}

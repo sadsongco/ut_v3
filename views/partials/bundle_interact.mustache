@@ -1,0 +1,17 @@
+<div class="item-interact">
+    <input type="hidden" name="bundle_id" value='{{bundle_id}}'>
+    <input type="hidden" name="is_bundle" value="true">
+    {{#option}}
+        <select name='option_id' onchange='updateItemPrice(event)'>
+            {{#options}}
+                <option value='{{item_option_id}}' data-price='{{option_price}}'>{{option_name}}</option>
+            {{/options}}
+        </select>
+    {{/option}}
+    <div class="bundle-item-total">
+        <p>Bundle Price: &pound;<span id='itemPrice'>{{disp_price}}</span></p>
+        <p class="small"><span class="strikethrough">&pound;{{raw_price}}</span> - save &pound;{{saving}}</p>
+        <input type="submit" value="Add Bundle To Cart">
+    </div>
+</div>
+<section id="bundleResult{{bundle_id}}"></section>

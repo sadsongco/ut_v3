@@ -1,0 +1,7 @@
+{{#message}}<h3>{{message}}</h3>{{/message}}
+
+<form hx-post="/private/functions/interface/content/add_tab.php" hx-target="#tabFormContainer" hx-swap="innerHTML">
+    <label for="tabName">Add a new tab / category</label>
+    <input type="text" name="tab_name" id="tabName" placeholder="Category name (keep it short)" />
+    <input type="submit" value="Add Tab">
+</form>

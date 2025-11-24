@@ -1,0 +1,49 @@
+<section class="resource" id="{{section}}">
+    <h2>{{name}}</h2>
+    {{#resources}}
+        {{^ext_media}}
+            <div class="resourceItem">
+                {{#img_preview}}
+                    <img src="/resources/serve/{{path}}/thumbnail/{{serve_path}}/inline" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
+                    <br />
+                    <a href="/resources/serve/{{path}}/full_res/{{serve_path}}" download="{{resource}}" target="_blank">Download at print resolution</a> {{#full_res_size}}({{0}} x {{1}}, 300dpi){{/full_res_size}}
+                    &nbsp;||&nbsp;
+                    <a href="/resources/serve/{{path}}/web/{{serve_path}}" download="{{resource}}" target="_blank">Download at web resolution</a> {{#web_size}}({{0}} x {{1}}, 72dpi){{/web_size}}
+                    {{#photo_credit}}
+                        <br />Please credit photo to {{{photo_credit}}}
+                    {{/photo_credit}}
+                {{/img_preview}}
+                {{^img_preview}}
+                    <a href="/resources/serve/{{path}}/{{serve_path}}" download="{{resource}}" target="_blank">
+                        {{#logo_preview}}
+                            <img src="/resources/serve/{{path}}/{{serve_path}}/inline" width="200" alt="image of {{resource}}" /><br />
+                        {{/logo_preview}}
+                        {{resource}}<br />
+                    </a>
+                    {{#logo_size}}({{0}}px x {{1}}px){{/logo_size}}
+                {{/img_preview}}
+            </div>
+        {{/ext_media}}
+        {{#playlists}}
+            <div class="resourceItem">
+                {{>playlist}}
+            </div>
+        {{/playlists}}
+        {{#videos}}
+            <div class="resourceItem">
+                {{>youtubeIframe}}
+            </div>
+        {{/videos}}
+        {{#press_shots}}
+            <div class="resourceItem">
+                {{>pressShot}}
+            </div>
+        {{/press_shots}}
+        {{#press_quotes}}
+            <div class="resourceItem pressQuote">
+                <blockquote><h3>{{quote}}</h3></blockquote><p class="quoteSource">{{source}}</p>
+            </div>
+        {{/press_quotes}}
+    {{/resources}}
+    {{>backToTop}}
+</section>

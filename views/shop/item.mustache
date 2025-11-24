@@ -1,0 +1,14 @@
+{{>html_header}}
+{{>categories}}
+{{>cart_preview}}
+    {{#item}}
+    <section class='shop-item'>
+        <div class="item-name"><h2>{{name}}</h2></div>
+        <div class="item-img">{{#image}}<img src='{{image_path}}' width='200'>{{/image}}</div>
+        <div class="item-description"><p>{{{description}}}</p></div>
+        {{>item_interact}}
+    </section>
+    {{/item}}
+    {{>empty_cart}}
+    <script src='/js/shop/updateItemPrice.js'></script>
+{{>html_footer}}

@@ -1,0 +1,35 @@
+h1 {
+  font-weight: 600;
+  font-size: 1.8em;
+}
+
+.emailsSent {
+  background: white;
+  color: black;
+  margin-top: 1em;
+  padding: 0.5em;
+}
+
+form {
+  margin: 1em auto;
+}
+
+a {
+  font-size: 1em;
+  color: #acacac;
+}
+
+pre {
+  overflow-x: auto !important;
+  white-space: pre-wrap !important;
+}
+
+.progress h2 {
+  font-size: 1.1em;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.progress p {
+  font-size: 0.8em;
+}

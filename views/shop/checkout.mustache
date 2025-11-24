@@ -1,0 +1,36 @@
+{{>html_header}}
+        <div id="processing-order" class="processingDefeat">
+            <h1>...processing order, please wait</h1>
+            <img src="/serve/images/graphics/loading/gif/inline" />
+        </div>
+        <div id="paymentTarget"></div>
+        <section class="cartContainer" hx-get="/functions/shop/cart_items.php?checkout=true" hx-trigger="load, cartUpdated from:body">
+        </section>
+        <section class="cart-item">
+            <div class="span2"></div>
+            <label class="span2" for="shippingMethod">Shipping Method</label> 
+            {{>shipping_method_select}}
+        </section>
+        <section class="cart-item">
+            <div class="totals-legend">Subtotal</div>
+            <div class='subtotal'>&pound;<span id="subtotal" class="price" hx-post="/functions/interface/shop/get_subtotal.php" hx-trigger="cartUpdated from:body">{{subtotal}}</span></div><div></div>
+            <div class="totals-legend">Shipping</div>
+            <div class='subtotal'>
+                &pound;
+                <span id="shipping" class="price" hx-post="/functions/interface/shop/calculate_shipping.php" hx-trigger="change from:#shippingMethod, shippingMethodUpdated from:body, cartUpdated from:body" hx-vars="{'update': 'true'}" hx-include="#delivery-country, #shipping-method">{{shipping}}</span>
+            </div>
+            <div id="tariff"></div>
+            <div class="totals-legend">Total</div>
+            <div class='subtotal'>&pound;<span class="price" hx-post="/functions/interface/shop/calculate_total.php" hx-trigger="shippingUpdated from:body, cartUpdated from:body" hx-include="#shipping, #subtotal">{{total}}</span></div>
+        </section>
+    <div class="main">
+        <section class="checkout-container">
+            {{>checkout_form}}
+        </section>
+    </div>
+    <script src="/js/shop/shopUI.js"></script>
+    <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
+    <script src="/js/shop/processPayment.js"></script>
+    <script src="/js/shop/getResponseScreen.js"></script>
+    <script src="/js/shop/updateOrder.js"></script>
+{{>html_footer}}

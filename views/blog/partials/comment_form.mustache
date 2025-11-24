@@ -1,0 +1,22 @@
+<form class="commentForm" hx-post="/functions/interface/blog/post_comment.php" hx-swap="outerHTML" hx-target="#commentForm_{{article_id}}">
+{{^comment_reply_id}}
+    <textarea class="comment-input" name="comment" placeholder="comment as {{username}}" autofocus></textarea>
+{{/comment_reply_id}}
+    <input type="hidden" name="article_id" value="{{article_id}}" />
+    {{#user_reply_id}}
+        <textarea class="comment-input" name="comment" placeholder="reply as {{username}}"></textarea>
+        <input type="hidden" name="user_reply_id" value="{{user_reply_id}}" />
+    {{/user_reply_id}}
+    {{#comment_reply_id}}
+        <textarea class="comment-input" name="comment" placeholder="reply as {{username}}"></textarea>
+        <input type="hidden" name="comment_reply_id" value={{comment_reply_id}} />
+        <input type="submit" value="Post Reply" />
+    {{/comment_reply_id}}
+        <div class="commentNotify">
+            <label for="notify_{{article_id}}_{{comment_reply_id}}">Notify me about replies</label>
+            <input type="checkbox" name="notify" id="notify_{{article_id}}_{{comment_reply_id}}">
+        </div>
+    {{^comment_reply_id}}
+        <input type="submit" value="Post Comment" />
+    {{/comment_reply_id}}
+</form>

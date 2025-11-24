@@ -1,0 +1,7 @@
+{{^articles}}<h2>No articles to edit{{/articles}}
+<select name="edit_article" id="editArticle" hx-post="/private/functions/interface/content/edit_article.php" hx-trigger="change" hx-target="#articleFormContainer">
+    <option value=null>Select an article to edit below / select this for new article</option>
+    {{#articles}}
+        <option value={{article_id}}>{{title}}</option>
+    {{/articles}}
+</select>

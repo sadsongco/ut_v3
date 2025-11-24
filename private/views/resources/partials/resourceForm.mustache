@@ -1,0 +1,23 @@
+        <form class="grid-2col" enctype="multipart/form-data" hx-post="/private/functions/interface/resources/update_resource.php" hx-swap="outerHTML">
+            {{#error}}
+                <div class="error span2">{{message}}</div>
+            {{/error}}
+            {{#uploaded_files}}
+                {{#success}}
+                    <div class="span2">{{message}}</div>
+                {{/success}}
+                {{^success}}
+                    <div class="error span2">{{message}}</div>
+                {{/success}}
+            {{/uploaded_files}}
+            <input type="hidden" name="resource_dir" id="resource_dir" value="{{dir}}">
+            {{#meta_file}}
+                <input type="hidden" name="meta_filename" value="{{meta_file}}">
+            {{/meta_file}}
+            <input type="file" name="files[]"><div></div>
+            {{#fields}}
+                <label for="{{dir}}_{{.}}">{{.}}</label>
+                <input type="text" name="{{.}}" id="{{dir}}_{{.}}" value="" required>
+            {{/fields}}
+            <input type="submit" value="Update Resource">
+        </form>

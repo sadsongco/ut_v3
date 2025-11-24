@@ -1,0 +1,56 @@
+            <form hx-post="/functions/interface/shop/do_checkout.php" hx-disabled-elt="#confirmSubmit" hx-target="#paymentTarget" hx-swap="innerHTML" autocomplete="on">
+                {{#failed}}
+                    <h1 class="error">CREDIT CARD PAYMENT FAILED</h1>
+                    <p>Please check your details and try again</p>
+                {{/failed}}
+                <section class="checkout-form">
+                    <label for="customerName">Name*</label>
+                    <input type="text" name="name" id="customerName" {{#name}}value="{{name}}"{{/name}} autocomplete="name" required>
+                    <label for="customerEmail">Contact Email*</label>
+                    <input type="text" name="email" id="customerEmail" {{#email}}value="{{email}}"{{/email}} autocomplete="email" required>
+                </section>
+                <section class="checkout-form address delivery-address">
+                    <h2 class="span2">Delivery Address</h2>
+                    <label for="delivery-address1">Address Line 1*</label>
+                    <input type="text" name="delivery-address1" id="delivery-address1" onchange="mirrorDeliveryAddress(event)" {{#address1}}value="{{address1}}"{{/address1}} required>
+                    <label for="delivery-address2">Address Line 2</label>
+                    <input type="text" name="delivery-address2" id="delivery-address2" onchange="mirrorDeliveryAddress(event)" {{#address2}}value="{{address2}}"{{/address2}}>
+                    <label for="delivery-city">Town / City*</label>
+                    <input type="text" name="delivery-town" id="delivery-city" onchange="mirrorDeliveryAddress(event)" {{#town}}value="{{town}}"{{/town}} required>
+                    <label for="delivery-postcode">Postcode / ZIP (including state / province if applicable)*</label>
+                    <input type="text" name="delivery-postcode" id="delivery-postcode" onchange="mirrorDeliveryAddress(event)" {{#postcode}}value="{{postcode}}"{{/postcode}} required>
+                    <label for="delivery-country">Country*</label>
+                    <select name="delivery-country" id="delivery-country" hx-post="/functions/interface/shop/update_country.php" hx-swap="innerHTML" hx-target="#errorTarget" hx-on:change="mirrorDeliveryAddress(event)" required>
+                            <option value="31" selected>United Kingdom</option>
+                        {{#countries}}
+                            <option value="{{country_id}}" {{selected}}>{{name}}</option>
+                        {{/countries}}
+                    </select>
+                </section>
+                <div id="errorTarget"></div>
+                <section class="checkout-form">
+                    <label for="sameAddress">Billing address same as delivery address</label>
+                    <input type="checkbox" id="sameAddress" class="same-address" onclick="showHideBillingAddress(event)" checked />
+                </section>
+                <section class="checkout-form address hidden billing-address" id="billingAddress">
+                    <h2 class="span2">Billing Address</h2>
+                    <label for="billing-address1">Address Line 1*</label>
+                    <input type="text" name="billing-address1" id="billing-address1" {{#billing-address1}}value="{{billing-address1}}"{{/billing-address1}} required>
+                    <label for="billing-address2">Address Line 2</label>
+                    <input type="text" name="billing-address2" id="billing-address2" {{#billing-address2}}value="{{billing-address2}}"{{/billing-address2}}>
+                    <label for="billing-city">Town / City*</label>
+                    <input type="text" name="billing-town" id="billing-city" {{#billing-town}}value="{{billing-town}}"{{/billing-town}} required>
+                    <label for="billing-postcode">Postcode / ZIP (including state / province if applicable)*</label>
+                    <input type="text" name="billing-postcode" id="billing-postcode" {{#billing-postcode}}value="{{billing-postcode}}"{{/billing-postcode}} required>
+                    <label for="billing-country">Country*</label>
+                    <select name="billing-country" id="billing-country" required>
+                            <option value="31" selected>United Kingdom</option>
+                        {{#countries}}
+                            <option value="{{country_id}}" {{selected}}>{{name}}</option>
+                        {{/countries}}
+                    </select>
+                </section>
+                <section class="checkout-form" id="paymentResponse">
+                    {{>pay}}
+                </section>
+            </form>

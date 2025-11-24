@@ -1,0 +1,36 @@
+{{>html_header}}
+    <section class="" id="hero">
+        <header class="content-header sticky-head" data-targetId='hero'>
+            <h2>
+                    News
+            </h2>
+        </header>
+        <div class="" id="hero-content">
+            <div class="carousel content-block" id="carousel">
+                {{#carousel_tiles}}
+                    {{>carousel_tile}}
+                {{/carousel_tiles}}
+            </div>
+        </div>
+    </section>
+    <section class="" id="gigs">
+        <header class="content-header sticky-head" data-targetId='gigs'>
+            <h2>
+                Gigs
+            </h2>
+        </header>
+        <div class="content-block" id="gigs-content" hx-get="/shows" hx-trigger="load">
+        </div>
+    </section>
+    <section class="" id="blog">
+        <header class="content-header sticky-head" data-targetId='blog'>
+            <h2>
+                Blog
+            </h2>
+        </header>
+        <div class="content-block" id="blog-content"{{#article_id}} data-article_id="{{article_id}}"{{/article_id}}>
+            <section class="blog" hx-get="/content{{#article_id}}?article_id={{article_id}}{{/article_id}}" hx-trigger="load">
+            </section>
+        </div>
+    </section>
+{{>html_footer}}

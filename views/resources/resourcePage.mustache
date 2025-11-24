@@ -1,0 +1,13 @@
+<nav id="navigation">
+    <ul class="nav">
+{{#sections}}
+        {{>navItem}}
+{{/sections}}
+    </ul>
+</nav>
+
+{{#resources}}
+    {{>resourceSection}}
+{{/resources}}
+
+<script src="/resources/js/scrollToSection.js"></script>

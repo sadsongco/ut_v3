@@ -1,0 +1,13 @@
+<form hx-post="/private/functions/interface/orders/update_order.php">
+    {{#orders}}
+        <div class="colForm orderLine">
+            <label for="{{key}}_{{order_id}}">{{label}}</label>
+            <input type="{{type}}" id="{{key}}_{{order_id}}" name="{{key}}" value="{{value}}">
+        </div>
+    {{/orders}}
+    <input type="submit" name="submit" value="update order">
+    <input type="submit" name="submit" value="cancel">
+</form>
+<script>
+    document.getElementById("editOrder_{{order_id}}").scrollIntoView({behaviour: smooth, block: start});
+</script>

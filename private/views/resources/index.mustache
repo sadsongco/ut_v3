@@ -1,0 +1,16 @@
+{{>html_header}}
+<section class="callout">
+    <h2>Resource Management Page</h2>
+</section>
+<section class="content-container">
+    <h2>Add Resource</h2>
+    <form class="grid-2col" hx-post="/private/functions/interface/resources/add_resource.php" hx-swap="outerHTML">
+        <label for="resourceName">Resource Name</label>
+        <input type="text" name="resource_name" id="resourceName" placeholder="Resource Name" />
+        <input type="submit" value="Add Resource" />
+    </form>
+</section>
+<section class="content-container">
+    <section hx-get="/private/functions/interface/resources/resource_dirs.php" hx-trigger="load"></section>
+</section>
+{{>html_footer}}

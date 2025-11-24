@@ -1,0 +1,44 @@
+<div id="updatedResult"></div>
+{{>filterBox}}
+{{#transactions}}
+    <div>
+        <label for="transactionFilter">Filter Orders:</label>
+        <form id="transactionFilterForm">
+            <select name="transactionFilter" id="transactionFilter" hx-post="/private/functions/interface/orders/view_transactions.php?{{href}}" hx-trigger="change" hx-target="#transactionResult">
+            <option value="">Choose Filter...</option>
+            <option value="successful">Successful</option>
+            <option value="failed">Failed</option>
+            <option value="no_order">No Matching Order</option>
+            <option value="other">Other</option>
+            </select>
+        </form>
+    </div>
+    {{#href}}
+            <section id="transactions-list" hx-get="/private/functions/interface/orders/view_transactions.php?{{href}}" hx-swap="outerHTML" hx-trigger="transactionListUpdated from:body">
+    {{/href}}
+    {{^href}}
+            <section id="transactions-list" hx-get="/private/functions/interface/orders/view_transactions.php" hx-swap="outerHTML" hx-trigger="transactionListUpdated from:body">
+    {{/href}}
+    {{#items}}
+        <div class="view-transaction zebra">
+            <p class="filterValue">Transaction Amount</p> <p class="filterValue">&pound;{{amount}}{{#amount_match}} (matches order amount){{/amount_match}}</p>
+            <p class="filterValue">Transaction ID</p> <p class="filterValue">{{transaction_id}}</p>
+            <p class="filterValue">Transaction Time</p> <p class="filterValue">{{time}}</p>
+            <p class="filterValue">Status</p><p class="filterValue">{{status}}{{#refunded}} <span class="error">THIS TRANSACTION HAS BEEN REFUNDED</span>{{/refunded}}</p>
+            {{#order}}
+                <p class="filterValue">Order No.</p> <p class="filterValue">{{order_id}}</p>
+                <p class="filterValue">Customer</p><p class="filterValue">{{customer_name}}, {{customer_city}} {{customer_country}} (<a href="mailto:{{customer_email}}">{{customer_email}}</a>)</p>
+                {{#submitted}}<p class="filterValue">Submitted to Royal Mail</p><p class="filterValue"></p>{{/submitted}}
+                {{#shipped}}<p class="filterValue">Shipped</p><p class="filterValue">{{service_name}}</p>{{/shipped}}
+            {{/order}}
+            {{^order}}
+                <p class="error">No Matching Order</p><p class="filterValue"></p>
+            {{/order}}
+            <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/refund_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really refund transaction {{transaction_id}}?">Refund Transaction</button></p>
+        </div>
+    {{/items}}
+    {{#href}}
+            <button hx-get="/private/functions/interface/orders/view_transactions.php?{{href}}" hx-target="#transactionResult" hx-trigger="click" onclick="disableButton(event)" hx-swap="innerHTML">Next Transactions</button>
+    {{/href}}
+    </section>
+{{/transactions}}

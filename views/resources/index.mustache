@@ -1,0 +1,13 @@
+{{>html_header}}
+    <h1>Resources Page</h1>
+    <h2>Social Media Links</h2>
+    <section class="socials">
+        <div class="social"><a href="https://www.facebook.com/untruth.band/" target="_blank">Facebook</a></div>
+        <div class="social"><a href="https://www.instagram.com/untruth_band/" target="_blank">Instagram</a></div>
+        <div class="social"><a href="https://threads.net/@untruth_band" target="_blank">Threads</a></div>
+        <div class="social"><a href="https://bsky.app/profile/untruth-band.bsky.social" target="_blank">Blue Sky</a></div>
+        <div class="social"><a href="https://www.tiktok.com/@untruth_band" target="_blank">Tik Tok</a></div>
+        <div class="social"><a href="https://www.youtube.com/@untruth_band" target="_blank">YouTube</a></div>
+    </section>
+    <section hx-get="/functions/interface/resources/get_resources.php" hx-trigger="load"></section>
+{{>html_footer}}

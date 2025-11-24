@@ -1,0 +1,31 @@
+<h1>Create new mailout</h1>
+<p>Surround external links URLs with the tags &#123;&#123;link&#125;&#125; &#123;&#123;/link&#125;&#125;, image URLs with &#123;&#123;img&#125;&#125; &#123;&#123;/img&#125;&#125;</p>
+<form hx-post="/private/functions/interface/mailout/upload_image.php" enctype="multipart/form-data">
+    <h3>Add an image to the mailout (will be resized)</h3>
+    <input type="file" name="files[]" id="imageUpload" value="" />
+    <label for="imageCaption">Caption for image</label>
+    <input type="text" name="caption[]" id="imageCaption" />
+    <input type="submit" value="Upload Image">
+</form>
+<form>
+    <h3>Select existing image</h3>
+    <section hx-get="/private/functions/interface/mailout/get_existing_images.php" hx-trigger="load"></section>
+    <section id="imageTag"></section>
+</form>
+<div id="updateStatus"></div>
+<form hx-post="/private/functions/interface/mailout/save_mailout.php" id="createMailoutForm" hx-target="#updateStatus">
+    <input type="hidden" name="id" id="id" value="{{id}}" />
+    <input type="text" name="subject" placeholder="mailout subject" autofill="false" hx-post="/private/functions/interface/mailout/preview_mailout.php" hx-trigger="input delay:3s" hx-target="#previews" hx-include="#createMailoutForm" value="{{subject}}"/>
+    <input type="text" name="heading" placeholder="mailout heading" hx-post="/private/functions/interface/mailout/preview_mailout.php" hx-trigger="input delay:3s" hx-target="#previews" hx-include="#createMailoutForm" value="{{heading}}" />
+    <label for="mailoutContent">Type the body of your mailout here</label>
+    <textarea name="body"  id="mailoutContent" rows="20" cols="80" placeholder="content" hx-post="/private/functions/interface/mailout/preview_mailout.php" hx-trigger="input delay:3s" hx-target="#previews" hx-include="#createMailoutForm">{{#body}}{{body}}{{/body}}</textarea>
+    <input type="hidden" name="preview_mailout" value="true">
+    {{#edit}}
+        <input type="hidden" name="edit" value="true" />
+        <input type="submit" value="Update Mailout">
+    {{/edit}}
+    {{^edit}}
+        <input type="submit" value="Save New Mailout">
+    {{/edit}}
+</form>
+<button hx-post="/private/functions/interface/mailout/save_mailout.php" hx-vals='"cancel": "true"'>Cancel</button>

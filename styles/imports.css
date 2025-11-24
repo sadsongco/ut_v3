@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;600&display=swap');
+@font-face {
+  font-family: 'OpenSansBold';
+  font-style: bold;
+  font-weight: 700;
+  src: url('/serve/fonts/OpenSans-Bold/ttf');
+}
+
+@font-face {
+  font-family: 'OpenSans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/serve/fonts/OpenSans-Regular/ttf');
+}

@@ -1,0 +1,20 @@
+    {{#cart_bundles}}
+        {{#items}}
+        <div class="cart-item">
+            <div class='item-img'>{{#image}}<img src="{{image_path}}" width="100px" />{{/image}}</div>
+            <div class='item-name'>{{name}} {{option_name}}</div>
+            
+        </div>
+        {{/items}}
+        <div class="cart-item">
+            <div>Bundle offer {{bundle_id}}</div><div></div>
+            <div class='item-quantity'>{{quantity}} @</div>
+            <div class='item-price'>&pound;<span class="price">{{price}}</span></div>
+            <div class='item-interact'>
+                <form hx-post='/functions/interface/shop/update_cart.php'>
+                    <input type="hidden" name="bundle_id" value="{{bundle_id}}">
+                    <input type="submit" value="Remove From Cart">
+                </form>
+            </div>
+        </div>
+    {{/cart_bundles}}

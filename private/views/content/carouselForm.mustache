@@ -1,0 +1,17 @@
+{{#uploaded_file}}
+    {{#success}}
+        <div>Carousel image {{filename}} was uploaded</div>
+    {{/success}}
+    {{^success}}
+        <div class="error">{{message}}</div>
+    {{/success}}
+{{/uploaded_file}}
+<form class="grid-2col" hx-post="/private/functions/interface/content/update_carousel.php" enctype="multipart/form-data">
+    <label for="heroImg">Image File</label>
+    <input id="heroImg" name="files[]" type="file" accept="image/png, image/jpeg" required />
+    <label for="tileTitle">Tile Title</label>
+    <input type="text" id="tileTitle" name="tile_title[]" cols="40" rows="10" placeholder="tile title" />
+    <label for="tileText">Text Content</label>
+    <textarea id="tileText" name="tile_text[]" cols="40" rows="10" placeholder="tile text"></textarea>
+    <input type="submit" name="create" value="Add Hero Tile">
+</form>

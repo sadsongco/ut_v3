@@ -1,0 +1,23 @@
+{{>html_header}}
+<section class="callout">
+    <h2>Utilities</h2>
+</section>
+<section class="content-container">
+    <h2>Add bandcamp addresses</h2>
+    <p>Upload the current bandcamp email address csv to web_assets/bandcamp/ with the filename bandcamp_mailing_list.csv</p>
+    <a class="button" hx-get="/private/functions/interface/utility/update_from_bandcamp.php" onclick="disableButton(event)" hx-swap="outerHTML">Update Now</a>
+</section>
+<section class="content-container">
+    <h2>Income from orders</h2>
+    <p>Calculate and output income from shop for a given period</p>
+    <form hx-post="/private/functions/interface/utility/calculate_income.php" hx-target="#incomeTarget">
+        <select name="period">
+            {{#period_options}}
+                <option name="{{name}}" value="{{start}}::{{end}}">{{name}}</option>
+            {{/period_options}}
+        </select>
+        <input type="submit" value="Calculate Income">
+    </form>
+    <div id="incomeTarget"></div>
+</section>
+{{>html_footer}}

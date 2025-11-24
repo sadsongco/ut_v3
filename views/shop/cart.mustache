@@ -1,0 +1,14 @@
+{{>html_header}}
+{{>categories}}
+{{^empty}}
+    {{#cart_contents}}
+    <section class="cartContainer" hx-get="/functions/shop/cart_items.php" hx-trigger="load, cartUpdated from:body">
+    </section>
+    {{/cart_contents}}
+{{/empty}}
+{{#empty}}
+    <div class="shop-item">
+        <p>Your cart is currently empty</p>
+    </div>
+{{/empty}}
+{{>html_footer}}

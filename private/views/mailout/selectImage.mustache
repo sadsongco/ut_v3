@@ -1,0 +1,6 @@
+<select name="img" hx-get="/private/functions/interface/mailout/image_tag.php" hx-trigger="change" hx-target="#imageTag">
+    <option value="null" selected>Select image from list</option>
+    {{#image_options}}
+        <option value="{{id}}">{{filename}}</option>
+    {{/image_options}}
+</select>

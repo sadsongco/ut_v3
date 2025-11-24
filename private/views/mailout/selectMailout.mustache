@@ -1,0 +1,24 @@
+<section class="progress">
+  {{#current_mailout}}
+    <h2>Current mailout {{current_mailout}} is sending{{#test}} to test mailing list{{/test}}</h2>{{#sent}}<p>{{>sentEmails}}</p>{{/sent}}
+    <button hx-post="api/cancel_mailout.php" hx-swap="outerHTML">Cancel Send</button>
+  {{/current_mailout}}
+</section>
+<section>
+<label for="mailoutSelect">Select mailout to send</label>
+  <select
+    name="mailout"
+    id="mailoutSelect"
+    hx-get="/private/functions/interface/mailout/select_mailout_options.php"
+    hx-trigger="load, listChange, listChange from:body"
+    hx-on::after-settle="htmx.trigger('#previews', 'mailoutSelected')"
+    onchange="htmx.trigger('#previews', 'mailoutSelected')"
+  >
+  </select>
+  <button hx-post="/private/functions/interface/mailout/edit_mailout.php" hx-include="#mailoutSelect" hx-target="#createMailout">Edit Mailout</button>
+  <br>
+  <label for="testMailout">Send email to test list</label>
+  <input type="checkbox" name="test_mailout" id="testMailout" />
+  <button hx-post="/private/functions/interface/mailout/set_mailout.php" hx-include="#mailoutSelect, #testMailout" hx-target="#createMailout">Send Mailout</button>
+<section class="previews" id="previews" hx-get="/private/functions/interface/mailout/preview_mailout.php" hx-include="#mailoutSelect" hx-trigger="mailoutSelected">
+</section>

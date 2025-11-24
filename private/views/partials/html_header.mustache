@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/styles/reset.css" />
+    <link rel="stylesheet" href="/styles/imports.css" />
+    <link rel="stylesheet" href="/styles/vars.css" />
+    <link rel="stylesheet" href="/styles/main250612.css" />
+    <link rel="stylesheet" href="/styles/carousel.css">
+    <link rel="stylesheet" href="/styles/private.css" />
+    <link rel="stylesheet" href="/styles/resources.css" />
+    {{#stylesheets}}
+    <link rel="stylesheet" href="/styles/{{.}}.css?v={{v}}" />
+    {{/stylesheets}}
+    <script src="/js/lib/htmx.min.js"></script>
+    <script defer src="/js/accordion.js"></script>
+    <script defer src="/js/utils.js"></script>
+    <script src="https://kit.fontawesome.com/865fbd0535.js" crossorigin="anonymous"></script>
+    <script src="/private/js/updateArticlePreview.js"></script>
+    <script src="/private/js/addFileButtonManager.js" defer></script>
+    <script src="/private/js/addToBody.js" defer></script>
+    <script src="/private/js/copyToClipboard.js" defer></script>
+    <title>Unbelievable Truth - Admin</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo"><img src="/serve/images/logo/UnbelievableTruth-logo-white_web/png/inline" width="500"/></div>
+    </header>
+    <main>
+      <section class="callout">
+        <h1>Unbelievable Truth Admin</h1>
+      </section>
+      <section class="show">
+          <p>
+              <a class="button" href="/private/stock/">Stock Management</a>
+              <a class="button" href="/private/orders/">Order Management</a>
+              <a class="button" href="/private/content/">Content Management</a>
+              <a class="button" href="/private/mailout/">Mailout Management</a>
+              <a class="button" href="/private/resources/">Resources Management</a>
+              <a class="button" href="/private/utility/">Utilities</a>
+          </p>
+      </section>

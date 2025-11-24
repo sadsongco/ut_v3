@@ -1,0 +1,18 @@
+{{#cart_items}}
+    {{>cart_items}}
+    {{^checkout}}
+    <div class="cart-item">
+        <div class="totals-legend">Total</div>
+        <div class='subtotal'>&pound;<span class="price">{{subtotal}}</span></div>
+    </div>
+    <div class="cart-item">
+        <a class='cart-button' href='/shop/checkout'>Checkout</a>
+        <button class="empty-cart" hx-post="/functions/interface/shop/empty_cart.php" hx-confirm="Delete all items from your cart?">Empty Cart</button>
+    </div>
+    {{/checkout}}
+{{/cart_items}}
+{{^cart_items}}
+    <div class="shop-item">
+        <p>Your cart is currently empty</p>
+    </div>
+{{/cart_items}}

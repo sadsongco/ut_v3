@@ -1,0 +1,55 @@
+{{#updated}}
+    <div>Carousel updated</div>
+{{/updated}}
+{{#deleted}}
+    <div>Carousel tile deleted</div>
+{{/deleted}}
+<form hx-post="/private/functions/interface/content/update_carousel.php">
+    <div class="carousel-preview">
+    {{#carousel_tiles}}
+        <input id="carousel_id{{carousel_id}}" type="hidden" name="carousel_id[]" value="{{carousel_id}}">
+        <div class="carouselTilePreview">
+            <div class="grid-2col">
+                <img class="span2 carousel-image-preview" src="{{path}}">
+            </div>
+            <div class="grid-2col">
+                <label for="title{{carousel_id}}">Title</label>
+                <input type="text" name="title[]" id="title{{carousel_id}}" value="{{tile_title}}">
+            </div>
+            <div class="grid-2col">
+                <textarea class="span2" name="text[]" id="text{{carousel_id}}" cols="30" rows="10">{{tile_text}}</textarea>
+            </div>
+            <div class="grid-2col">
+                <label for="tile_order{{carousel_id}}">Position</label>
+                <select name="tile_order[]" id="tile_order{{carousel_id}}">
+                    {{#order_options}}
+                        <option value="{{order}}" {{selected}}>{{order}}</option>
+                    {{/order_options}}
+                </select>
+            </div>
+            <button
+                onclick="deleteTile(event)"
+                data-img_url="{{img_url}}"
+                data-tile_id="{{carousel_id}}"
+            >Delete Tile</button>
+        </div>
+    {{/carousel_tiles}}
+    </div>
+    <input type="submit" name="update" value="Update Carousel">
+</form>
+
+<script>
+const deleteTile = async (e) => {
+    e.preventDefault();
+    const params = new FormData;
+    params.append("delete", true);
+    params.append("carousel_id", e.target.dataset.tile_id);
+    params.append("img_url", e.target.dataset.img_url);
+    const url = "/private/functions/interface/content/update_carousel.php";
+    res = await fetch(url, {
+        method: 'POST',
+        body: params
+    });
+    console.log(await res.text());
+}
+</script>

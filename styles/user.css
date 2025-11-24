@@ -1,0 +1,83 @@
+.user {
+  position: fixed;
+  right: 5px;
+  top: 5px;
+  width: clamp(30px, 3vw, 50px);
+  height: clamp(30px, 3vw, 50px);
+  background-color: rgba(255, 255, 255, 0.4);
+  padding: 5px;
+  mix-blend-mode: difference;
+  border-radius: 10px;
+  z-index: 3;
+}
+
+.user img {
+  width: 100%;
+  height: auto;
+}
+
+.userModal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transition: top 1s ease;
+  font-size: 0.8em;
+  width: clamp(12em, 12%, 15em);
+  padding: 8px;
+  margin-right: 5px;
+  background-color: rgba(100, 100, 100, 0.9);
+  z-index: 4;
+  border-radius: 5px;
+}
+
+.userModal.userHide {
+  top: -120px;
+}
+.userModal.userShow {
+  top: clamp(50px, 4.5vw, 80px);
+}
+
+.userModal.htmx-added {
+  right: 10vw;
+}
+
+.userModal label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7em;
+  font-weight: 300;
+}
+
+.userModal form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: right;
+  align-items: center;
+  place-content: right;
+}
+
+.userModal form input {
+  width: 10em;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7em;
+  font-weight: 300;
+}
+
+.userModal form input[type='submit'] {
+  width: auto;
+  max-width: 14em;
+}
+
+.username {
+  color: #666;
+}
+
+.userModal a {
+  font-size: 0.8em;
+  color: #ff99;
+  transition: color 0.4s ease-in-out;
+}
+
+.userModal a:hover {
+  cursor: pointer;
+  color: #fff;
+}

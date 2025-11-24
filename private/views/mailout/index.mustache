@@ -1,0 +1,18 @@
+{{>html_header}}
+    <section class="callout">
+      <h1>Mailout Management Page</h1>
+    </section>
+      <!-- <section>
+        <a href="add-download-token.html">Add Download Token</a>
+      </section> -->
+      <section class="content-container">
+        <button hx-get="/private/functions/interface/mailout/reset_test_mailout.php?nigel=true" hx-target="#createMailout">Reset Test Send To Nigel</button>
+        <button hx-get="/private/functions/interface/mailout/reset_test_mailout.php" hx-target="#createMailout">Reset Test Send To All</button>
+      </section>
+      <section class="content-container">
+        <button hx-get="/private/functions/interface/mailout/create_mailout_form.php" hx-target="#createMailout">Create New Mailout</button>
+      </section>
+      <section class="content-container" id="info"></section>
+      <section class="content-container" id="createMailout"></section>
+      <section class="selectMailout" hx-get="/private/functions/interface/mailout/select_mailout.php" hx-trigger="load, mailoutAdded from:body, errorsDeleted from:body"></section>
+{{>html_footer}}

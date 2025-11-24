@@ -1,0 +1,363 @@
+section.bundles,
+section.items {
+  margin-top: var(--stdMarginSmall);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fit, 25em);
+  grid-template-rows: repeat(auto-fit, 1fr);
+}
+section.items {
+  padding-top: var(--stdPaddingMedium);
+}
+
+section.bundles h2,
+section.items h2 {
+  flex: 0 0 100%;
+  /* width: 100%; */
+  /* text-align: center; */
+  font-family: var(--headingFont);
+  font-size: var(--fontHeading);
+  grid-column: 1/-1;
+}
+
+section.bundle,
+section.item {
+  min-width: 25em;
+  min-height: 18em;
+  color: var(--articleText);
+  border-radius: 5px;
+  border: var(--commentBoxOutline);
+  box-shadow: var(--darkShadow);
+}
+
+.bundle-item {
+  border-bottom: var(--commentBoxOutline);
+}
+
+section.item,
+section.bundle,
+section.bundle .bundle-item {
+  color: var(--articleText);
+  background-color: var(--articleBackground);
+  /* height: fit-content; */
+  padding: var(--stdPaddingMedium);
+  margin: var(--stdMarginSmall);
+}
+
+.item a p {
+  color: var(--articleText);
+}
+
+section.bundle img {
+  height: 50px;
+}
+
+.items a,
+.cart-item a,
+.shop-item a {
+  text-decoration: none;
+  color: var(--articleText);
+}
+
+input.invalid {
+  color: #f22;
+}
+
+.cartAccess {
+  position: absolute;
+  right: 0.1em;
+  top: 4em;
+  width: fit-content;
+  color: black;
+  background-color: var(--articleBackground);
+  opacity: 0.8;
+  padding: var(--stdPaddingLarge);
+  border: 1px solid var(--commentBoxOutline);
+  box-shadow: var(--articleShadow);
+  border-radius: 20%;
+}
+
+a.viewCart,
+a.viewCartItems {
+  font-size: 1.2em;
+  text-decoration: none;
+  color: black;
+}
+
+a.viewCartItems .viewCartBadge {
+  position: absolute;
+  bottom: -5px;
+  left: -5px;
+  font-size: 0.6em;
+  padding: 0.1em;
+  width: 1em;
+  height: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background-color: var(--alertColour);
+}
+
+/** font awesome */
+/* New Simplified Version 6 CSS */
+/* Step 1: Common Properties: All required to make icons render reliably */
+.icon::before {
+  /* removed font- based rules */
+  display: inline-block;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.viewCart::before {
+  font: var(--fa-font-solid);
+  content: '\f07a';
+  padding: 0.3em;
+}
+
+.viewCartItems::before {
+  font: var(--fa-font-solid);
+  content: '\f217';
+  padding: 0.3em;
+}
+
+.empty-cart {
+  margin: var(--stdMarginSmall) 0;
+  padding: var(--stdPaddingSmall);
+  width: fit-content;
+  grid-column: -1;
+}
+
+.shop-item,
+.cart-item,
+.checkout-container {
+  padding: var(--stdPaddingMedium);
+  margin: var(--stdMarginSmall);
+  color: var(--articleText);
+  background-color: var(--articleBackground);
+  display: flex;
+  flex-direction: column;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 120px 1fr 3em 5em 1fr;
+  column-gap: var(--stdMarginSmall);
+  row-gap: var(--stdMarginMedium);
+  align-items: center;
+}
+
+.item-name {
+  text-align: left;
+}
+
+@media screen and (min-width: 900px) {
+  .shop-item {
+    display: grid;
+    grid-template-columns: auto 1fr;
+  }
+}
+
+.shop-item > * {
+  padding: var(--stdPaddingMedium);
+}
+
+.shop-item h2 {
+  font-family: var(--headingFont);
+  font-weight: 900;
+}
+
+.shop-item .item-name {
+  grid-column: 1 / 3;
+}
+
+.shop-item .item-description {
+  font-size: var(--fontSmall);
+  max-width: 30em;
+}
+
+.price {
+  float: right;
+  font-family: 'Courier New', Courier, monospace;
+  text-align: right;
+}
+
+.checkout-form {
+  border: 1px solid black;
+  margin-bottom: var(--stdMarginSmall);
+  padding: var(--stdPaddingSmall);
+}
+
+.checkout-form input,
+.checkout-form label {
+  width: fit-content;
+  min-width: 22em;
+  display: block;
+}
+
+.checkout-form input[type='submit'],
+.checkout-form select {
+  width: fit-content;
+  max-width: 10em;
+}
+
+.checkout-form .date-input,
+#cvv {
+  display: inline-block;
+  min-width: 3em;
+  width: 3em;
+}
+
+.checkout-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: var(--stdMarginSmall);
+  column-gap: var(--stdMarginSmall);
+}
+.col-space {
+  display: none;
+}
+
+.cart-item .subtotal {
+  grid-column: 4;
+}
+
+.cart-button {
+  margin: var(--stdMarginSmall);
+  font-size: 0.85em;
+  width: fit-content;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  background-color: buttonface;
+  padding: var(--stdPaddingSmall);
+  border: 1px solid #787878;
+  border-radius: 3px;
+}
+
+.cart-button:hover {
+  cursor: pointer;
+  background-color: #ddd;
+}
+
+.cart-item select {
+  width: fit-content;
+}
+
+.address {
+  max-height: 20em;
+  transition: max-height 1s linear, padding 1s ease-in-out, border-color 1s linear;
+}
+
+.address.hidden {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border-color: transparent;
+}
+
+.address h2 {
+  font-family: var(--headingFont);
+  font-weight: bold;
+  height: 2em;
+  overflow: hidden;
+}
+
+.paymentPopover {
+  z-index: 10;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.success {
+  text-align: left;
+}
+
+.cancel {
+  font-size: 4em;
+  opacity: 0.6;
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+  z-index: 4;
+  transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.cancel:hover {
+  opacity: 1;
+  color: var(--alertColour);
+}
+
+@media screen and (max-width: 900px) {
+  .col-space {
+    display: block;
+  }
+  .checkout-form {
+    grid-template-columns: 1fr 1fr;
+  }
+  .cart-item {
+    grid-template-columns: 3em 1fr 1fr;
+  }
+  .cart-item .item-img,
+  .cart-item .item-name {
+    grid-column: 1 / -1;
+  }
+  .cart-item .item-price {
+    grid-column: 2;
+  }
+  .cart-item .item-interact form {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: row;
+  }
+  .cart-item .totals-legend {
+    grid-column: 1;
+  }
+  .cart-item .subtotal {
+    grid-column: 2;
+  }
+  .checkout-form input,
+  .checkout-form label {
+    min-width: auto;
+  }
+  .cancel {
+    position: relative;
+    font-size: 2em;
+    top: 0;
+    right: 0;
+  }
+}
+
+.processingDefeat {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 100;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 4em;
+}
+
+.processingDefeat img {
+  max-width: 10%;
+  margin: 0 auto;
+}
+
+.tariffMessage {
+  font-size: var(--fontSmall);
+  width: fit-content;
+  margin-left: 1em;
+}

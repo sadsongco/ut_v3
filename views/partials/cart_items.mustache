@@ -1,0 +1,37 @@
+    {{#cart_items}}
+        {{#items}}
+        <div class="cart-item">
+            <div class='item-img'>{{#image}}<img src="{{image_path}}" width="100px" />{{/image}}</div>
+            <div class='item-name'>{{name}}{{#option_name}} {{option_name}}{{/option_name}}</div>
+            <div class='item-quantity'>{{quantity}} @</div>
+            <div class='item-price'>&pound;<span class="price">{{price}}</span></div><div class="col-space"></div>
+            <div class='item-interact'>
+                <form hx-post='/functions/interface/shop/update_cart.php'>
+                    <input type="hidden" name="item_id" value="{{item_id}}">
+                    <input type="number" name="quantity" value="{{quantity}}" min="0" max="{{stock}}">
+                    <input type="submit" name="update" value="Update Quantity">
+                    <input type="submit" name="remove" value="Remove From Cart">
+                </form>
+            </div>
+        </div>
+        {{/items}}
+        {{#bundles}}
+        <div class="cart-item">
+            {{#items}}
+                <div class='item-img'>{{#image}}<img src="{{image_path}}" width="100px" />{{/image}}</div>
+                <div class='item-name span4'>{{name}}{{#option_name}} ({{option_name}}){{/option_name}}</div>
+            {{/items}}
+            <div class="span2"><h3>Bundle price</h3></div>
+            <div class='item-quantity'>{{quantity}} @</div>
+            <div class='item-price'>&pound;<span class="price">{{price}}</span></div>
+            <div class='item-interact'>
+                <form hx-post='/functions/interface/shop/update_cart.php'>
+                    <input type="hidden" name="bundle_id" value="{{bundle_id}}">
+                    <input type="number" name="quantity" value="{{quantity}}" min = "0" max="{{bundle_stock}}"">
+                    <input type="submit" name="update" value="Update Quantity">
+                    <input type="submit" name="remove" value="Remove From Cart">
+                </form>
+            </div>
+        </div>
+        {{/bundles}}
+    {{/cart_items}}

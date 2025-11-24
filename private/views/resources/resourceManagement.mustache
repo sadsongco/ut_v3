@@ -1,0 +1,7 @@
+{{#resources}}
+    <div class="resource_container">
+        <h1>{{dir_disp}}</h1>
+        {{>resourceForm}}
+        <button id="deleteResourceButton" hx-post="/private/functions/interface/resources/delete_resource.php" hx-vals='{"resource_dir": "{{dir}}"}' hx-confirm="Really delete {{dir}}?" hx-swap="outerHTML">Delete Resource</button>
+    </div>
+{{/resources}}

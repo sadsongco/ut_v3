@@ -1,0 +1,27 @@
+<h2>Income for {{#period}}{{start}} to {{end}}{{/period}}</h2>
+<div class="list">
+{{#income}}
+    <div class="listRow">
+        <div>Subtotal</div><div class="priceHolder">&pound;<span class="price">{{subtotal}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>Shipping</div><div class="priceHolder">&pound;<span class="price">{{shipping}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>Gross</div><div class="priceHolder">&pound;<span class="price">{{gross}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>VAT</div><div class="priceHolder">&pound;<span class="price">{{vat}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>International VAT Exempt Subtotal</div><div class="priceHolder">&pound;<span class="price">{{vat_exempt_subtotal}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>International VAT Exempt Shipping</div><div class="priceHolder">&pound;<span class="price">{{vat_exempt_shipping}}</span></div>
+    </div>
+    <div class="listRow">
+        <div>Total</div><div class="priceHolder">&pound;<span class="price">{{total}}</span></div>
+    </div>
+{{/income}}
+</div>
+<div>Download pdf: <a href="{{host}}/{{save_path}}{{filename}}" download>{{filename}}</a></div>

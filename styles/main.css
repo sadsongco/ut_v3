@@ -1,0 +1,192 @@
+body {
+  font-family: OpenSans, Inter, sans-serif;
+  font-size: var(--fontBaseSize);
+  line-height: var(--stdLineHeight);
+  background: var(--stdBackground);
+  color: var(--stdColour);
+}
+
+h1 {
+  font-family: var(--headingFont);
+  font-size: 2em;
+  line-height: 1.2em;
+}
+
+h2 {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+p {
+  line-height: 1.7em;
+  margin-bottom: 1em;
+}
+
+p.small {
+  font-size: var(--fontSmall);
+}
+
+.strikethrough {
+  text-decoration: line-through;
+}
+
+b {
+  font-family: var(--headingFont);
+  font-weight: bold;
+}
+
+main {
+  padding: var(--stdPaddingMedium);
+  max-width: 100%;
+}
+
+nav {
+  display: block;
+  padding-left: 0.5em;
+}
+
+nav ul {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  /* background-color: #999; */
+}
+
+nav ul li {
+  display: flex;
+  justify-content: center;
+  /* background-color: #999; */
+  /* color: black; */
+  border-right: 1px solid #aaa;
+  padding: 0.5em;
+  transition: background-color 0.5s ease;
+  width: 5em;
+}
+
+nav ul li:first-child {
+  border-left: 1px solid #aaa;
+}
+
+nav ul li:hover {
+  background-color: var(--headerBlockBackground);
+  cursor: pointer;
+}
+
+nav ul a {
+  color: var(--stdColour);
+  text-decoration: none;
+}
+
+nav ul li.active-link {
+  background-color: #333;
+  color: #999;
+}
+
+nav ul li.active-link:hover {
+  cursor: default;
+}
+
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+header {
+  z-index: 5;
+  /* background-color: #999; */
+  padding: var(--stdPaddingSmall);
+  margin: var(--stdMarginMedium);
+  --border-width: 2px;
+  border-radius: 0.4rem;
+  position: relative;
+  background: var(--transBlack);
+  backdrop-filter: blur(15px);
+}
+
+@media screen and (max-width: 900px) {
+  header {
+    margin: var(--stdMarginSmall) 0;
+  }
+}
+
+@property --a {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  border: var(--border-width) solid transparent;
+  background: conic-gradient(from var(--a) at 10% 50%, var(--compColBrt1), var(--compColBrt2), var(--compColBrt3), var(--compColBrt1)) border-box;
+  mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+  mask-composite: subtract;
+}
+
+header.content-header:nth-last-of-type(1):before {
+  --a: 0deg;
+  animation: animatedBorder 18s linear infinite;
+}
+header.content-header:nth-of-type(2)::before {
+  --a: 120deg;
+  animation: animatedBorder 13s linear infinite;
+  animation-direction: reverse;
+}
+header:nth-of-type(3).content-header::before {
+  --a: 240deg;
+  animation: animatedBorder 14.3s linear infinite;
+  animation-direction: alternate;
+}
+
+@keyframes animatedBorder {
+  0% {
+    --a: 0deg;
+  }
+  100% {
+    --a: 360deg;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--stdColour);
+  font-weight: bold;
+}
+
+a:hover {
+  color: var(--compColBrt1);
+  transition: color 0.3s ease-in-out;
+}
+
+.content-block {
+  min-height: 100vh;
+}
+
+.spinner {
+  z-index: -1;
+}
+
+.htmx-indicator {
+  opacity: 0;
+  height: 0px;
+  max-height: 0px;
+  transition: height opacity max-height 1500ms ease-in;
+  display: none;
+}
+.htmx-request .htmx-indicator {
+  opacity: 1;
+  height: 50px;
+  max-height: 50px;
+  display: block;
+}
+.htmx-request.htmx-indicator {
+  opacity: 1;
+  height: 50px;
+  max-height: 50px;
+  display: block;
+}

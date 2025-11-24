@@ -1,0 +1,21 @@
+        <div class="item-interact">
+            {{^is_bundle}}
+            <form hx-post='/functions/interface/shop/add_to_cart.php' hx-swap='innerHTML'>
+            {{/is_bundle}}
+                <input type="hidden" name="item_id{{#is_bundle}}[]{{/is_bundle}}" value='{{item_id}}'>
+                {{#option}}
+                    <select name='option_id{{#is_bundle}}[]{{/is_bundle}}' data-item_id='{{item_id}}' onchange='updateItemPrice(event)'>
+                        {{#options}}
+                            <option value='{{item_option_id}}' data-price='{{option_price}}'>{{option_name}}</option>
+                        {{/options}}
+                    </select>
+                {{/option}}
+                {{^option}}
+                    <input type="hidden" name="option_id{{#is_bundle}}[]{{/is_bundle}}" value="">
+                {{/option}}
+                {{^is_bundle}}
+                    <input type="submit" value="Add Item To Cart">
+            </form>
+                {{/is_bundle}}
+        </div>
+        <section id="cartResult{{item_id}}"></section>

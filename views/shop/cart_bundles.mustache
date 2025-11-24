@@ -1,0 +1,10 @@
+{{>cart_bundles}}
+{{^checkout}}
+<div class="cart-item">
+    <div class="totals-legend">Total</div>
+    <div class='subtotal'>&pound;<span class="price">{{subtotal}}</span></div>
+</div>
+<div class="cart-item">
+    <a class='cart-button' href='/shop/checkout'>Checkout</a>
+</div>
+{{/checkout}}

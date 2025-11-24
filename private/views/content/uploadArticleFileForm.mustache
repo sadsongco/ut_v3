@@ -1,0 +1,18 @@
+        <form hx-encoding="multipart/form-data" hx-post="/private/functions/interface/content/add_files.php" hx-target="#fileUploadStatus">
+            <input type="hidden" name="{{session_upload_name}}" value="123" />
+          <div id="userAreaFiles">
+            <input type="hidden" name="fileId" id="fileId" value="0" />
+            <label for="addFileButton">Add a new image (jpg / png / gif) or music file (mp3)</label>
+            <button
+                hx-get="/private/functions/interface/content/add_file.php"
+                hx-target="#fileUploadStatus"
+                hx-swap="beforeend"
+                hx-include="[id='fileId']"
+                id="addFileButton"
+                onclick="updateFileId()"
+                >Add Files</button>
+          </div>
+          <div id="fileUploadStatus"></div>
+          <input type="submit" value="Upload Files" onclick="startUploadProgress()" />
+        </form>
+        <div id="uploadProgress" hx-get="/private/functions/interface/content/file_upload_progress.php" hx-trigger="none" hx-swap="innerHTML" hx-target="this"></div>

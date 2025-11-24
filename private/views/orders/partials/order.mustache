@@ -1,0 +1,48 @@
+<div class="orderContainer">
+  <div id="editOrder_{{order_id}}" class="editOrderForm"></div>
+  <div class="order" id="order_{{order_id}}">
+    <div class="orderLine filterValue orderTitle">Order ID</div>
+    <div class="orderLine filterValue">{{disp_order_id}}</div>
+    <div class="orderLine filterValue orderTitle">Order Date</div>
+    <div class="orderLine filterValue">{{order_date}}</div>
+    <div class="orderLine filterValue orderTitle">Transaction ID</div>
+    <div class="orderLine filterValue">{{transaction_id}}</div>
+    <div class="orderLine filterValue orderTitle">Name</div>
+    <div class="orderLine filterValue">{{name}}</div>
+    <div class="orderLine filterValue orderTitle">Address</div>
+    <div class="orderLine filterValue">{{address_1}}, {{#address_2}}{{address_2}}, {{/address_2}}{{city}} {{postcode}}, {{country}}</div>
+    <div class="orderLine filterValue orderTitle">Email</div>
+    <div class="orderLine filterValue"><a href="mailto:{{email}}">{{email}}</a></div>
+    {{#rm_order_identifier}}
+      <div class="orderLine orderTitle">Submitted For Postage</div><div class="orderLine filterValue">{{rm_order_identifier}}</div>
+    {{/rm_order_identifier}}
+    {{#items}}{{>item}}{{/items}}
+    {{#bundles}}{{>bundle}}{{/bundles}}
+    <div class="orderLine orderTitle">Subtotal</div>
+    <div class="orderLine">&pound;<span class="price">{{subtotal}}</span></div>
+    <div class="orderLine orderTitle">Shipping Method</div>
+    <div class="orderLine">{{service_name}}</div>
+    <div class="orderLine orderTitle">Shipping</div>
+    <div class="orderLine">&pound;<span class="price">{{shipping}}</span></div>
+    <div class="orderLine orderTitle">VAT</div>
+    <div class="orderLine">&pound;<span class="price">{{vat}}</span></div>
+    <div class="orderLine orderTitle">TOTAL</div>
+    <div class="orderLine">&pound;<span class="price">{{total}}</span></div>
+
+  </div>
+  <div class="orderLinks">
+    <div class="orderLine filterValue">
+    {{#dispatched}}
+      {{^all_e_delivery}}
+      Dispatched on {{dispatched}}. Tracking link <a href="https://www.royalmail.com/track-your-item#/tracking-results/{{rm_tracking_number}}" target="_blank">https://www.royalmail.com/track-your-item#/tracking-results/{{rm_tracking_number}}</a>&nbsp;<button onclick="copyLinkToClipboard(event)">Copy Link</button><br>
+      Force download link: <a href="https://unbelievabletruth.co.uk/shop/download/{{force_download_token}}/{{order_id}}" target="_blank">https://unbelievabletruth.co.uk/shop/download/{{force_download_token}}/{{order_id}}</a>&nbsp;<button onclick="copyLinkToClipboard(event)">Copy Link</button>
+      {{/all_e_delivery}}
+      {{#all_e_delivery}}
+      Dispatched by e-delivery on {{dispatched}}.<br>
+      Force download link: https://unbelievabletruth.co.uk/shop/download/{{force_download_token}}/{{order_id}}
+      {{/all_e_delivery}}
+    {{/dispatched}}
+    </div>
+  </div>
+  {{>editOrder}}
+</div>

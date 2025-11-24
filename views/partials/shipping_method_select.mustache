@@ -1,0 +1,5 @@
+<select name="shippingMethod" id="shippingMethod" hx-post="/functions/interface/shop/update_shipping_method.php" hx-trigger="change" hx-swap="none">
+    {{#shipping_options}}
+        <option value="{{shipping_method_id}}">{{service_name}}</option>
+    {{/shipping_options}}
+</select>

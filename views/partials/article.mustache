@@ -1,0 +1,17 @@
+    <article class="articleBody">
+        <div class="articleHead">
+        {{^blog}}
+            <div class="articleTitle">{{title}}</div>
+            <div class="articleDate">{{added}}</div>
+        {{/blog}}
+        {{#blog}}
+            <div class="articleTitle">{{title}}</div>
+            <div class="articleDate">Posted {{added}} by <strong>{{posted_by}}</strong></div>
+        {{/blog}}
+        </div>
+        <div class="articleContent">
+            <p>{{{body}}}</p>
+        </div>
+        <div class="clearBoth"></div>
+    </article>
+    
