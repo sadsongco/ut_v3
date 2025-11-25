@@ -6,27 +6,31 @@ body {
 }
 
 section#pageContainer {
-  height: 300vh;
+  height: fit-content;
 }
 
 #hero-container {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: fit-content;
+}
+
+@media screen and (min-width: 900px) {
+  #hero-container {
+    height: 100vh;
+  }
+  #hero,
+  #blog,
+  #gigs {
+    min-height: 100vh;
+  }
 }
 
 #hero-container img {
   max-width: 80%;
 }
 
-.videoContainer {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-}
-
-video {
+.videoContainer video {
   object-fit: cover;
   width: 100%;
   height: auto;
@@ -38,6 +42,20 @@ video {
   animation-range: normal 200vh;
   -webkit-mask-image: linear-gradient(to top, transparent 5%, black 100%);
   mask-image: linear-gradient(to top, transparent 5%, black 100%);
+}
+
+.videoContainer {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+
+@media screen and (min-width: 900px) {
+  .videoContainer {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+  }
 }
 
 @keyframes hero-image {
@@ -56,14 +74,22 @@ video {
 }
 
 #logo {
-  width: 100%;
   position: absolute;
-  z-index: 50;
+  top: 1vh;
+  width: 100%;
   display: flex;
   justify-content: center;
-  top: 18vh;
-  animation: logo linear forwards;
+  opacity: 1;
+  z-index: 2;
+  animation: logo-mob linear forwards;
   animation-timeline: scroll();
+}
+@media screen and (min-width: 900px) {
+  #logo {
+    top: 18vh;
+    animation: logo linear forwards;
+    animation-timeline: scroll();
+  }
 }
 
 @keyframes logo {
@@ -81,14 +107,42 @@ video {
     top: 130vh;
   }
 }
+@keyframes logo-mob {
+  0% {
+    opacity: 1;
+    top: 1vh;
+  }
+  10% {
+    opacity: 0;
+    top: 50vh;
+  }
+}
 
-#callToAction {
-  position: absolute;
-  top: 100vh;
-  left: -20vw;
-  animation: call-to-action linear forwards;
-  animation-timeline: scroll(block);
-  animation-range: normal 200vh;
+#callToAction,
+#callToAction .emailForm,
+#callToAction .emailForm form {
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+@media screen and (min-width: 900px) {
+  #callToAction {
+    position: absolute;
+    top: 100vh;
+    left: -20vw;
+    animation: call-to-action linear forwards;
+    animation-timeline: scroll(block);
+    animation-range: normal 200vh;
+  }
+  #callToAction,
+  #callToAction .emailForm,
+  #callToAction .emailForm form {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
 }
 
 @keyframes call-to-action {
