@@ -194,6 +194,12 @@ footer section.socials {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  footer {
+    animation: none;
+  }
+}
+
 @keyframes socials {
   0%,
   20% {

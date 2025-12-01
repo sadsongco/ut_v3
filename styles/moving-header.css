@@ -145,6 +145,19 @@ section#pageContainer {
   }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .videoContainer video {
+    animation: none;
+  }
+  #logo {
+    animation: none;
+  }
+  #callToAction {
+    animation: none;
+    left: 10vw;
+  }
+}
+
 @keyframes call-to-action {
   0% {
     left: -20vw;

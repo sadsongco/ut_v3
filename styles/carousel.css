@@ -72,6 +72,14 @@
   transform: scale(1);
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .carousel-item.active {
+    transition: left 0s, transform 0s;
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 .carousel-item.active .slide-text {
   z-index: 4;
 }
