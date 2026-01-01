@@ -33,7 +33,7 @@ curl_setopt($ch, CURLOPT_URL, $path);
 curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 $response = curl_exec($ch);
-curl_close($ch);
+unset($ch);
 $responseObj = json_decode($response);
 
 $output = '<div class="pickingList">';
@@ -81,7 +81,9 @@ foreach ($responseObj as $order) {
 }
 $output .= "</div>";
 
-if (file_put_contents(base_path(WEB_ASSET_PATH . SHIPPED_LIST_PATH), implode("\n", $shipped_arr) . "\n", FILE_APPEND)) $output .= "Shipped orders written to file";
+$file_string = implode("\n", $shipped_arr);
+if (file_get_contents(base_path(WEB_ASSET_PATH . SHIPPED_LIST_PATH)) != '') $file_string = "\n" . $file_string;
+if (file_put_contents(base_path(WEB_ASSET_PATH . SHIPPED_LIST_PATH), $file_string, FILE_APPEND)) $output .= "Shipped orders written to file";
 else $output .= "Shipped orders failed to be written to file";
 
 header ('HX-Trigger:updateOrderList');

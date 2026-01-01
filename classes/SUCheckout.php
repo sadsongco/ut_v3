@@ -26,7 +26,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_URL, $this->url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = curl_exec($ch);
-        curl_close($ch);
+        unset($ch);
         return $this;
     }
 
@@ -45,7 +45,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
         $this->response = json_decode(curl_exec($ch));
-        curl_close($ch);
+        unset($ch);
         $this->checkout_id = $this->response->id;
         return $this;
     }
@@ -84,7 +84,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
         $this->response = json_decode(curl_exec($ch));
-        curl_close($ch);
+        unset($ch);
         return $this;
     }
 
@@ -95,7 +95,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_URL, $this->url . "/" . $this->checkout_id);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = json_decode(curl_exec($ch));
-        curl_close($ch);
+        unset($ch);
         return $this;
     }
 
@@ -108,7 +108,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = json_decode(curl_exec($ch));
-        curl_close($ch);
+        unset($ch);
         return $this;
 
     }
@@ -122,7 +122,7 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = json_decode(curl_exec($ch));
-        curl_close($ch);
+        unset($ch);
         // $this->checkout_id = $this->response->id;
         return $this;
     }

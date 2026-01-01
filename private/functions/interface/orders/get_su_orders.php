@@ -265,14 +265,14 @@ function getZipFromPostcode($postcode, $country_code='us') {
         $ch = curl_init($endpoint . $zip[0]);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
-        curl_close($ch);
+        unset($ch);
         $place_details = json_decode($response, true);
         if (empty($place_details)) {
                 $shortzip = str_replace($zip[1], "", $zip[0]);
                 $ch = curl_init($endpoint . $shortzip);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
                 $response = curl_exec($ch);
-                curl_close($ch);
+                unset($ch);
                 $place_details = json_decode($response, true);
         }
         return $place_details;

@@ -327,7 +327,7 @@ class RoyalMail {
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($ch);
-        curl_close($ch);
+        unset($ch);
         $responseObj = json_decode($response);
 
         $order_outcomes = [];
