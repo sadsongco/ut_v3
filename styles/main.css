@@ -107,11 +107,6 @@ header {
   backdrop-filter: blur(15px);
 }
 
-@media screen and (max-width: 900px) {
-  header {
-  }
-}
-
 @property --a {
   syntax: '<angle>';
   inherits: false;
