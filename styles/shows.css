@@ -1,4 +1,6 @@
 .content-container {
+  width: 90%;
+  margin: auto;
   padding: var(--stdPaddingSmall);
 }
 
