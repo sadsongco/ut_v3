@@ -261,3 +261,9 @@ section#pageContainer {
   max-width: 100vw;
   overflow: hidden;
 }
+
+.sticky-head {
+  position: sticky;
+  margin-top: 5em;
+  top: 5px;
+}

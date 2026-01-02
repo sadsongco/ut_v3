@@ -51,9 +51,8 @@
 
 .commentContainer,
 .commentForm {
-  width: 80%;
   padding: var(--stdPaddingSmall);
-  margin: var(--stdMarginSmall) 0;
+  margin-top: 2px;
 }
 
 .commentContainer {

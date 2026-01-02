@@ -5,10 +5,6 @@ body {
   overflow-x: hidden;
 }
 
-section#pageContainer {
-  height: fit-content;
-}
-
 #hero-container {
   position: relative;
   width: 100%;
@@ -180,10 +176,4 @@ section#pageContainer {
     left: 10vw;
     opacity: 0;
   }
-}
-
-.sticky-head {
-  position: sticky;
-  margin-top: 5em;
-  top: 0;
 }
