@@ -17,8 +17,6 @@ foreach ($paths as $path) {
     }
 }
 $file_path = base_path(WEB_ASSET_PATH . implode("/", $paths) . "." . $filetype);
-p_2($file_path);
-exit();
 $filename = array_pop($paths) . "." . $filetype;
 
 triggerDownload($filename, $file_path, $inline);
