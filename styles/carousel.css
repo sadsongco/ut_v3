@@ -70,6 +70,7 @@
   transition: left var(--stdTransitionTime) ease-in-out, transform var(--stdTransitionTime) ease-in-out;
   opacity: 1;
   transform: scale(1);
+  height: fit-content;
 }
 
 @media (prefers-reduced-motion: reduce) {
