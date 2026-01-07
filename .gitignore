@@ -2,7 +2,6 @@
 *.DS_Store
 *.error_log
 *.debug_log
-*.htaccess
 tmp.html
 php.ini
 

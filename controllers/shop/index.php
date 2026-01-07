@@ -18,4 +18,13 @@ $items = getItems($db);
 $bundles = getBundles($db);
 $categories = getCategories($db);
 
-echo $this->renderer->render('shop/index', ["featured"=>$featured, "items"=>$items, "bundles"=>$bundles, "categories"=>$categories, "stylesheets"=>["shop"]]);
+if (ENV === 'dev') $env = 'dev';
+
+echo $this->renderer->render('shop/index', [
+    "featured"=>$featured,
+    "items"=>$items,
+    "bundles"=>$bundles,
+    "categories"=>$categories,
+    "stylesheets"=>["shop"],
+    "env"=>$env
+]);

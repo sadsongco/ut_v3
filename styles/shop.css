@@ -1,3 +1,25 @@
+a {
+  color: #550000;
+}
+
+a:after {
+  font-family: 'Font Awesome 6 Free';
+  font-size: 0.5rem;
+  content: '\f08e';
+  display: inline-block;
+  padding-left: 2px;
+  vertical-align: top;
+  font-weight: 900;
+}
+
+.socials a:after,
+a.viewCart:after,
+nav ul a:after,
+.item a:after,
+a.cart-button:after {
+  content: none;
+}
+
 header.shop::before {
   border: none;
 }

@@ -20,10 +20,13 @@ if (!isset($_GET['article_id'])) {
 
 $scripts = ["vidScroll", "carousel"];
 
+if (ENV === 'dev') $env = 'dev';
+
 echo $this->renderer->render('index', [
     'carousel_tiles'=>$carousel_tiles,
     "article_id"=>$article_id,
     "nav"=>$this->nav,
-    "scripts"=>$scripts
+    "scripts"=>$scripts,
+    "env"=>$env
 ]);
 

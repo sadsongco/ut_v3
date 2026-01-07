@@ -26,7 +26,7 @@ class ORDER_PDF extends FPDF {
     }
 
     function Header () {
-        $logo_url =base_path("assets/images/logo/ut-logo-black.png");
+        $logo_url =base_path(WEB_ASSET_PATH . "images/logos/ut-logo-black.png");
         $w = 100;
         $this->SetX(($this->pw-$w)/2);
         $this->Image($logo_url, null, null, $w, 0, 'PNG', 'https://unbelievabletruth.co.uk');
