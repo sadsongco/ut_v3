@@ -9,6 +9,7 @@
   padding: var(--stdPaddingSmall);
   position: absolute;
   width: 100%;
+  max-width: 100%;
   min-height: 100vh;
   border: none;
   top: 0;
@@ -34,6 +35,7 @@
 .carousel-item .slide-image img {
   max-height: 70vh;
   width: auto;
+  max-width: 100%;
   height: auto;
   flex-grow: 3;
   object-fit: contain;
@@ -64,7 +66,9 @@
 .carousel-item.active {
   z-index: 4;
   left: 0;
-  transition: left var(--stdTransitionTime) ease-in-out, transform var(--stdTransitionTime) ease-in-out;
+  transition:
+    left var(--stdTransitionTime) ease-in-out,
+    transform var(--stdTransitionTime) ease-in-out;
   opacity: 1;
   transform: scale(1);
   height: fit-content;
@@ -72,7 +76,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .carousel-item.active {
-    transition: left 0s, transform 0s;
+    transition:
+      left 0s,
+      transform 0s;
     opacity: 1;
     transform: scale(1);
   }
