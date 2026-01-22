@@ -52,6 +52,7 @@
   padding: var(--stdPaddingSmall);
   text-align: left;
   z-index: inherit;
+  z-index: 10;
   flex-shrink: 2;
 }
 
