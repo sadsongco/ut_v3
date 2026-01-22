@@ -51,8 +51,6 @@
   height: fit-content;
   padding: var(--stdPaddingSmall);
   text-align: left;
-  z-index: inherit;
-  z-index: 10;
   flex-shrink: 2;
 }
 
@@ -86,7 +84,8 @@
 }
 
 .carousel-item.active .slide-text {
-  z-index: 4;
+  position: relative;
+  z-index: 5;
 }
 
 .carousel-item div {
