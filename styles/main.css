@@ -121,7 +121,9 @@ header::before {
   border-radius: inherit;
   border: var(--border-width) solid transparent;
   background: conic-gradient(from var(--a) at 10% 50%, var(--compColBrt1), var(--compColBrt2), var(--compColBrt3), var(--compColBrt1)) border-box;
-  mask: linear-gradient(black 0 0) border-box, linear-gradient(black 0 0) padding-box;
+  mask:
+    linear-gradient(black 0 0) border-box,
+    linear-gradient(black 0 0) padding-box;
   mask-composite: subtract;
 }
 
@@ -261,4 +263,17 @@ section#pageContainer {
   position: sticky;
   margin-top: 5em;
   top: 5px;
+}
+
+.span1 {
+  grid-column: span 1;
+}
+.span2 {
+  grid-column: span 2;
+}
+.span3 {
+  grid-column: span 3;
+}
+.span4 {
+  grid-column: span 4;
 }
