@@ -48,7 +48,7 @@ echo 'Item added to cart<br><a class="cart-button" href="/shop/cart">View Cart</
 function rearrayBundleItems($bundle) {
     $items = [];
     foreach ($bundle['item_id'] AS $key => $value) {
-        $items[] = ['item_id'=>$value, 'option_id'=>$bundle['option_id'][$key]];
+        $items[] = ['item_id'=>$value, 'option_id'=>$bundle['option_id'][$key], 'quantity'=>1];
     }
     return $items;
 }

@@ -52,7 +52,7 @@ $order_details['totals']['shipping'] = 0;
 $order_details['shipping_method'] = 1;
 
 if ($_SESSION['shipping_method']['shipping_method_id'] != 1) {
-    [$order_details['totals']['shipping'], $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $_SESSION['shipping_method']);
+    [$order_details['totals']['shipping'], $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $_SESSION['shipping_method'], $order_details['billing-country']);
     $order_details['shipping_method'] = $_SESSION['shipping_method']['shipping_method_id'];
 }
 
