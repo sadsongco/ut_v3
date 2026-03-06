@@ -58,6 +58,12 @@
   .carousel-item {
     flex-direction: column;
   }
+  .carousel-item .slide-text {
+    background-color: red;
+  }
+  .carousel-item .slide-text-container {
+    background-color: green;
+  }
   .carousel-item .slide-text img {
     display: none;
   }
