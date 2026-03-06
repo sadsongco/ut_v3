@@ -37,6 +37,8 @@
   width: auto;
   max-width: 100%;
   height: auto;
+  max-height: 30%;
+  margin: 0;
   flex-grow: 3;
   object-fit: contain;
 }
@@ -65,6 +67,15 @@
   padding: var(--stdPaddingSmall);
   text-align: left;
   flex-shrink: 2;
+}
+
+.carousel-item.active .slide-text {
+  position: relative;
+  z-index: 5;
+}
+
+.carousel-item div {
+  height: 100%;
 }
 
 @media screen and (max-width: 900px) {
@@ -104,13 +115,4 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-
-.carousel-item.active .slide-text {
-  position: relative;
-  z-index: 5;
-}
-
-.carousel-item div {
-  height: 100%;
 }
