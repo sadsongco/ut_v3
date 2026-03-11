@@ -4,6 +4,10 @@
   padding: var(--stdPaddingSmall);
 }
 
+.bit-widget-container {
+  max-width: 90vw;
+}
+
 .bit-play-my-city-heading-text,
 .bit-follow-section-heading-text {
   text-transform: lowercase !important;
