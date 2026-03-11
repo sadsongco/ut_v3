@@ -1,5 +1,4 @@
 const disableButton = (e) => {
-  console.log(e.target);
   e.target.disabled = true;
   e.target.classList.add('disabled');
 };
@@ -24,3 +23,14 @@ const updateURL = (e = false) => {
   urlParams.set('article_id', article_id);
   window.history.pushState({}, '', `?${urlParams.toString()}`);
 };
+
+/**
+ * Checks if the current browser is a mobile device.
+ *
+ * This function uses a regex to test the user agent string against known mobile devices.
+ *
+ * @return {boolean} - True if the browser is a mobile device, false otherwise.
+ */
+function isMobile() {
+  return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}

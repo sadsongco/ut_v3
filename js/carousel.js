@@ -5,6 +5,10 @@ transitionTime = transitionTime.substring(0, transitionTime.length - 2);
 const carouselWaitTime = 7500;
 
 const startCarousel = () => {
+  if (isMobile()) {
+    unpackCarousel();
+    return;
+  }
   const container = document.getElementById('carousel');
   slides = document.getElementsByClassName('carousel-item');
   if (slides.length == 1) {
@@ -72,6 +76,15 @@ const stopCarousel = () => {
     slide.style.transition = '';
   }
   slides[0].classList.add('active');
+};
+
+const unpackCarousel = () => {
+  const container = document.getElementById('carousel');
+  slides = document.getElementsByClassName('carousel-item');
+  for (let slide of slides) {
+    slide.classList.add('unpacked');
+    console.log(slide);
+  }
 };
 
 window.onload = startCarousel;
