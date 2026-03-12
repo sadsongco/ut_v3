@@ -277,3 +277,29 @@ section#pageContainer {
 .span4 {
   grid-column: span 4;
 }
+
+a.button {
+  font-size: 0.9em;
+  text-decoration: none;
+  padding: var(--stdPaddingSmall) var(--stdPaddingMedium);
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
+  border-radius: 4px;
+  width: fit-content;
+  transition: padding 0.5s ease;
+}
+
+a.button:active,
+a.button:hover {
+  padding: var(--stdPaddingSmall) var(--stdPaddingBig);
+  background-color: #eee;
+  cursor: pointer;
+}
+
+a.button.disabled,
+input.button.disabled {
+  padding: var(--stdPaddingSmall) var(--stdPaddingMedium);
+  pointer-events: none;
+  opacity: 0.5;
+}
