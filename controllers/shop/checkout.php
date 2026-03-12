@@ -13,7 +13,7 @@ use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 
 
-if (ENV === 'dev') $env = 'dev'; else $env = 'prod';
+if (ENV === 'dev') $env = 'dev';
 
 $countries = $db->query('SELECT * FROM `Countries` ORDER BY `name` ASC')->fetchAll();
 
