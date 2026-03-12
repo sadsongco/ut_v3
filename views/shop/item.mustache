@@ -6,6 +6,9 @@
         <div class="item-name"><h2>{{name}}</h2></div>
         <div class="item-img">{{#image}}<img src='{{image_path}}' width='200'>{{/image}}</div>
         <div class="item-description"><p>{{{description}}}</p></div>
+        {{#preorder}}
+        <div class="preorder span2">This item is for preorder. It will be released on {{release_date_disp}}, online orders will be sent for delivery on that date</div>
+        {{/preorder}}
         {{>item_interact}}
     </section>
     {{/item}}

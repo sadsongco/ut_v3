@@ -10,6 +10,8 @@ include_once(base_path("functions/shop/calculate_cart_subtotal.php"));
 use Database\Database;
 $db = new Database('orders');
 
+if (ENV === 'dev') $env = 'dev'; else $env = 'prod';
+
 $categories = getCategories($db);
 
 if (!isset($_SESSION['bundles']) && (!isset($_SESSION['items']) || sizeof($_SESSION['items']) == 0)) {
@@ -20,4 +22,10 @@ if (!isset($_SESSION['bundles']) && (!isset($_SESSION['items']) || sizeof($_SESS
 $cart_contents = getCartContents($db);
 $subtotal = calculateCartSubtotal($cart_contents);
 
-echo $this->renderer->render('shop/cart', ["cart_contents"=>$cart_contents, "categories"=>$categories, "subtotal"=>$subtotal,"stylesheets"=>["shop"]]);
+echo $this->renderer->render('shop/cart', [
+    "cart_contents"=>$cart_contents, 
+    "categories"=>$categories,
+    "subtotal"=>$subtotal,
+    "stylesheets"=>["shop"],
+    "env"=>$env
+]);

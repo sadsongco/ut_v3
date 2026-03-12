@@ -8,9 +8,11 @@
             <div class='item-interact'>
                 <form hx-post='/functions/interface/shop/update_cart.php'>
                     <input type="hidden" name="item_id" value="{{item_id}}">
+                    {{^checkout}}
                     <input type="number" name="quantity" value="{{quantity}}" min="0" max="{{stock}}">
                     <input type="submit" name="update" value="Update Quantity">
                     <input type="submit" name="remove" value="Remove From Cart">
+                    {{/checkout}}
                 </form>
             </div>
         </div>
@@ -27,9 +29,11 @@
             <div class='item-interact'>
                 <form hx-post='/functions/interface/shop/update_cart.php'>
                     <input type="hidden" name="bundle_id" value="{{bundle_id}}">
+                    {{^checkout}}
                     <input type="number" name="quantity" value="{{quantity}}" min = "0" max="{{bundle_stock}}"">
                     <input type="submit" name="update" value="Update Quantity">
                     <input type="submit" name="remove" value="Remove From Cart">
+                    {{/checkout}}
                 </form>
             </div>
         </div>

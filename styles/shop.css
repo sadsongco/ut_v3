@@ -229,6 +229,11 @@ a.viewCartItems .viewCartBadge {
   max-width: 30em;
 }
 
+.shop-item .preorder {
+  font-size: var(--fontSmall);
+  color: var(--alertColour);
+}
+
 .price {
   float: right;
   font-family: 'Courier New', Courier, monospace;

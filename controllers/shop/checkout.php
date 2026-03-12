@@ -12,6 +12,9 @@ include_once(base_path("functions/interface/shop/calculate_shipping.php"));
 use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 
+
+if (ENV === 'dev') $env = 'dev'; else $env = 'prod';
+
 $countries = $db->query('SELECT * FROM `Countries` ORDER BY `name` ASC')->fetchAll();
 
 if ((!isset($_SESSION['bundles']) || sizeof($_SESSION['bundles']) == 0) && (!isset($_SESSION['items']) || sizeof($_SESSION['items']) == 0)) {
@@ -54,4 +57,13 @@ $total = $subtotal + $shipping;
 $_SESSION['total'] = $total;
 $total_disp = number_format($total, 2);
 
-echo $this->renderer->render('shop/checkout', ["cart_items"=>$cart_contents, "subtotal"=>$subtotal, "shipping_options"=>$shipping_options, "shipping"=>$shipping_disp, "total"=>$total_disp, "countries"=>$countries, "stylesheets"=>["shop"]]);
+echo $this->renderer->render('shop/checkout', [
+    "cart_items"=>$cart_contents,
+    "subtotal"=>$subtotal,
+    "shipping_options"=>$shipping_options,
+    "shipping"=>$shipping_disp,
+    "total"=>$total_disp,
+    "countries"=>$countries,
+    "stylesheets"=>["shop"],
+    "env"=>$env
+]);
