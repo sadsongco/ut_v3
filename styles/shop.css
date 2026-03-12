@@ -123,6 +123,7 @@ input.invalid {
   border: 1px solid var(--commentBoxOutline);
   box-shadow: var(--articleShadow);
   border-radius: 20%;
+  z-index: 10;
 }
 
 a.viewCart,
@@ -167,6 +168,10 @@ a.viewCartItems .viewCartBadge {
   font: var(--fa-font-solid);
   content: '\f217';
   padding: 0.3em;
+}
+
+.viewCartItems::after {
+  content: none;
 }
 
 .empty-cart {
@@ -295,7 +300,10 @@ a.viewCartItems .viewCartBadge {
 
 .address {
   max-height: 20em;
-  transition: max-height 1s linear, padding 1s ease-in-out, border-color 1s linear;
+  transition:
+    max-height 1s linear,
+    padding 1s ease-in-out,
+    border-color 1s linear;
 }
 
 .address.hidden {
@@ -334,7 +342,9 @@ a.viewCartItems .viewCartBadge {
   right: 0.5em;
   cursor: pointer;
   z-index: 4;
-  transition: opacity 0.2s ease-in-out, color 0.2s ease-in-out;
+  transition:
+    opacity 0.2s ease-in-out,
+    color 0.2s ease-in-out;
 }
 
 .cancel:hover {
