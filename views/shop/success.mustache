@@ -25,9 +25,11 @@
                 {{#download_token}}
                     <br>You will receive an email with a link to download your digital copy of <b>{{name}}</b> on {{disp_release_date}}.
                 {{/download_token}}
-                {{^download_token}}
-                    Please contact us regarding your order for <b>{{name}}</b> on <a href="mailto:info@unbelievabletruth.co.uk">info@unbelievabletruth.co.uk</a>
-                {{/download_token}}
+                {{^disp_release_date}}
+                    {{^download_token}}
+                        Please contact us regarding your order for <b>{{name}}</b> on <a href="mailto:info@unbelievabletruth.co.uk">info@unbelievabletruth.co.uk</a>
+                    {{/download_token}}
+                {{/disp_release_date}}
             {{/e_delivery}}
             {{#held}}
                 <br><b>{{name}}{{#option_name}} {{option_name}}{{/option_name}}</b> will be sent out with your preorder.
