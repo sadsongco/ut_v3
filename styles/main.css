@@ -304,6 +304,7 @@ input.button.disabled {
   opacity: 0.5;
 }
 
+a::after,
 a.button::after {
   content: none;
 }
