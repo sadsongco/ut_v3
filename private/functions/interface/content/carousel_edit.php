@@ -23,7 +23,7 @@ for ($a = 1; $a <= sizeof($carousel_tiles); $a++) {
 
 foreach ($carousel_tiles as &$tile) {
     $tile['order_options'] = $order_options;
-    $tile['order_options'][$tile['tile_order']-1] = ["order"=>$tile['tile_order'], "selected"=>"selected"];
+    $tile['order_options'][$tile['tile_order']] = ["order"=>$tile['tile_order']+1, "selected"=>"selected"];
     $tile['path'] = "/serve/" . CAROUSEL_ASSET_PATH . "images/" . str_replace(".", "/", $tile['img_url']);
 }
 
