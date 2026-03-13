@@ -34,7 +34,13 @@
             {{^order}}
                 <p class="error">No Matching Order</p><p class="filterValue"></p>
             {{/order}}
-            <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/refund_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really refund transaction {{transaction_id}}?">Refund Transaction</button></p>
+            {{^failed}}
+                <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/refund_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really refund transaction {{transaction_id}}?">Refund Transaction</button></p>
+            {{/failed}}
+            {{#failed}}
+                <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/delete_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really delete transaction {{transaction_id}}?">Delete Transaction</button></p>
+
+            {{/failed}}
         </div>
     {{/items}}
     {{#href}}

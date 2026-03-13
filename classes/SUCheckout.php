@@ -46,7 +46,6 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
         $this->response = json_decode(curl_exec($ch));
         unset($ch);
-        $this->checkout_id = $this->response->id;
         return $this;
     }
 
@@ -79,7 +78,7 @@ class SUCheckout
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $this->url . "/" . $this->checkout_id);
+        curl_setopt($ch, CURLOPT_URL, $this->url . "/" . $this->response->id);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
         curl_setopt($ch, CURLOPT_POSTFIELDS, $post_body);
@@ -92,7 +91,7 @@ class SUCheckout
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_URL, $this->url . "/" . $this->checkout_id);
+        curl_setopt($ch, CURLOPT_URL, $this->url . "/" . $this->response->id);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = json_decode(curl_exec($ch));
         unset($ch);
@@ -123,7 +122,18 @@ class SUCheckout
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
         $this->response = json_decode(curl_exec($ch));
         unset($ch);
-        // $this->checkout_id = $this->response->id;
+        return $this;
+    }
+
+    public function deleteTransaction($transaction_id) {
+        $url = "https://api.sumup.com/v0.1/checkouts/$transaction_id";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $this->headers);
+        $this->response = json_decode(curl_exec($ch));
+        unset($ch);
         return $this;
     }
 

@@ -69,6 +69,18 @@ use SUCheckout\SUCheckout;
 $checkout = new SUCheckout($saved_order);
 
 $response = $checkout->createCheckout()->getResponse();
+p_2($response);
+if (isset($response->error_code)) {
+    switch($response->error_code) {
+        case "DUPLICATED_CHECKOUT":
+            preg_match('/(checkout with clientId \')(.*)(\' and reference \')(.*)(\' already exists)/', $response->message, $output_array);
+            $checkout->deleteTransaction($output_array[2]);
+            $response = $checkout->createCheckout()->getResponse();
+            p_2($response);
+            break;
+    }
+}
+
 if (isset($order_details['items']['bundles']['items'])) $items = array_merge($order_details['items']['items'], $order_details['items']['bundles']['items']);
 else $items = $order_details['items']['items'];
 

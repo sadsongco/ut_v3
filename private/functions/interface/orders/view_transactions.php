@@ -62,6 +62,9 @@ $filtered_transactions = array_filter($transactions->items, function($transactio
 
 $transactions->items = $filtered_transactions;
 
+foreach ($transactions->items as &$transaction) {
+    if ($transaction->status === "FAILED") $transaction->failed = true;
+}
 
 echo $m->render("transactionList", ["transactions"=>$transactions, "filter_target"=>".view-transaction", "num_transactions"=>sizeof($transactions->items)]);
 
