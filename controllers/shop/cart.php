@@ -10,6 +10,7 @@ include_once(base_path("functions/shop/calculate_cart_subtotal.php"));
 use Database\Database;
 $db = new Database('orders');
 
+$env = false;
 if (ENV === 'dev') $env = 'dev';
 
 $categories = getCategories($db);

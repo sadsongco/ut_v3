@@ -18,6 +18,7 @@ $items = getItems($db);
 $bundles = getBundles($db);
 $categories = getCategories($db);
 
+$env = false;
 if (ENV === 'dev') $env = 'dev';
 
 echo $this->renderer->render('shop/index', [

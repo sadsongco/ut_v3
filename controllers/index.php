@@ -20,6 +20,7 @@ if (!isset($_GET['article_id'])) {
 
 $scripts = ["vidScroll", "carousel"];
 
+$env = false;
 if (ENV === 'dev') $env = 'dev';
 
 echo $this->renderer->render('index', [

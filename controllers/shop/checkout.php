@@ -12,7 +12,7 @@ include_once(base_path("functions/interface/shop/calculate_shipping.php"));
 use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 
-
+$env = false;
 if (ENV === 'dev') $env = 'dev';
 
 $countries = $db->query('SELECT * FROM `Countries` ORDER BY `name` ASC')->fetchAll();
