@@ -137,7 +137,7 @@ function makeIncomePDF($income, $output = 'D', $path = '') {
     $pdf->Init($income);
     $pdf->AddPage();
     $pdf->IncomeDetailsCell($income);
-    $save_path = "Unbelievable_Truth_order_".str_replace(" ", "_", $income["period"]).".pdf";
+    $save_path = "Unbelievable_Truth_sales_report_".str_replace(" ", "_", $income["period"]).".pdf";
     $pdf->Output($output, $path. $save_path);
     return $save_path;
 }

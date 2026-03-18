@@ -30,7 +30,18 @@ $income = [
     "period" => $period['start'] . " - " . ($period['end']),
     "subtotal" => number_format($new_income['subtotal'] + $old_income['subtotal'] - $new_income['vat'] + $new_income_non_vat['subtotal'] + $new_income_non_vat['shipping'], 2),
     "shipping" => number_format($new_income['shipping'] + $old_income['shipping'], 2),
-    "total_ex_vat" => number_format($new_income['subtotal'] + $new_income['shipping'] - $new_income['vat'] + $old_income['subtotal'] + $old_income['shipping'] - $old_income['vat'], 2),
+    "total_ex_vat" => number_format(
+        $new_income['subtotal']
+        + $new_income['shipping']
+        - $new_income['vat']
+        + $old_income['subtotal']
+        + $old_income['shipping']
+        - $old_income['vat']
+        + $new_income_non_vat['subtotal']
+        + $new_income_non_vat['shipping']
+        + $old_income_non_vat['subtotal']
+        + $old_income_non_vat['shipping']
+    , 2),
     "vat_exempt_subtotal" => number_format($new_income_non_vat['subtotal'] + $old_income_non_vat['subtotal'], 2),
     "vat_exempt_shipping" => number_format($new_income_non_vat['shipping'] + $old_income_non_vat['shipping'], 2),
     "vat" => number_format($new_income['vat'] + $old_income['vat'], 2),
