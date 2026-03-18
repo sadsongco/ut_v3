@@ -124,3 +124,7 @@ section.accordion:nth-of-type(3) > header.content-header::before {
   animation: animatedBorder 14.3s linear infinite;
   animation-direction: alternate;
 }
+
+a {
+  color: #005;
+}

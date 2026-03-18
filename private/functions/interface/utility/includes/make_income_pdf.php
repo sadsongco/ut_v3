@@ -67,9 +67,16 @@ class INCOME_PDF extends FPDF {
 
     private function VatCell($vat) {
         $this->SetX(self::ITEM_POS[0]);
-        $this->Cell(0, 0, "including VAT charged", 0, 0, 'L');
+        $this->Cell(0, 0, "VAT", 0, 0, 'L');
         $this->SetX(self::PRICE_X);
         $this->Cell(0, 0, GBP.$vat, 0, 1, 'R');
+    }
+
+    private function TotalExVatCell($total_ex_vat) {
+        $this->SetX(self::ITEM_POS[0]);
+        $this->Cell(0, 0, "Total excluding VAT", 0, 0, 'L');
+        $this->SetX(self::PRICE_X);
+        $this->Cell(0, 0, GBP.$total_ex_vat, 0, 1, 'R');
     }
 
     private function VatExemptSubtotalCell($vat_exempt_subtotal) {
@@ -109,10 +116,13 @@ class INCOME_PDF extends FPDF {
         $this->Spacer();
         $this->ShippingCell($income['shipping'], 2);
         $this->Spacer();
+        $this->TotalExVatCell($income['total_ex_vat'], 2);
+        $this->Spacer();
         if ($income['vat']) {
             $this->VatCell($income['vat'], 2);
             $this->Spacer();
         }
+        $this->Spacer();
         $this->VatExemptSubtotalCell($income['vat_exempt_subtotal'], 2);
         $this->Spacer();
         $this->VatExemptShippingCell($income['vat_exempt_shipping'], 2);
