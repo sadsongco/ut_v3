@@ -4,6 +4,20 @@ session_start();
 
 include_once(__DIR__ . "/../../functions.php");
 
+if (isset($_POST['item_id']) && $_POST['item_id'] == ARTPRINT_ID) {
+    unset($_SESSION['items']);
+    unset($_SESSION['bundles']);
+    echo "<script>alert('You can only order an artprint on it\'s own. Any other items have been taken out of your cart.') </script>";
+}
+
+if (isset($_SESSION['items'])) {
+    foreach($_SESSION['items'] as $item) {
+        if ($item['item_id'] == ARTPRINT_ID && (isset($_POST['item_id']) && $_POST['item_id'] != ARTPRINT_ID) || isset($_POST['is_bundle'])) {
+            exit("<script>alert('You can only order an artprint on it\'s own. Item not added to cart.')</script>");
+        }
+    }
+}
+
 
 if (isset($_POST['is_bundle'])) {
     $items = rearrayBundleItems($_POST);

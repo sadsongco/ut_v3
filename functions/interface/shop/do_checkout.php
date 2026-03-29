@@ -10,10 +10,36 @@ require(base_path("functions/shop/calculate_cart_subtotal.php"));
 require(base_path("functions/interface/shop/calculate_shipping.php"));
 require(base_path("functions/shop/insert_order_into_db.php"));
 
+function artprintInCart($db) {
+    // is an artprint in items?
+    if (!isset($_SESSION['items'])) return false;
+    if (isset($_SESSION['items'])) {
+        foreach ($_SESSION['items'] AS $item) {
+            if ($item['item_id'] == ARTPRINT_ID) {
+                return true;
+            }
+        }
+    }
+}
+
+function validArtprintOrder($db) {
+    $customer = $db->query("SELECT customer_id FROM Customers WHERE email = ?", [$_POST['email']])->fetch();
+    $open_orders = $db->query("SELECT order_id FROM New_Orders WHERE customer_id = ? AND dispatched IS NULL", [$customer['customer_id']])->fetchAll();
+    if (sizeof($open_orders) == 0) return false;
+    $valid = false;
+    foreach ($open_orders AS $open_order) {
+        $valid_order = $db->query("SELECT COUNT(*) AS count FROM New_Order_items WHERE order_id = ? AND item_id = ?", [$open_order['order_id'], DOUBLE_LP_ID])->fetch();
+        if ($valid_order['count'] > 0) {
+            $valid = true;
+        }
+    }
+    return $valid;
+}
+
+// load mustache template engine
 use Database\Database;
 $db = new Database('orders');
 
-// load mustache template engine
 require base_path('../lib/mustache.php-main/src/Mustache/Autoloader.php');
 Mustache_Autoloader::register();
 $m = new Mustache_Engine(array(
@@ -21,6 +47,9 @@ $m = new Mustache_Engine(array(
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
 ));
 
+if (artprintInCart($db) && !validArtprintOrder($db)) {
+        exit("<script>alert('Orders for artprints are currently only available to customers who have previously ordered a double LP. If there are any left then we will put some signed 2LP versions back in stock ')</script>");
+    }
 
 // reduce stock by item quantity
 try {
@@ -50,8 +79,9 @@ $order_details['items'] = getCartContents($db);
 $order_details['totals']['subtotal'] = calculateCartSubtotal($order_details['items']);
 $order_details['totals']['shipping'] = 0;
 $order_details['shipping_method'] = 1;
+if ($_SESSION['shipping_method']['shipping_method_id'] == 7) $order_details['shipping_method'] = 7;
 
-if ($_SESSION['shipping_method']['shipping_method_id'] != 1) {
+if ($_SESSION['shipping_method']['shipping_method_id'] != 1 && $_SESSION['shipping_method']['shipping_method_id'] != 7) {
     [$order_details['totals']['shipping'], $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $_SESSION['shipping_method'], $order_details['billing-country']);
     $order_details['shipping_method'] = $_SESSION['shipping_method']['shipping_method_id'];
 }
@@ -69,7 +99,7 @@ use SUCheckout\SUCheckout;
 $checkout = new SUCheckout($saved_order);
 
 $response = $checkout->createCheckout()->getResponse();
-p_2($response);
+
 if (isset($response->error_code)) {
     switch($response->error_code) {
         case "DUPLICATED_CHECKOUT":

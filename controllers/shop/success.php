@@ -14,6 +14,33 @@ require(base_path("classes/RoyalMail.php"));
 //Load Composer's autoloader
 require (base_path('../lib/vendor/autoload.php'));
 
+function getOrderToAddTo($db) {
+    $order_db_id = explode("-", $_SESSION['order_id'])[1];
+    $order_db_id = (int) $order_db_id;
+    $query = "SELECT customer_id FROM New_Orders WHERE order_id = ?";
+    $customer_id = $db->query($query, [$order_db_id])->fetch()['customer_id'];
+    $query = "SELECT order_id, CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_no FROM New_Orders WHERE customer_id = ?";
+    $order_ids = $db->query($query, [$customer_id])->fetchAll();
+    foreach ($order_ids AS $order_id) {
+        $query = "SELECT COUNT(*) AS count FROM New_Order_items WHERE order_id = ? AND item_id = ?";
+        $result = $db->query($query, [$order_id['order_id'], DOUBLE_LP_ID])->fetch();
+        if ($result['count'] > 0) {
+            return $order_id;
+        }
+    }
+    return false;
+}
+
+function addItemToOrder($order_id, $db) {
+    if ($_SESSION['items'][0]['item_id'] == ARTPRINT_ID) {
+        $query = "UPDATE New_Order_items SET item_id = ? WHERE order_id = ? AND item_id = ?";
+        $params = [SIGNED_DOUBLE_LP_ID, $order_id, DOUBLE_LP_ID];
+        $stmt = $db->query($query, $params);
+        if ($db->rowCount($stmt) == 0) exit("couldn't add the signed artprint to the order");
+        return true;
+    }
+}
+
 use Database\Database;
 $db = new Database('orders');
 
@@ -22,6 +49,42 @@ if (!isset($_SESSION['order_id'])) exit($this->renderer->render('shop/success', 
 
 // get database id from order id
 $order_db_id = explode("-", $_SESSION['order_id'])[1];
+
+// generate unique customer token for security
+$query = "SELECT customer_id FROM New_Orders WHERE order_id = ?";
+$customer_id = $db->query($query, [$order_db_id])->fetch()['customer_id'];
+$customer_token = createUniqueToken($customer_id);
+
+if ($_SESSION['shipping_method']['shipping_method_id'] == 7) {
+    $order_to_add_to = getOrderToAddTo($db);
+    if (!$order_to_add_to) exit("couldn't find previous order");
+    if (addItemToOrder($order_to_add_to['order_id'], $db)) {
+        echo $this->renderer->render('shop/success', [
+            "order_id"=>$_SESSION['order_id'],
+            "artprint"=>true,
+            "updated_order"=>$order_to_add_to['order_no'],
+            "order_db_id"=>$order_db_id,
+            "customer_token"=>$customer_token,
+            "stylesheets"=>["shop"]]
+        );
+        $query = "SELECT
+            CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_no,
+            New_Orders.order_id,
+            Shipping_methods.service_name,
+            Customers.name,
+            Customers.email
+        FROM New_Orders
+        JOIN Customers ON New_Orders.customer_id = Customers.customer_id
+        JOIN Shipping_methods ON New_Orders.shipping_method = Shipping_methods.shipping_method_id
+        WHERE New_Orders.order_id = ?";
+        $order = $db->query($query, [$order_db_id])->fetch();
+        $order['order_added_to'] = $order_to_add_to['order_no'];
+        sendCustomerEmail($order, "item_added", $db, $this->renderer);
+        session_destroy();
+        exit();
+    }
+    else (exit("PROBLEM"));
+}
 
 // check order is completed and paid
 $query = "SELECT transaction_id FROM New_Orders WHERE order_id = ?";
@@ -46,7 +109,6 @@ foreach ($_SESSION['items'] AS &$item) {
     classifyItem($item, $order_db_id, $db, $shipping_items, $download_items, $preorder_items);
 }
 
-
 if (!isset($_SESSION['bundles'])) $_SESSION['bundles'] = [];
 foreach($_SESSION['bundles'] AS &$bundle) {
     foreach ($bundle['items'] AS &$item) {
@@ -64,10 +126,6 @@ if ($shipping_all) {
     $rm->createRMOrder();
     $rm->submitRMOrder();
 }
-
-$query = "SELECT customer_id FROM New_Orders WHERE order_id = ?";
-$customer_id = $db->query($query, [$order_db_id])->fetch()['customer_id'];
-$customer_token = createUniqueToken($customer_id);
 
 try {
     $query = "SELECT

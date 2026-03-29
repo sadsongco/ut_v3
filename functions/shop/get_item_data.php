@@ -22,6 +22,7 @@ function getItemData($item, $item_details, $db)
             $params = [$item['item_id']];
         }
         $cart_item = $db->query($query, $params)->fetch();
+        if ($item['item_id'] == ARTPRINT_ID) $cart_item['ship_with_order'] = true;
         if (isset($cart_item['option_price']) && $cart_item['option_price']) $cart_item['price'] = number_format($cart_item['option_price'], 2);
         if ($cart_item['image'] == "") unset($cart_item['image']);
         else $cart_item['image_path'] = "/serve/" . SHOP_ASSET_PATH . "images/" . str_replace(".", "/", $cart_item['image']);

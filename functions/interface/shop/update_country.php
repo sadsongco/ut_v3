@@ -32,7 +32,10 @@ $_SESSION['shipping'] = $shipping = 0;
 $shipping_disp = "0.00";
 $default_shipping_method = $shipping_options;
 
-if (!isset($_SESSION['package_specs']['e_delivery'])) {
+echo "update country";
+p_2($_SESSION['package_specs']);
+
+if (!isset($_SESSION['package_specs']['e_delivery']) || !isset($_SESSION['package_specs']['ship_with_order'])) {
     $shipping_options = getShippingMethods($country['rm_zone'], $db);
     $default_shipping_method = $shipping_options[0];
     $_SESSION['shipping_method'] = $default_shipping_method;

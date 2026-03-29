@@ -30,17 +30,30 @@ $cart_contents = getCartContents($db);
 $subtotal = calculateCartSubtotal($cart_contents);
 $_SESSION['subtotal'] = $subtotal;
 
+$package_specs = getPackageSpecs($cart_contents);
+
 $_SESSION['package_specs'] = getPackageSpecs($cart_contents);
 $shipping_options = [
     "shipping_method_id" => 1,
     "service_name" => "Digital Download",
     "service_code" => "E_DEL"
 ];
+foreach ($cart_contents['items'] as $item) {
+    if ($item['ship_with_order'] == 1) {
+        $shipping_options = [
+            "shipping_method_id" => 7,
+            "service_name" => "Add to order",
+            "service_code" => "ARTPRINT"
+        ];
+        $_SESSION['package_specs']['ship_with_order'] = true;
+        break;
+    }
+}
 $_SESSION['shipping_method'] = $shipping_options;
 $_SESSION['shipping'] = $shipping = 0;
 $shipping_disp = "0.00";
 
-if (!isset($_SESSION['package_specs']['e_delivery'])) {
+if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
     $shipping_options = getShippingMethods($default_zone, $db);
     if (sizeof($shipping_options) == 0) {
         exit("Sorry, no shipping options available.");

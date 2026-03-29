@@ -148,6 +148,7 @@ function calculateNoHSCodes($db) {
         $items = getCartItems($_SESSION['items'], $db);
         foreach ($items as $item) {
             if ($item['e_delivery']) continue;
+            if ($item['add_to_order']) continue;
             $hs_codes[] = $item['customs_description'];
         }
     }
@@ -156,6 +157,7 @@ function calculateNoHSCodes($db) {
             $bundle_items = getCartItems($bundle['items'], $db);
             foreach($bundle_items as $item) {
                 if ($item['e_delivery']) continue;
+                if ($item['add_to_order']) continue;
                 $hs_codes[] = $item['customs_description'];
             }
         }

@@ -1,0 +1,11 @@
+{{>email/emailHTMLHeader}}
+{{#order}}
+    <p>Dear {{name}},</p>
+    <p>Thank you for your order #{{order_no}}</p>
+    <p>A signed artprint has been added to your order {{order_added_to}}, which will be shipped on or just before the release date</p>
+    <p>A pdf of your order is attached.</p>
+    <p>We really appreciate you ordering direct from us, it helps us to keep making more music!</p>
+    <p>Sincerely,<br><br>
+    Andy, Jason and Nigel<br>Unbelievable Truth</p>
+{{/order}}
+{{>email/emailHTMLFooter}}

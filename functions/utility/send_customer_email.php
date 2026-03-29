@@ -12,10 +12,11 @@ function sendCustomerEmail($order, $template, $db, $m) {
         $subjects = [
             "success" => "you have placed an order #" . $order['order_no'],
             "shipped" => "your order #" . $order['order_no'] . " has shipped",
-            "download" => "download links for your order #" . $order['order_no']
+            "download" => "download links for your order #" . $order['order_no'],
+            "item_added" => "signed artprint added to your order #" . $order['order_added_to']
         ];
         // create pdf for order
-        if ($template == "success") {
+        if ($template == "success" || $template == "item_added") {
             $filename = createOrderPDF($order['order_id'], $db);
         }
         
@@ -24,7 +25,6 @@ function sendCustomerEmail($order, $template, $db, $m) {
         $subject = "Unbelievable Truth - ";
         $subject .= $subjects[$template];
         $email = $m->render("emails/customer/$template", ["order"=>$order, "host"=>getHost()]);
-        
         // mail auth
         $from_name = "Unbelievable Truth shop";
         
