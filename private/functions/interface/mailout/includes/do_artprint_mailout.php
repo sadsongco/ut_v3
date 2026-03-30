@@ -43,6 +43,7 @@ function get_artprint_email_addresses($db, $log_fp) {
         FROM Artprint_mailout
         JOIN Customers ON Artprint_mailout.customer_id = Customers.customer_id
         ORDER BY Artprint_mailout.sent_id ASC
+        $cond
         LIMIT 1
         ";
         return $db->query($query)->fetch();
