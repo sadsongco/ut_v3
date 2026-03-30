@@ -50,12 +50,31 @@ if (!isset($_SESSION['order_id'])) exit($this->renderer->render('shop/success', 
 // get database id from order id
 $order_db_id = explode("-", $_SESSION['order_id'])[1];
 
+// check order is completed and paid
+$query = "SELECT transaction_id FROM New_Orders WHERE order_id = ?";
+$order = $db->query($query, [$order_db_id])->fetch();
+if (!isset($order['transaction_id']) || $order['transaction_id'] == "") {
+    $_POST['status'] = 'FAILED';
+    include(base_path("functions/interface/shop/update_order.php"));
+    exit($this->renderer->render('shop/success', ["stylesheets"=>["shop"]]));
+}
+
 // generate unique customer token for security
 $query = "SELECT customer_id FROM New_Orders WHERE order_id = ?";
 $customer_id = $db->query($query, [$order_db_id])->fetch()['customer_id'];
 $customer_token = createUniqueToken($customer_id);
 
+$shipping_items = [];
+$download_items = [];
+$preorder_items = [];
+$shipping_all = false;
+$add_to_order = false;
+
+$query = "SELECT * FROM New_Orders WHERE order_id = ?";
+$order = $db->query($query, [$order_db_id])->fetch();
+
 if ($_SESSION['shipping_method']['shipping_method_id'] == 7) {
+    $add_to_order = true;
     $order_to_add_to = getOrderToAddTo($db);
     if (!$order_to_add_to) exit("couldn't find previous order");
     if (addItemToOrder($order_to_add_to['order_id'], $db)) {
@@ -84,36 +103,19 @@ if ($_SESSION['shipping_method']['shipping_method_id'] == 7) {
         exit();
     }
     else (exit("PROBLEM"));
-}
-
-// check order is completed and paid
-$query = "SELECT transaction_id FROM New_Orders WHERE order_id = ?";
-$order = $db->query($query, [$order_db_id])->fetch();
-if (!isset($order['transaction_id']) || $order['transaction_id'] == "") {
-    $_POST['status'] = 'FAILED';
-    include(base_path("functions/interface/shop/update_order.php"));
-    exit($this->renderer->render('shop/success', ["stylesheets"=>["shop"]]));
-}
-
-$shipping_items = [];
-$download_items = [];
-$preorder_items = [];
-$shipping_all = false;
-
-$query = "SELECT * FROM New_Orders WHERE order_id = ?";
-$order = $db->query($query, [$order_db_id])->fetch();
-
-if (!isset($_SESSION['items'])) $_SESSION['items'] = [];
-foreach ($_SESSION['items'] AS &$item) {
-    updateItemData($item, $db);
-    classifyItem($item, $order_db_id, $db, $shipping_items, $download_items, $preorder_items);
-}
-
-if (!isset($_SESSION['bundles'])) $_SESSION['bundles'] = [];
-foreach($_SESSION['bundles'] AS &$bundle) {
-    foreach ($bundle['items'] AS &$item) {
+} else {
+    if (!isset($_SESSION['items'])) $_SESSION['items'] = [];
+    foreach ($_SESSION['items'] AS &$item) {
         updateItemData($item, $db);
-        classifyItem($item, $order_db_id,$db, $shipping_items,$download_items, $preorder_items);
+        classifyItem($item, $order_db_id, $db, $shipping_items, $download_items, $preorder_items);
+    }
+    
+    if (!isset($_SESSION['bundles'])) $_SESSION['bundles'] = [];
+    foreach($_SESSION['bundles'] AS &$bundle) {
+        foreach ($bundle['items'] AS &$item) {
+            updateItemData($item, $db);
+            classifyItem($item, $order_db_id,$db, $shipping_items,$download_items, $preorder_items);
+        }
     }
 }
 
