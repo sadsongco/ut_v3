@@ -11,6 +11,33 @@ require(base_path("functions/shop/insert_order_into_db.php"));
 
 if (session_status() == PHP_SESSION_NONE) session_start();
 
+function reduceStock($item, $db) {
+    if ($item['option_id']) {
+        $query = "SELECT option_stock FROM Item_options WHERE item_option_id = ?";
+        $stock = $db->query($query, [$item['option_id']])->fetch();
+        if ($stock['option_stock'] < $item['quantity']) {
+            /** deal with out of stock  */
+            echo "Out of stock";
+            exit();
+        }
+        $query = "UPDATE Item_options SET option_stock = option_stock - ? WHERE item_option_id = ?";
+        $params = [$item['quantity'], $item['option_id']];
+        $db->query($query, $params);
+    } else {
+        $query = "SELECT stock FROM Items WHERE item_id = ?";
+        $stock = $db->query($query, [$item['item_id']])->fetch();
+        if ($stock['stock'] < $item['quantity']) {
+            /** deal with out of stock  */
+            echo "Out of stock";
+            exit();
+        }
+        $query = "UPDATE Items SET stock = stock - ? WHERE item_id = ?";
+        $params = [$item['quantity'], $item['item_id']];
+        $db->query($query, $params);
+    }
+
+}
+
 function artprintInCart($db) {
     // is an artprint in items?
     if (!isset($_SESSION['items'])) return false;
@@ -21,11 +48,41 @@ function artprintInCart($db) {
             }
         }
     }
+    return false;
+}
+
+function getOrderToAddTo($db) {
+    $query = "SELECT customer_id FROM Customers WHERE email = ?";
+    $customer = $db->query($query, [$_POST['email']])->fetch();
+    if (empty($customer)) return false;
+    $query = "SELECT
+            New_Orders.order_id,
+            CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_no
+        FROM
+            New_Orders
+        JOIN
+            New_Order_items
+        ON
+            New_Order_items.order_id = New_Orders.order_id
+        WHERE
+            customer_id = ?
+        AND
+            transaction_id IS NOT NULL
+        AND
+            New_Order_items.item_id = ?
+        ORDER BY
+            order_date DESC
+        LIMIT
+            1;";
+    $order_id = $db->query($query, [$customer['customer_id'], DOUBLE_LP_ID])->fetch();
+    return empty($order_id) ? false : $order_id;
 }
 
 function validArtprintOrder($db) {
     $customer = $db->query("SELECT customer_id FROM Customers WHERE email = ?", [$_POST['email']])->fetch();
-    $open_orders = $db->query("SELECT order_id FROM New_Orders WHERE customer_id = ? AND dispatched IS NULL", [$customer['customer_id']])->fetchAll();
+    $open_orders = $db->query("SELECT
+        order_id
+    FROM New_Orders WHERE customer_id = ? AND dispatched IS NULL", [$customer['customer_id']])->fetchAll();
     if (sizeof($open_orders) == 0) return false;
     $valid = false;
     foreach ($open_orders AS $open_order) {
@@ -50,9 +107,16 @@ $m = new Mustache_Engine(array(
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
 ));
 
-if (artprintInCart($db) && !validArtprintOrder($db)) {
-        exit("<script>alert('Orders for artprints are currently only available to customers who have previously ordered a double LP. If there are any left then we will put some signed 2LP versions back in stock ')</script>");
+$order_to_add_to = false;
+
+if (artprintInCart($db)) {
+    $order_to_add_to = getOrderToAddTo($db);
+    if (!$order_to_add_to) exit("<script>alert('Orders for artprints are currently only available to customers who have previously ordered a double LP. If there are any left then we will put some signed 2LP versions back in stock ')</script>");
+    else {
+        $_SESSION['order_to_add_to'] = $order_to_add_to['order_id'];
+        $_SESSION['order_no_to_add_to'] = $order_to_add_to['order_no'];
     }
+}
 
 // reduce stock by item quantity
 try {
@@ -118,32 +182,6 @@ else $items = $order_details['items']['items'];
 
 echo $m->render('shop/payment', ["checkout_id"=>$response->id, "order_id"=>$saved_order['order_id'], "name"=>$order_details['name'], "items"=>$items, "subtotal"=>$order_details['totals']['subtotal'], "shipping"=>$order_details['totals']['shipping'], "vat"=>$order_details['totals']['vat'], "amount"=>$order_details['totals']['total']]);
 
-function reduceStock($item, $db) {
-    if ($item['option_id']) {
-        $query = "SELECT option_stock FROM Item_options WHERE item_option_id = ?";
-        $stock = $db->query($query, [$item['option_id']])->fetch();
-        if ($stock['option_stock'] < $item['quantity']) {
-            /** deal with out of stock  */
-            echo "Out of stock";
-            exit();
-        }
-        $query = "UPDATE Item_options SET option_stock = option_stock - ? WHERE item_option_id = ?";
-        $params = [$item['quantity'], $item['option_id']];
-        $db->query($query, $params);
-    } else {
-        $query = "SELECT stock FROM Items WHERE item_id = ?";
-        $stock = $db->query($query, [$item['item_id']])->fetch();
-        if ($stock['stock'] < $item['quantity']) {
-            /** deal with out of stock  */
-            echo "Out of stock";
-            exit();
-        }
-        $query = "UPDATE Items SET stock = stock - ? WHERE item_id = ?";
-        $params = [$item['quantity'], $item['item_id']];
-        $db->query($query, $params);
-    }
-
-}
 
 function calculateVAT($order_details) {
     return $order_details['totals']['total'] - ($order_details['totals']['total'] / ((100 + VAT_RATE_PC) / 100));

@@ -14,23 +14,6 @@ require(base_path("classes/RoyalMail.php"));
 //Load Composer's autoloader
 require (base_path('../lib/vendor/autoload.php'));
 
-function getOrderToAddTo($db) {
-    $order_db_id = explode("-", $_SESSION['order_id'])[1];
-    $order_db_id = (int) $order_db_id;
-    $query = "SELECT customer_id FROM New_Orders WHERE order_id = ?";
-    $customer_id = $db->query($query, [$order_db_id])->fetch()['customer_id'];
-    $query = "SELECT order_id, CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_no FROM New_Orders WHERE customer_id = ?";
-    $order_ids = $db->query($query, [$customer_id])->fetchAll();
-    foreach ($order_ids AS $order_id) {
-        $query = "SELECT COUNT(*) AS count FROM New_Order_items WHERE order_id = ? AND item_id = ?";
-        $result = $db->query($query, [$order_id['order_id'], DOUBLE_LP_ID])->fetch();
-        if ($result['count'] > 0) {
-            return $order_id;
-        }
-    }
-    return false;
-}
-
 function addItemToOrder($order_id, $db) {
     if ($_SESSION['items'][0]['item_id'] == ARTPRINT_ID) {
         $query = "UPDATE New_Order_items SET item_id = ? WHERE order_id = ? AND item_id = ?";
@@ -75,13 +58,13 @@ $order = $db->query($query, [$order_db_id])->fetch();
 
 if ($_SESSION['shipping_method']['shipping_method_id'] == 7) {
     $add_to_order = true;
-    $order_to_add_to = getOrderToAddTo($db);
+    $order_to_add_to = isset($_SESSION['order_to_add_to']) ? $_SESSION['order_to_add_to'] : false;
     if (!$order_to_add_to) exit("couldn't find previous order");
-    if (addItemToOrder($order_to_add_to['order_id'], $db)) {
+    if (addItemToOrder($order_to_add_to, $db)) {
         echo $this->renderer->render('shop/success', [
             "order_id"=>$_SESSION['order_id'],
             "artprint"=>true,
-            "updated_order"=>$order_to_add_to['order_no'],
+            "updated_order"=>$_SESSION['order_no_to_add_to'],
             "order_db_id"=>$order_db_id,
             "customer_token"=>$customer_token,
             "stylesheets"=>["shop"]]
@@ -97,7 +80,7 @@ if ($_SESSION['shipping_method']['shipping_method_id'] == 7) {
         JOIN Shipping_methods ON New_Orders.shipping_method = Shipping_methods.shipping_method_id
         WHERE New_Orders.order_id = ?";
         $order = $db->query($query, [$order_db_id])->fetch();
-        $order['order_added_to'] = $order_to_add_to['order_no'];
+        $order['order_added_to'] = $_SESSION['order_no_to_add_to'];
         sendCustomerEmail($order, "item_added", $db, $this->renderer);
         session_destroy();
         exit();
