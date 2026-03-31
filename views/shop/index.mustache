@@ -2,6 +2,9 @@
 {{#session_timeout}}
     <h1 class="error">YOUR SESSION TIMED OUT. PLEASE TRY AGAIN.</h1>
 {{/session_timeout}}
+{{#technical_error}}
+    <h1 class="error">There was a technical error. Your card has not been charged, and your cart has been emptied. Sorry about that, please try again.</h1>
+{{/technical_error}}
 {{>categories}}
 {{>cart_preview}}
 <section class="articleContainer">

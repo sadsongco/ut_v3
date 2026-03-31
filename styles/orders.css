@@ -124,11 +124,6 @@ button:hover,
 .itemOption:nth-of-type(3) {
   background-color: red;
 }
-.error {
-  font-style: italic;
-  font-size: 1.2em;
-  color: red;
-}
 
 .divider {
   padding-right: 50%;
@@ -226,7 +221,9 @@ button:hover,
 }
 
 .accordion > .order-list {
-  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  transition:
+    max-height 0.5s ease-in-out,
+    padding 0.5s ease-in-out;
 }
 
 .content-header.showing > .accordion-indicator {

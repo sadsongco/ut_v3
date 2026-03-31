@@ -308,3 +308,9 @@ a::after,
 a.button::after {
   content: none;
 }
+
+.error {
+  font-style: italic;
+  font-size: 1.2em;
+  color: red;
+}

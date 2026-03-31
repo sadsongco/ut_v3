@@ -416,6 +416,7 @@ a.viewCartItems .viewCartBadge {
   z-index: 100;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   row-gap: 4em;
 }
 

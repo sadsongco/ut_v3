@@ -94,7 +94,7 @@ function validArtprintOrder($db) {
     return $valid;
 }
 
-
+$host = getHost();
 
 // load mustache template engine
 use Database\Database;
@@ -106,6 +106,11 @@ $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path('views')),
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
 ));
+
+if (!isset($_SESSION['order_id'])) {
+    error_log("order_id missing at do_checkout line " . __LINE__);
+    echo "<script>window.location.replace('$host/shop?technical_error=true');</script>";
+}
 
 $order_to_add_to = false;
 
@@ -170,15 +175,19 @@ $response = $checkout->createCheckout()->getResponse();
 if (isset($response->error_code)) {
     switch($response->error_code) {
         case "DUPLICATED_CHECKOUT":
-            preg_match('/(checkout with clientId \')(.*)(\' and reference \')(.*)(\' already exists)/', $response->message, $output_array);
-            $checkout->deleteTransaction($output_array[2]);
             session_destroy();
-            header('Location', "/shop/?session_timeout=true");
+            error_log(print_r($response, true));
+            echo "<script>window.location.replace('$host/shop?technical_error=true');</script>";
     }
 }
 
 if (isset($order_details['items']['bundles']['items'])) $items = array_merge($order_details['items']['items'], $order_details['items']['bundles']['items']);
 else $items = $order_details['items']['items'];
+
+if (!isset($response->id)) {
+    error_log(print_r($response, true));
+    exit("Error: Payment not completed");
+}
 
 echo $m->render('shop/payment', [
     "checkout_id"=>$response->id,

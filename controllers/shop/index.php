@@ -28,5 +28,6 @@ echo $this->renderer->render('shop/index', [
     "categories"=>$categories,
     "stylesheets"=>["shop"],
     "session_timeout"=>isset($_GET['session_timeout']),
+    "technical_error"=>isset($_GET['technical_error']),
     "env"=>$env
 ]);
