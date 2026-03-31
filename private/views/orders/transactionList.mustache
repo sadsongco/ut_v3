@@ -25,6 +25,7 @@
             <p class="filterValue">Transaction ID</p> <p class="filterValue">{{transaction_id}}</p>
             <p class="filterValue">Transaction Time</p> <p class="filterValue">{{time}}</p>
             <p class="filterValue">Status</p><p class="filterValue">{{status}}{{#refunded}} <span class="error">THIS TRANSACTION HAS BEEN REFUNDED</span>{{/refunded}}</p>
+            {{#test_account}}<p class="filterValue error">TEST TRANSACTION</p>{{/test_account}}<p></p>
             {{#order}}
                 <p class="filterValue">Order No.</p> <p class="filterValue">{{order_id}}</p>
                 <p class="filterValue">Customer</p><p class="filterValue">{{customer_name}}, {{customer_city}} {{customer_country}} (<a href="mailto:{{customer_email}}">{{customer_email}}</a>)</p>
@@ -34,13 +35,17 @@
             {{^order}}
                 <p class="error">No Matching Order</p><p class="filterValue"></p>
             {{/order}}
-            {{^failed}}
-                <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/refund_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really refund transaction {{transaction_id}}?">Refund Transaction</button></p>
-            {{/failed}}
+            {{^test_account}}
+                {{^failed}}
+                    <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/refund_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really refund transaction {{transaction_id}}?">Refund Transaction</button></p>
+                {{/failed}}
+            {{/test_account}}
             {{#failed}}
                 <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/delete_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really delete transaction {{transaction_id}}?">Delete Transaction</button></p>
-
             {{/failed}}
+            {{#test_account}}
+                <p class="filterValue">Action:</p><p class="filterValue"><button hx-get="/private/functions/interface/orders/delete_transaction.php?transaction_id={{transaction_id}}" hx-confirm="Really delete transaction {{transaction_id}}?">Delete Transaction</button></p>
+            {{/test_account}}
         </div>
     {{/items}}
     {{#href}}

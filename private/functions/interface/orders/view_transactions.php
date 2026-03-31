@@ -23,6 +23,7 @@ foreach($transactions->items as &$transaction) {
     if ($transaction->status == "FAILED") continue;
     if ($transaction->status == "REFUNDED") $refunded_ids[] = $transaction->id;
     if ($transaction->status == "SUCCESSFUL" && in_array($transaction->transaction_id, $refunded_ids)) $transaction->refunded = true;
+    if ($transaction->product_summary == "Test Account") $transaction->test_account = true;
     $transaction_time = new DateTime($transaction->timestamp);
     $transaction->time = $transaction_time->format("jS M Y H:i");
     $transaction_order = getOrderByTransactionId($transaction->id, $db);
