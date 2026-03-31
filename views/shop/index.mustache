@@ -1,4 +1,7 @@
 {{>html_header_shop}}
+{{#session_timeout}}
+    <h1 class="error">YOUR SESSION TIMED OUT. PLEASE TRY AGAIN.</h1>
+{{/session_timeout}}
 {{>categories}}
 {{>cart_preview}}
 <section class="articleContainer">

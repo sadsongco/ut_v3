@@ -1,5 +1,9 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    header("Location: /shop/?session_timeout=true");
+}
+
 session_start();
 
 include("../../functions.php");
@@ -35,6 +39,8 @@ function validArtprintOrder($db) {
     }
     return $valid;
 }
+
+
 
 // load mustache template engine
 use Database\Database;

@@ -429,3 +429,12 @@ a.viewCartItems .viewCartBadge {
   width: fit-content;
   margin-left: 1em;
 }
+
+.processing-order {
+  width: 100%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}

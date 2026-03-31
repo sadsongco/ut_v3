@@ -27,5 +27,6 @@ echo $this->renderer->render('shop/index', [
     "bundles"=>$bundles,
     "categories"=>$categories,
     "stylesheets"=>["shop"],
+    "session_timeout"=>isset($_GET['session_timeout']),
     "env"=>$env
 ]);
