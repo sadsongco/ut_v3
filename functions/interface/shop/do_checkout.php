@@ -1,10 +1,5 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    header("Location: /shop/?session_timeout=true");
-}
-
-session_start();
 
 include("../../functions.php");
 require(base_path("classes/Database.php"));
@@ -13,6 +8,8 @@ require(base_path("functions/shop/get_cart_contents.php"));
 require(base_path("functions/shop/calculate_cart_subtotal.php"));
 require(base_path("functions/interface/shop/calculate_shipping.php"));
 require(base_path("functions/shop/insert_order_into_db.php"));
+
+if (session_status() == PHP_SESSION_NONE) session_start();
 
 function artprintInCart($db) {
     // is an artprint in items?
@@ -111,9 +108,8 @@ if (isset($response->error_code)) {
         case "DUPLICATED_CHECKOUT":
             preg_match('/(checkout with clientId \')(.*)(\' and reference \')(.*)(\' already exists)/', $response->message, $output_array);
             $checkout->deleteTransaction($output_array[2]);
-            $response = $checkout->createCheckout()->getResponse();
-            p_2($response);
-            break;
+            session_destroy();
+            header('Location', "/shop/?session_timeout=true");
     }
 }
 

@@ -1,8 +1,6 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 if (!isset($_SESSION['order_id'])) exit(); // no order id, nothing we can do here
 

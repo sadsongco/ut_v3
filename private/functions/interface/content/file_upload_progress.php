@@ -9,7 +9,8 @@ $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/content/')),
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/content/partials/'))
 ));
-session_start();
+
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 $key = ini_get("session.upload_progress.prefix") . "123";
 if (!empty($_SESSION[$key])) {

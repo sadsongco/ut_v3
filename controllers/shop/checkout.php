@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 include_once(__DIR__ . "/../../functions/functions.php");
 include_once(base_path("functions/shop/get_cart_contents.php"));
@@ -39,7 +39,7 @@ $shipping_options = [
     "service_code" => "E_DEL"
 ];
 foreach ($cart_contents['items'] as $item) {
-    if ($item['ship_with_order'] == 1) {
+    if (isset($item['ship_with_order']) && $item['ship_with_order'] == true) {
         $shipping_options = [
             "shipping_method_id" => 7,
             "service_name" => "Add to order",

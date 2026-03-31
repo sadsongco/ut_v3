@@ -8,12 +8,14 @@ use PHPMailer\PHPMailer\Exception;
 
 
 function sendCustomerEmail($order, $template, $db, $m) {
+    $order_added_to = false;
+    if (isset($order['order_added_to'])) $order_added_to = $order['order_added_to'];
     try {
         $subjects = [
             "success" => "you have placed an order #" . $order['order_no'],
             "shipped" => "your order #" . $order['order_no'] . " has shipped",
             "download" => "download links for your order #" . $order['order_no'],
-            "item_added" => "signed artprint added to your order #" . $order['order_added_to']
+            "item_added" => "signed artprint added to your order #" . $order_added_to
         ];
         // create pdf for order
         if ($template == "success" || $template == "item_added") {

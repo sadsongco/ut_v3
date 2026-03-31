@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 if ((isset($_SESSION['bundles']) && sizeof($_SESSION['bundles'])) || (isset($_SESSION['items']) && sizeof($_SESSION['items'])) > 0) {
     echo '<a class="cart-button" href="/shop/cart">View Cart</a>

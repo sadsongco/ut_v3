@@ -2,7 +2,7 @@
 
 /* ***
 CRON command
-cd /home/thesadso/unbelievabletruth.co.uk/private/functions/cron/mailout/; /usr/local/bin/php -q mailout.php
+cd /home/thesadso/dev.unbelievabletruth.co.uk/private/functions/cron/mailout/; /usr/local/bin/php -q artprint_mailout.php
 *** */
 
 include(__DIR__ . "/../../../../functions/functions.php");

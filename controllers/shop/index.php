@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 // exit($this->renderer->render('shop/tmp_index', ["stylesheets"=>["shop"]]));
 

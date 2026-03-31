@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 include(__DIR__ . "/../../functions/functions.php");
 require (base_path("/functions/utility/create_unique_token.php"));

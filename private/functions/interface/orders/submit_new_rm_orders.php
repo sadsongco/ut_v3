@@ -4,9 +4,7 @@ include(__DIR__ . "/../../../../functions/functions.php");
 include_once(__DIR__."/includes/order_includes.php");
 include(base_path("classes/RoyalMail.php"));
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 use RoyalMail\RoyalMail;
 

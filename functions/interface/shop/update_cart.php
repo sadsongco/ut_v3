@@ -9,9 +9,7 @@ include_once(base_path("classes/Database.php"));
 use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 if (isset($_POST['item_id']) && $_POST['item_id'] == ARTPRINT_ID) {
     exit("<script>alert('You can only order one artprint. Quantity not updated.')</script>");

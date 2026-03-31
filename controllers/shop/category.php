@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 include_once(__DIR__ . "/../../functions/functions.php");
 include_once(base_path("functions/shop/get_featured.php"));

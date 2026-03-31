@@ -1,8 +1,6 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+if(session_status() === PHP_SESSION_NONE) session_start();
 
 include_once(__DIR__ . "/../../functions.php");
 include_once(base_path("functions/shop/get_cart_items.php"));
