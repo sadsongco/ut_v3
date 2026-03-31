@@ -3,6 +3,8 @@
 include(__DIR__."/replace_tags.php");
 include(__DIR__."/mailout_create.php");
 
+define("ARTPRINT_MAILOUT_PATH", "mailout/data/artprint_mailout.txt");
+
 function generateMailoutEmailContent($replacements, $data, $m) {
     $secure_id = generateSecureId($data['email'], $data['email_id']);
     $replacements['name'] = $data['name'];
@@ -37,14 +39,19 @@ function email_admin($mail, $msg) {
 }
 
 function get_artprint_email_addresses($db, $log_fp) {
-    if (ENV !== "production") $cond = ' AND Customers.email LIKE "%sadsongco%" ';
+    if (ENV !== "production") $cond = ' WHERE Customers.email LIKE "%sadsongco%" ';
     try {
-        $query = "SELECT Customers.email, Customers.name, Customers.customer_id
-        FROM Artprint_mailout
-        JOIN Customers ON Artprint_mailout.customer_id = Customers.customer_id
-        ORDER BY Artprint_mailout.sent_id ASC
-        $cond
-        LIMIT 1
+        $query = "SELECT
+            Customers.email, Customers.name, Customers.customer_id
+        FROM
+            Artprint_mailout
+        JOIN
+            Customers ON Artprint_mailout.customer_id = Customers.customer_id
+            $cond
+        ORDER BY
+            Artprint_mailout.sent_id ASC
+        LIMIT
+            1
         ";
         return $db->query($query)->fetch();
 
@@ -70,6 +77,9 @@ function remove_artprint_email_address($db, $row) {
 }
 
 /* ************************** */
+
+$mailout_file = base_path(WEB_ASSET_PATH . ARTPRINT_MAILOUT_PATH);
+if (!file_exists($mailout_file)) exit();
 
 require_once(base_path("../secure/mailauth/ut.php"));
 include_once(base_path("../secure/secure_id/secure_id_ut.php"));
@@ -107,10 +117,13 @@ $mail->addReplyTo($mail_auth['reply']['address'], $from_name);
 
 // set up emails
 $row = get_artprint_email_addresses($db, $log_fp);
+// p_2($row);
+// exit();
 
 if (!$row) {
     write_to_log($log_fp, "\n\n--------COMPLETE--------");
     email_admin($mail, "<h2>ALL ARTPRINT EMAILS SENT. Check " . MAILOUT_LOG_PATH . "artprint_list.log for details<h2>");
+    unlink($mailout_file);
     exit();
 }
 
@@ -139,7 +152,6 @@ try {
     $output .= "\nPHPMailer Error :: ".$mail->ErrorInfo;
     $output .= "\nREMOVE: " . replaceTags($remove_path, $row);
     //Reset the connection to abort sending this message
-    //The loop will continue trying to send to the rest of the list
     echo ($output);
     $mail->getSMTPInstance()->reset();
 }
