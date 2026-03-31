@@ -12,7 +12,8 @@ try {
         JOIN New_Orders ON New_Order_items.order_id = New_Orders.order_id
         AND New_Orders.dispatched IS NULL
         AND New_Orders.transaction_id IS NOT NULL
-    GROUP BY Items.item_id";
+    GROUP BY Items.item_id
+    ORDER BY quantity DESC";
     $result = $db->query($query)->fetchAll();
 } catch (PDOException $e) { 
     echo $e->getMessage();
