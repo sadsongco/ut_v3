@@ -109,6 +109,7 @@ $m = new Mustache_Engine(array(
 
 if (!isset($_SESSION['order_id'])) {
     error_log("order_id missing at do_checkout line " . __LINE__);
+    session_destroy();
     echo "<script>window.location.replace('$host/shop?technical_error=true');</script>";
 }
 
