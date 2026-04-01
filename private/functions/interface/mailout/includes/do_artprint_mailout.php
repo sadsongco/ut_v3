@@ -39,7 +39,6 @@ function email_admin($mail, $msg) {
 }
 
 function get_artprint_email_addresses($db, $log_fp) {
-    if (ENV !== "production") $cond = ' WHERE Customers.email LIKE "%sadsongco%" ';
     try {
         $query = "SELECT
             Customers.email, Customers.name, Customers.customer_id
@@ -47,7 +46,6 @@ function get_artprint_email_addresses($db, $log_fp) {
             Artprint_mailout
         JOIN
             Customers ON Artprint_mailout.customer_id = Customers.customer_id
-            $cond
         ORDER BY
             Artprint_mailout.sent_id ASC
         LIMIT
