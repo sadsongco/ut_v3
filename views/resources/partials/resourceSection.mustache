@@ -4,7 +4,7 @@
         {{^ext_media}}
             <div class="resourceItem">
                 {{#img_preview}}
-                    <img src="/resources/serve/{{path}}/thumbnail/{{serve_path}}/inline" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
+                    <img src="/resources/serve/{{path}}/thumbnail/{{serve_path}}" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
                     <br />
                     <a href="/resources/serve/{{path}}/full_res/{{serve_path}}" download="{{resource}}" target="_blank">Download at print resolution</a> {{#full_res_size}}({{0}} x {{1}}, 300dpi){{/full_res_size}}
                     &nbsp;||&nbsp;
@@ -16,7 +16,7 @@
                 {{^img_preview}}
                     <a href="/resources/serve/{{path}}/{{serve_path}}" download="{{resource}}" target="_blank">
                         {{#logo_preview}}
-                            <img src="/resources/serve/{{path}}/{{serve_path}}/inline" width="200" alt="image of {{resource}}" /><br />
+                            <img src="/resources/serve/{{path}}/{{serve_path}}" width="200" alt="image of {{resource}}" /><br />
                         {{/logo_preview}}
                         {{resource}}<br />
                     </a>
