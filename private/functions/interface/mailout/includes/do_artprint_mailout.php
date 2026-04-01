@@ -113,10 +113,10 @@ $mail->Password = $mail_auth['password'];
 $mail->setFrom($mail_auth['from']['address'], $from_name);
 $mail->addReplyTo($mail_auth['reply']['address'], $from_name);
 
-// set up emails
+// set up <emails></emails>
 $row = get_artprint_email_addresses($db, $log_fp);
-// p_2($row);
-// exit();
+p_2($row);
+exit();
 
 if (!$row) {
     write_to_log($log_fp, "\n\n--------COMPLETE--------");
