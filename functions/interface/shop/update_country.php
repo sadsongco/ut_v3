@@ -22,20 +22,26 @@ $_SESSION['zone'] =  "ROW";
 if ($country['rm_zone'] == "UK") $_SESSION['zone'] = "UK";
 if ($_POST['delivery-country'] == 1) $_SESSION['zone'] = "USA";
 
+
 $shipping_options = [
     "shipping_method_id" => 1,
     "service_name" => "Digital Download",
     "service_code" => "E_DEL"
 ];
+if (isset($_SESSION['package_specs']['ship_with_order'])) {
+    $shipping_options = [
+        "shipping_method_id" => 7,
+        "service_name" => "Add to order",
+        "service_code" => "ARTPRINT"
+    ];
+}
+
 $_SESSION['shipping_method'] = $shipping_options;
 $_SESSION['shipping'] = $shipping = 0;
 $shipping_disp = "0.00";
 $default_shipping_method = $shipping_options;
 
-// echo "update country";
-// p_2($_SESSION['package_specs']);
-
-if (!isset($_SESSION['package_specs']['e_delivery']) || !isset($_SESSION['package_specs']['ship_with_order'])) {
+if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
     $shipping_options = getShippingMethods($country['rm_zone'], $db);
     $default_shipping_method = $shipping_options[0];
     $_SESSION['shipping_method'] = $default_shipping_method;

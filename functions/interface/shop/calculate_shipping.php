@@ -69,7 +69,7 @@ if (isset($_POST['update'])) {
     $db = new Database('orders');
     $shipping_method = $db->query("SELECT * FROM Shipping_methods WHERE shipping_method_id = ?", [$_SESSION['shipping_method']['shipping_method_id']])->fetch();
     $shipping = 0;
-    if (!isset($_SESSION['package_specs']['e_delivery'])) {
+    if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
         [$shipping, $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $shipping_method);
         $_SESSION['shipping'] = round($shipping, 2);
     }
@@ -145,8 +145,8 @@ function calculateNoHSCodes($db) {
     if (isset($_SESSION['items'])) {
         $items = getCartItems($_SESSION['items'], $db);
         foreach ($items as $item) {
-            if ($item['e_delivery']) continue;
-            if ($item['add_to_order']) continue;
+            if (isset($item['e_delivery'])) continue;
+            if (isset($item['ship_with_order'])) continue;
             $hs_codes[] = $item['customs_description'];
         }
     }
