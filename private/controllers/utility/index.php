@@ -9,6 +9,14 @@ $vat_periods = [
         "start" => "03-01",
         "end" => "05-31"
     ],
+    "Year End" => [
+        "start" => "03-01",
+        "end" => "04-05"
+    ],
+    "Year Start" => [
+        "start" => "04-06",
+        "end" => "05-31"
+    ],
     "P3" => [
         "start" => "06-01",
         "end" => "08-31"
@@ -22,6 +30,11 @@ $vat_periods = [
 $tax_year = [
     "start" => "04-05",
     "end" => "04-04"
+];
+
+$end_slice = [
+    "start" => "03-01",
+    "end" => "04-05"
 ];
 
 $start_year = 2024;
