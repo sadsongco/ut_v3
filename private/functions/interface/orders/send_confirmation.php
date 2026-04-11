@@ -38,7 +38,8 @@ if (!empty($shipping_items) && !empty($preorder_items)) $preorder_items['held'] 
 
 try {
     $query = "SELECT
-            CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_id,
+            New_Orders.order_id,
+            CONCAT(DATE_FORMAT(New_Orders.order_date, '%y%m%d'), '-', New_Orders.order_id) AS order_no,
             DATE_FORMAT(New_Orders.dispatched, '%a %D %M, %Y') AS dispatched,
             New_Orders.rm_tracking_number,
             Shipping_methods.service_name,
