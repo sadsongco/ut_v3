@@ -9,22 +9,26 @@
       let res = {status: 'timeout'};
       const postBody = new FormData();
       postBody.append('status', 'FAILED');
+      postBody.append('reason', 'TIMEOUT');
       const apiURL = '/functions/interface/shop/update_order.php';
       try {
         const res = await fetch(apiURL, {
           method: 'POST',
           body: postBody,
         });
-        console.log(await res.text());
       } catch (err) {
-        console.log(err.message);
+        const errorBody = new FormData();
+        errorBody.append('error', message);
+        const res = awaitfetch("/functions/interface/shop/log_error.php", {
+          method: 'POST',
+          body: errorBody,
+        });
       }
       const output = await getResponseScreen(res.status);
       document.getElementById('paymentResponse').innerHTML = output;
       delete window.paymentTimeout;
-      console.log("paymentTimeout: ", paymentTimeout);
     },
-  120000);
+  180000);
 
   document.getElementById('sumup-card').style.display = "block";
   SumUpCard.mount({
