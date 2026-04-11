@@ -13,7 +13,7 @@ const mirrorDeliveryAddress = (e) => {
 };
 
 const updateShippingMethods = (e) => {
-  console.log(e.target.value);
+  // console.log(e.target.value);
 };
 
 const cancelOrder = async () => {
@@ -30,7 +30,7 @@ const cancelOrder = async () => {
       body: postBody,
     });
   } catch (err) {
-    console.log(err.message);
+    // console.log(err.message);
   }
 };
 

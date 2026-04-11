@@ -83,7 +83,7 @@ const unpackCarousel = () => {
   slides = document.getElementsByClassName('carousel-item');
   for (let slide of slides) {
     slide.classList.add('unpacked');
-    console.log(slide);
+    // console.log(slide);
   }
 };
 

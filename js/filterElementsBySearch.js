@@ -3,17 +3,17 @@ const filterElementsBySearch = (inputEl, targetEl) => {
   const targetEls = document.querySelectorAll(targetEl);
   const noResults = document.querySelector('div.no-results-message');
   const value = input.value.toLowerCase();
-  console.log(targetEl);
+  // console.log(targetEl);
 
   targetEls.forEach((el) => {
-    console.log(el);
+    // console.log(el);
     let elementText = '';
 
     const filterEls = el.querySelectorAll('.filterValue');
 
     if (filterEls.length > 0) {
       filterEls.forEach((filterEl) => {
-        console.log(filterEl);
+        // console.log(filterEl);
         elementText += filterEl.textContent.toLowerCase();
       });
     }
