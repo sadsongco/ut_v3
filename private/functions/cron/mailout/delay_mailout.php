@@ -1,0 +1,26 @@
+<?php
+
+/* ***
+CRON command
+cd /home/thesadso/dev.unbelievabletruth.co.uk/private/functions/cron/mailout/; /usr/local/bin/php -q delay_mailout.php
+*** */
+
+include(__DIR__ . "/../../../../functions/functions.php");
+require(base_path("classes/Database.php"));
+require_once(base_path('private/functions/interface/mailout/includes/mailout_includes.php'));
+
+use Database\Database;
+$db = new Database('orders');
+
+define('DELAY', true);
+
+// set other mailout variables
+$subject_id = "[UNBELIEVABLE TRUTH]";
+$log_dir = base_path(WEB_ASSET_PATH . MAILOUT_LOG_PATH .'logs/');
+
+// email variables
+$from_name = "Unbelievable Truth webshop";
+
+/* *** INCLUDES *** */
+
+require_once(base_path('private/functions/interface/mailout/includes/do_2lp_mailout.php'));
