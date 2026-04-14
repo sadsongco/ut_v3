@@ -133,8 +133,7 @@ try {
     $bodies = generateMailoutEmailContent(["heading"=>"Almost Here vinyl double album delayed"], $row, $m);
     $mail->msgHTML($bodies["html_body"]);
     $mail->AltBody = $bodies["text_body"];
-    // $mail->addAddress($row['email'], $row['name']);
-    $mail->addAddress('info@unbelievabletruth.co.uk', 'Info');
+    $mail->addAddress($row['email'], $row['name']);
 } catch (Exception $e) {
     $output .= "\n artprint email address " . $row['email'] . " failed";
     $output .=  "\nInvalid address ".$row['email']." skipped";
