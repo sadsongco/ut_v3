@@ -78,7 +78,6 @@ function remove_artprint_email_address($db, $row) {
 
 $mailout_file = base_path(WEB_ASSET_PATH . DELAY_MAILOUT_PATH);
 
-
 if (!file_exists($mailout_file)) exit();
 
 require_once(base_path("../secure/mailauth/ut.php"));
@@ -127,10 +126,10 @@ if (!$row) {
 
 $output = "";
 
-$mail->Subject = "Almost Here vinyl double album delayed";
+$mail->Subject = "Almost Here vinyl album delayed (again)";
 
 try {
-    $bodies = generateMailoutEmailContent(["heading"=>"Almost Here vinyl double album delayed"], $row, $m);
+    $bodies = generateMailoutEmailContent(["heading"=>"Almost Here vinyl album delayed (again)"], $row, $m);
     $mail->msgHTML($bodies["html_body"]);
     $mail->AltBody = $bodies["text_body"];
     $mail->addAddress($row['email'], $row['name']);
