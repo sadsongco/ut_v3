@@ -28,15 +28,25 @@ switch ($filter) {
         AND New_Orders.shipping_method != 7";
         break;
     case 'new_uk':
-        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL AND New_Orders.transaction_id IS NOT NULL";
+        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL
+            AND New_Orders.transaction_id IS NOT NULL
+            AND New_Orders.transaction_id IS NOT NULL
+            AND New_Orders.shipping_method != 1
+            AND New_Orders.shipping_method != 7";
         $area_filter = "AND Customers.country = 31";
         break;
     case 'new_usa':
-        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL AND New_Orders.transaction_id IS NOT NULL";
+        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL
+            AND New_Orders.transaction_id IS NOT NULL
+            AND New_Orders.shipping_method != 1
+            AND New_Orders.shipping_method != 7";
         $area_filter = "AND Customers.country = 1";
         break;
     case 'new_row':
-        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL AND New_Orders.transaction_id IS NOT NULL";
+        $filter_text = "WHERE New_Orders.rm_order_identifier IS NULL
+            AND New_Orders.transaction_id IS NOT NULL
+            AND New_Orders.shipping_method != 1
+            AND New_Orders.shipping_method != 7";
         $area_filter = "AND Customers.country != 1 AND Customers.country != 31";
         break;
     default:

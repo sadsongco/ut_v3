@@ -95,7 +95,8 @@ foreach ($orders as &$order) {
     $order_outcomes[] = $rm->getOrderOutcomes();
 }
 
-
+echo "<h2>DEBUG</h2>";
+p_2($order_outcomes);
 
 if (isset($_GET['order_id'])) {
     if (isset($order_outcomes[0][0]['data']->errors)) {
