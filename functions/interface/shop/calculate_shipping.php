@@ -64,8 +64,6 @@ function calculateShipping($db, $zone, $method) {
 
 
 if (isset($_POST['update'])) {
-
-    // p_2($_POST);
     $db = new Database('orders');
     $shipping_method = $db->query("SELECT * FROM Shipping_methods WHERE shipping_method_id = ?", [$_SESSION['shipping_method']['shipping_method_id']])->fetch();
     $shipping = 0;
@@ -96,7 +94,6 @@ function getTariffCosts($country_code, $db) {
     foreach ($tariff_rates AS $tariff_rate) {
         if ($tariff_rate['tariff_type'] === 'flat' && !$tariff_rate['per_hs_code'] && !$tariff_rate['per_item']) {
             $tariff += $tariff_rate['flat_currency'] === 'GBP' ? $tariff_rate['tariff_amount'] : convertCurrency($tariff_rate['tariff_amount'], $tariff_rate['flat_currency'], $db);
-            // echo "adding tariff flat rate of " . $tariff_rate['tariff_amount'] . "<br>";
             continue;
             }
         if ($tariff_rate['tariff_type'] === 'flat' && $tariff_rate['per_item']) {
@@ -107,6 +104,7 @@ function getTariffCosts($country_code, $db) {
         if ($tariff_rate['tariff_type'] === 'flat' && $tariff_rate['per_hs_code']) {
             $no_hs_codes = calculateNoHsCodes($db);
             $tariff += $tariff_rate['flat_currency'] === 'GBP' ? $tariff_rate['tariff_amount'] * $no_hs_codes : convertCurrency($tariff_rate['tariff_amount'] * $no_hs_codes, $tariff_rate['flat_currency'], $db);
+            continue;
         }
         if ($tariff_rate['tariff_type'] === 'pc') {
             $cost_of_tariffable_items = calculateTariffItemCost($tariff_rate['customs_description'], $db);
@@ -180,10 +178,11 @@ function convertCurrency($amt, $currency, $db) {
 function calculateTariffItemCost($customs_description, $db) {
     $cost_of_tariffable_items = 0;
     if (isset($_SESSION['items'])) {
-        foreach($_SESSION['items'] AS $item) {
+        $items = getCartItems($_SESSION['items'], $db);
+        foreach($items AS $item) {
             $query = "SELECT customs_description FROM Items WHERE item_id = ?";
             $item_details = $db->query($query, [$item['item_id']])->fetch();
-            if ($item_details['customs_description'] === $customs_description) {
+            if ($item_details['customs_description'] === $customs_description || $customs_description == "*") {
                 $cost_of_tariffable_items += $item['price'] * $item['quantity'];
             }
         }
@@ -194,7 +193,7 @@ function calculateTariffItemCost($customs_description, $db) {
             foreach ($bundle_items AS $item) {
                 $query = "SELECT customs_description, price FROM Items WHERE item_id = ?";
                 $item_details = $db->query($query, [$item['item_id']])->fetch();
-                if ($item_details['customs_description'] === $customs_description) {
+                if ($item_details['customs_description'] === $customs_description || $customs_description == "*") {
                     $cost_of_tariffable_items += $item_details['price'] * $item['quantity'] * $bundle['quantity'];
                 }
             }
