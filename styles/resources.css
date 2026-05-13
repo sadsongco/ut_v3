@@ -90,8 +90,9 @@ ul.nav li {
 nav ul.nav li {
   font-size: 1em;
   font-weight: bold;
-  width: 7em;
+  width: 9em;
   height: 4em;
+  border-radius: 10px;
 }
 
 nav ul.nav li:hover,
