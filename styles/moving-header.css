@@ -114,6 +114,10 @@ body {
   }
 }
 
+#callToAction {
+  width: 100%;
+}
+
 #callToAction,
 #callToAction .emailForm,
 #callToAction .emailForm form {
@@ -132,9 +136,8 @@ body {
     animation-timeline: scroll(block);
     animation-range: normal 200vh;
   }
-  #callToAction,
-  #callToAction .emailForm,
   #callToAction .emailForm form {
+    min-width: 28em;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
@@ -164,16 +167,16 @@ body {
     opacity: 0;
   }
   25% {
-    left: 10vw;
+    left: 0vw;
     opacity: 1;
   }
   40% {
-    left: 10vw;
+    left: 0vw;
     opacity: 1;
   }
 
   50% {
-    left: 10vw;
+    left: 0vw;
     opacity: 0;
   }
 }
