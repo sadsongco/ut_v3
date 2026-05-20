@@ -12,9 +12,17 @@ h1 {
   line-height: 1.2em;
 }
 
+h1.float-top-left {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 5;
+}
+
 h2 {
   font-size: 1.2em;
   font-weight: bold;
+  margin-bottom: 0.5em;
 }
 
 p {
@@ -40,54 +48,6 @@ section {
   max-width: 100%;
 }
 
-nav {
-  display: block;
-  padding-left: 0.5em;
-}
-
-nav ul {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 80vw;
-  /* background-color: #999; */
-}
-
-nav ul li {
-  display: flex;
-  justify-content: center;
-  /* background-color: #999; */
-  /* color: black; */
-  border-right: 1px solid #aaa;
-  padding: 0.5em;
-  transition: background-color 0.5s ease;
-  width: 5em;
-}
-
-nav ul li:first-child {
-  border-left: 1px solid #aaa;
-}
-
-nav ul li:hover {
-  background-color: var(--headerBlockBackground);
-  cursor: pointer;
-}
-
-nav ul a {
-  color: var(--stdColour);
-  text-decoration: none;
-}
-
-nav ul li.active-link {
-  background-color: #333;
-  color: #999;
-}
-
-nav ul li.active-link:hover {
-  cursor: default;
-}
-
 @property --a {
   syntax: '<angle>';
   inherits: false;
@@ -95,60 +55,6 @@ nav ul li.active-link:hover {
 }
 
 header {
-  z-index: 5;
-  max-width: 90%;
-  margin: auto;
-  /* background-color: #999; */
-  padding: var(--stdPaddingSmall);
-  --border-width: 2px;
-  border-radius: 0.4rem;
-  position: relative;
-  background: var(--transBlack);
-  backdrop-filter: blur(15px);
-}
-
-@property --a {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
-header::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  border-radius: inherit;
-  border: var(--border-width) solid transparent;
-  background: conic-gradient(from var(--a) at 10% 50%, var(--compColBrt1), var(--compColBrt2), var(--compColBrt3), var(--compColBrt1)) border-box;
-  mask:
-    linear-gradient(black 0 0) border-box,
-    linear-gradient(black 0 0) padding-box;
-  mask-composite: subtract;
-}
-
-header.content-header:nth-last-of-type(1):before {
-  --a: 0deg;
-  animation: animatedBorder 18s linear infinite;
-}
-header.content-header:nth-of-type(2)::before {
-  --a: 120deg;
-  animation: animatedBorder 13s linear infinite;
-  animation-direction: reverse;
-}
-header:nth-of-type(3).content-header::before {
-  --a: 240deg;
-  animation: animatedBorder 14.3s linear infinite;
-  animation-direction: alternate;
-}
-
-@keyframes animatedBorder {
-  0% {
-    --a: 0deg;
-  }
-  100% {
-    --a: 360deg;
-  }
 }
 
 footer {
@@ -166,6 +72,7 @@ footer section.socials img {
   height: auto;
   justify-content: flex-start;
   align-items: space-between;
+  transition: filter 0.3s ease-in-out;
 }
 
 footer section.socials {
@@ -174,6 +81,10 @@ footer section.socials {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
+}
+
+footer section.socials img:hover {
+  filter: brightness(50%);
 }
 
 @media screen and (min-width: 900px) {
@@ -187,9 +98,8 @@ footer section.socials {
     grid-template-columns: 15em 1fr;
     z-index: 10;
     border-radius: 15px;
-    animation: socials linear forwards;
-    animation-timeline: scroll(block);
-    animation-range: normal 70vh;
+    animation: noBlurFade 5s both;
+    animation-delay: 3s;
   }
 }
 
@@ -202,11 +112,9 @@ footer section.socials {
 @keyframes socials {
   0%,
   20% {
-    left: 120vw;
     opacity: 0;
   }
   100% {
-    left: 0;
     opacity: 1;
   }
 }
@@ -313,4 +221,39 @@ a.button::after {
   font-style: italic;
   font-size: 1.2em;
   color: red;
+}
+
+@keyframes noBlurFade {
+  0% {
+    filter: blur(16px);
+    opacity: 0;
+  }
+  100% {
+    filter: blur(0.3px);
+    opacity: 1;
+  }
+}
+
+.pageLogo {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+}
+
+.pageLogo img {
+  max-width: 50vw;
+  height: auto;
+  margin: 2vw 2vw auto auto;
+}
+
+.page-container {
+  border: 1px solid var(--stdColour);
+  border-radius: 5px;
+  margin: var(--stdMarginSmall);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: var(--stdPaddingSmall);
 }

@@ -1,0 +1,13 @@
+{{>html_header}}
+{{>page_logo}}
+    <section class="page-container" id="blog">
+        <h2>
+            Blog
+        </h2>
+        <div class="content-block" id="blog-content"{{#article_id}} data-article_id="{{article_id}}"{{/article_id}}>
+            <section class="blog" hx-get="/content{{#article_id}}?article_id={{article_id}}{{/article_id}}" hx-trigger="load">
+            </section>
+        </div>
+    </section>
+
+{{>html_footer}}

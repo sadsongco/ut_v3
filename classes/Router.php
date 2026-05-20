@@ -20,6 +20,16 @@ class Router
             'controller' => 'shows',
             'name' => 'Shows',
         ],
+        'blog' => [
+            'path' => '/blog',
+            'controller' => 'blog',
+            'name' => 'Blog',
+        ],
+        'news' => [
+            'path' => '/news',
+            'controller' => 'news',
+            'name' => 'News',
+        ],
         'serve' => [
             'path' => '/serve',
             'name' => 'Serve',

@@ -64,8 +64,8 @@
   --alertInPos: var(--stdMarginSmall);
 
   /* typography */
-  --stdFont: Inter, OpenSane, sans-serif;
-  --headingFont: Inter, OpenSansBold, sans-serif;
+  --stdFont: OpenSans, Inter, sans-serif;
+  --headingFont: OpenSansBold, Inter, sans-serif;
   --fontBaseSize: 1em;
   --stdLineHeight: 1.27em;
   --fontSmall: 0.8em;

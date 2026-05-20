@@ -8,7 +8,13 @@ body {
 #hero-container {
   position: relative;
   width: 100%;
-  min-height: fit-content;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media screen and (min-width: 900px) {
@@ -33,9 +39,6 @@ body {
   transform-origin: top;
   scale: 1;
   opacity: 1;
-  animation: hero-image linear forwards;
-  animation-timeline: scroll(block);
-  animation-range: normal 200vh;
   -webkit-mask-image: linear-gradient(to top, transparent 5%, black 100%);
   mask-image: linear-gradient(to top, transparent 5%, black 100%);
 }
@@ -77,41 +80,28 @@ body {
   justify-content: center;
   opacity: 1;
   z-index: 2;
-  animation: logo-mob linear forwards;
-  animation-timeline: scroll();
 }
 @media screen and (min-width: 900px) {
   #logo {
-    top: 18vh;
-    animation: logo linear forwards;
-    animation-timeline: scroll();
+    top: 40vh;
+    animation: blurFade 5s forwards;
   }
 }
 
-@keyframes logo {
+@keyframes blurFade {
   0% {
-    opacity: 1;
-    /* top: 18vh; */
-  }
-  50% {
-    opacity: 1;
-    /* top: 100vh; */
-  }
-  85%,
-  100% {
+    filter: blur(16px);
     opacity: 0;
-    top: 130vh;
+  }
+  100% {
+    filter: blur(1px);
+    opacity: 1;
   }
 }
-@keyframes logo-mob {
-  0% {
-    opacity: 1;
-    top: 1vh;
-  }
-  10% {
-    opacity: 0;
-    top: 50vh;
-  }
+
+#callToAction {
+  animation: noBlurFade 5s both;
+  animation-delay: 3s;
 }
 
 #callToAction,
@@ -125,19 +115,15 @@ body {
 }
 @media screen and (min-width: 900px) {
   #callToAction {
-    position: absolute;
-    top: 100vh;
-    left: -20vw;
-    animation: call-to-action linear forwards;
-    animation-timeline: scroll(block);
-    animation-range: normal 200vh;
+    position: fixed;
+    top: 85vh;
+    width: 100%;
   }
-  #callToAction,
   #callToAction .emailForm,
   #callToAction .emailForm form {
+    margin-top: 0.4vh;
     flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    gap: 0.4vw;
   }
 }
 
@@ -150,30 +136,35 @@ body {
   }
   #callToAction {
     animation: none;
-    left: 10vw;
   }
 }
 
 @keyframes call-to-action {
   0% {
-    left: -20vw;
     opacity: 0;
   }
   10% {
-    left: -20vw;
     opacity: 0;
   }
   25% {
-    left: 10vw;
     opacity: 1;
   }
   40% {
-    left: 10vw;
     opacity: 1;
   }
-
   50% {
-    left: 10vw;
     opacity: 0;
   }
+}
+
+#heroVid {
+  filter: blur(8px);
+}
+
+.hero-tree img {
+  margin-top: 10rem;
+  max-height: 20vh;
+  z-index: 6;
+  animation: blurFade 5s forwards;
+  filter: saturate(0%);
 }

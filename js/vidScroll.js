@@ -1,4 +1,5 @@
 const heroVid = document.getElementById('heroVid');
+heroVid.playbackRate = 0.5;
 const pageContainer = document.getElementById('pageContainer');
 let vidHeight = 0;
 let vidDuration = 0;
@@ -19,4 +20,4 @@ const playVideo = () => {
   window.requestAnimationFrame(playVideo);
 };
 
-if (!isMobile()) window.addEventListener('scroll', playVideo);
+// if (!isMobile()) window.addEventListener('scroll', playVideo);

@@ -34,3 +34,11 @@ const updateURL = (e = false) => {
 function isMobile() {
   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
+
+const showNav = () => {
+  document.querySelector('nav').classList.toggle('show');
+  document.getElementById('nav-show').classList.toggle('show');
+};
+
+window.onload = document.getElementById('nav-show').addEventListener('click', showNav);
+window.onload = document.getElementById('close-nav').addEventListener('click', showNav);

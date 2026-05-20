@@ -1,0 +1,119 @@
+.nav-show {
+  padding: 1rem;
+  background-color: #666;
+  color: white;
+  border: 1px solid white;
+  position: fixed;
+  top: 2vw;
+  left: 2vw;
+  font-size: 1.5rem;
+  z-index: 3;
+  border-radius: 0.2rem;
+  opacity: 0;
+  transition:
+    opacity 0.5s ease,
+    color 0.5s ease;
+}
+
+.nav-show:hover {
+  cursor: pointer;
+  color: #999;
+}
+
+.nav-show.show {
+  opacity: 1;
+}
+
+nav {
+  display: block;
+  padding-left: 0.5em;
+  position: absolute;
+  left: -20vw;
+  top: 0;
+  height: 100vh;
+  width: 20vw;
+  transition: left 0.5s ease;
+  z-index: 4;
+  background-color: #000000cc;
+  color: white;
+  padding: 0.6rem;
+}
+
+nav.show {
+  left: 0;
+}
+
+nav ul {
+  border: 1px solid #aaa;
+  height: calc(100vh - 2rem);
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+nav ul a li {
+  font-family: sans-serif;
+  font-weight: 100;
+  font-style: italic;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+  transition:
+    background-color 0.5s ease,
+    color 0.5s ease;
+  width: 5em;
+}
+
+nav ul li:first-child {
+}
+
+nav ul a li:hover {
+  /* background-color: var(--headerBlockBackground); */
+  background-color: #000;
+  color: #777;
+  cursor: pointer;
+}
+
+nav ul a {
+  color: var(--stdColour);
+  text-decoration: none;
+}
+
+nav ul li.active-link {
+  background-color: #333;
+  color: #999;
+}
+
+nav ul li.active-link:hover {
+  cursor: default;
+}
+
+#close-nav {
+  position: absolute;
+  right: 3vw;
+  top: 2vw;
+  color: white;
+  cursor: pointer;
+  transition: color 0.5s ease;
+}
+
+#close-nav:hover {
+  color: #999;
+}
+
+.nav-tree img {
+  max-width: 5vw;
+}
+
+@media screen and (max-width: 900px) {
+  nav {
+    width: calc(100vw - 1rem);
+    left: -100vw;
+  }
+  nav.show {
+    left: 0;
+  }
+}
