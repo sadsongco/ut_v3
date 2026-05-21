@@ -1,4 +1,5 @@
 {{>html_header_shop}}
+{{>page_logo}}
 {{#session_timeout}}
     <h1 class="error">YOUR SESSION TIMED OUT. PLEASE TRY AGAIN.</h1>
 {{/session_timeout}}
@@ -7,76 +8,78 @@
 {{/technical_error}}
 {{>categories}}
 {{>cart_preview}}
-<section class="articleContainer">
-    <section class="articleBody">
-        <div class="articleHead">
-            <div class="articleTitle">Almost Here</div>
-        </div>
-        <figure class="floatCentered">
-            <img style="max-width: 30%" src="/serve/images/images/UMCLP144-vinyl-mockup/jpeg/inline">
-        </figure>
-        <h1>Almost Here deluxe double LP on backorder!</h1>
-        <p>
-            The deluxe double vinyl of Almost Here is currently sold out. We are expecting new stock by Friday 15th May so any new orders will be sent on or before that date. Thank you for your patience!
-        </p>    
-    </section>
-</section>
-<div class='callout'><h1>SHOP</h1></div>
-<section class="cartContainer">
-    <section class='show items'>
-    <h2>Top Items</h2>
-    {{#featured}}
-        <section class='item'>
-            <a href="/shop/item/{{item_id}}">
-            <div class="link-container">
-                <p>{{name}}</p>
-                <p id="item{{item_id}}-price">&pound;{{price}}</p>
-                {{#image}}
-                <img src="{{image_path}}" alt="image" width="100">
-                {{/image}}
+<section class="page-container" id="shopPage">
+    <h2>SHOP</h2>
+    <section class="articleContainer">
+        <section class="articleBody">
+            <div class="articleHead">
+                <div class="articleTitle">Almost Here</div>
             </div>
-            </a>
-            {{>item_interact}}
+            <figure class="floatCentered">
+                <img style="max-width: 30%" src="/serve/images/images/UMCLP144-vinyl-mockup/jpeg/inline">
+            </figure>
+            <h1>Almost Here deluxe double LP on backorder!</h1>
+            <p>
+                The deluxe double vinyl of Almost Here is currently sold out. We are expecting new stock by Friday 15th May so any new orders will be sent on or before that date. Thank you for your patience!
+            </p>    
         </section>
-    {{/featured}}
     </section>
-    <section class="show bundles">
-        <h2>Bundles</h2>
-        {{#bundles}}
-            <section class="bundle">
-                <form hx-post='/functions/interface/shop/add_to_cart.php' hx-target='#bundleResult{{bundle_id}}' hx-swap='innerHTML'>
-                {{#items}}
-                    <div class="bundle-item">
-                        <p>{{name}}</p>
-                        {{#image}}
-                            <img src="{{image_path}}" alt="image" height="50px">
-                        {{/image}}
-                        {{>item_interact}}
-                    </div>
-                {{/items}}
-                {{>bundle_interact}}
-                </form>
+    <section class="cartContainer">
+        <section class='show items'>
+        <h2>Top Items</h2>
+        {{#featured}}
+            <section class='item'>
+                <a href="/shop/item/{{item_id}}">
+                <div class="link-container">
+                    <p>{{name}}</p>
+                    <p id="item{{item_id}}-price">&pound;{{price}}</p>
+                    {{#image}}
+                    <img src="{{image_path}}" alt="image" width="100">
+                    {{/image}}
+                </div>
+                </a>
+                {{>item_interact}}
             </section>
-        {{/bundles}}
-    </section>
-    <section class='show items'>
-    <h2>Items</h2>
-    {{#items}}
-        <section class='item'>
-            <a href="/shop/item/{{item_id}}">
-            <div class="link-container">
-                <p>{{name}}</p>
-                <p id="item{{item_id}}-price">&pound;{{price}}</p>
-                {{#image}}
-                <img src="{{image_path}}" alt="image" width="100">
-                {{/image}}
-            </div>
-            </a>
-            {{>item_interact}}
+        {{/featured}}
         </section>
-    {{/items}}
+        <section class="show bundles">
+            <h2>Bundles</h2>
+            {{#bundles}}
+                <section class="bundle">
+                    <form hx-post='/functions/interface/shop/add_to_cart.php' hx-target='#bundleResult{{bundle_id}}' hx-swap='innerHTML'>
+                    {{#items}}
+                        <div class="bundle-item">
+                            <p>{{name}}</p>
+                            {{#image}}
+                                <img src="{{image_path}}" alt="image" height="50px">
+                            {{/image}}
+                            {{>item_interact}}
+                        </div>
+                    {{/items}}
+                    {{>bundle_interact}}
+                    </form>
+                </section>
+            {{/bundles}}
+        </section>
+        <section class='show items'>
+        <h2>Items</h2>
+        {{#items}}
+            <section class='item'>
+                <a href="/shop/item/{{item_id}}">
+                <div class="link-container">
+                    <p>{{name}}</p>
+                    <p id="item{{item_id}}-price">&pound;{{price}}</p>
+                    {{#image}}
+                    <img src="{{image_path}}" alt="image" width="100">
+                    {{/image}}
+                </div>
+                </a>
+                {{>item_interact}}
+            </section>
+        {{/items}}
+        </section>
+        <div id="cartMessage"></div>
     </section>
-    <div id="cartMessage"></div>
 </section>
 <script src="/js/shop/updateItemPrice.js"></script>
 {{>html_footer}}

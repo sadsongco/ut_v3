@@ -112,9 +112,9 @@ input.invalid {
 }
 
 .cartAccess {
-  position: absolute;
-  right: 0.1em;
-  top: 4em;
+  position: fixed;
+  right: 2vw;
+  top: 2vw;
   width: fit-content;
   color: black;
   background-color: var(--articleBackground);
