@@ -82,9 +82,9 @@ section.item {
   section.cartContainer,
   section.bundle,
   section.item {
-    width: fit-content;
-
+    width: 100%;
     min-width: 25em;
+    padding: 0;
   }
 }
 
@@ -200,6 +200,7 @@ a.viewCartItems .viewCartBadge {
   background-color: var(--articleBackground);
   display: flex;
   flex-direction: column;
+  max-width: calc(100%- 2 * var(--stdMarginSmall));
 }
 
 .cart-item {
@@ -381,13 +382,18 @@ a.viewCartItems .viewCartBadge {
   .cart-item .item-name {
     grid-column: 1 / -1;
   }
+  .cart-item .item-quantity {
+    grid-column: 1;
+  }
   .cart-item .item-price {
     grid-column: 2;
   }
-  .cart-item .item-interact form {
+  .cart-item .item-interact {
     grid-column: 1 / -1;
+  }
+  .cart-item .item-interact form {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
   }
   .cart-item .totals-legend {
     grid-column: 1;
