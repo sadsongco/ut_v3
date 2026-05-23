@@ -110,6 +110,7 @@ nav ul li.active-link:hover {
 
 @media screen and (max-width: 900px) {
   nav {
+    position: fixed;
     width: calc(100vw - 1rem);
     left: -100vw;
   }

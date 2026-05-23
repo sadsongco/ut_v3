@@ -70,13 +70,22 @@ section.items h2 {
 
 section.bundle,
 section.item {
-  width: fit-content;
-  min-width: 25em;
+  width: 100%;
   min-height: 18em;
   color: var(--articleText);
   border-radius: 5px;
   border: var(--commentBoxOutline);
-  box-shadow: var(--darkShadow);
+  /* box-shadow: var(--darkShadow); */
+}
+
+@media screen and (min-width: 900px) {
+  section.cartContainer,
+  section.bundle,
+  section.item {
+    width: fit-content;
+
+    min-width: 25em;
+  }
 }
 
 .bundle-item {
@@ -122,7 +131,7 @@ input.invalid {
   opacity: 0.8;
   padding: var(--stdPaddingLarge);
   border: 1px solid var(--commentBoxOutline);
-  box-shadow: var(--articleShadow);
+  /* box-shadow: var(--articleShadow); */
   border-radius: 20%;
   z-index: 10;
 }
@@ -439,4 +448,8 @@ a.viewCartItems .viewCartBadge {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+footer {
+  display: none;
 }
