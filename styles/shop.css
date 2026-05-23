@@ -79,10 +79,9 @@ section.item {
 }
 
 @media screen and (min-width: 900px) {
-  section.cartContainer,
   section.bundle,
   section.item {
-    width: 100%;
+    width: fit-content;
     min-width: 25em;
     padding: 0;
   }
@@ -200,7 +199,6 @@ a.viewCartItems .viewCartBadge {
   background-color: var(--articleBackground);
   display: flex;
   flex-direction: column;
-  max-width: calc(100%- 2 * var(--stdMarginSmall));
 }
 
 .cart-item {
