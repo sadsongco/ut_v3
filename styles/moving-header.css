@@ -99,69 +99,6 @@ body {
   }
 }
 
-#callToAction {
-  animation: noBlurFade 5s both;
-  animation-delay: 3s;
-}
-
-#callToAction {
-  width: 100%;
-}
-
-#callToAction,
-#callToAction .emailForm,
-#callToAction .emailForm form {
-  z-index: 4;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-}
-@media screen and (min-width: 900px) {
-  #callToAction {
-    position: fixed;
-    top: 85vh;
-    width: 100%;
-  }
-  #callToAction .emailForm form {
-    min-width: 28em;
-    flex-direction: row;
-    gap: 0.4vw;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .videoContainer video {
-    animation: none;
-  }
-  #logo {
-    animation: none;
-  }
-  #callToAction {
-    animation: none;
-  }
-}
-
-@keyframes call-to-action {
-  0% {
-    opacity: 0;
-  }
-  10% {
-    opacity: 0;
-  }
-  25% {
-    left: 0vw;
-    opacity: 1;
-  }
-  40% {
-    left: 0vw;
-    opacity: 1;
-  }
-  50% {
-    opacity: 0;
-  }
-}
-
 #heroVid {
   filter: blur(8px);
 }

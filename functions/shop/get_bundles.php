@@ -42,7 +42,7 @@ function getBundles($db, $category=null)
                 $item['image_path'] = "/serve/" . SHOP_ASSET_PATH . "images/" . str_replace(".", "/", $item['image']);
 
         }
-        $bundle['saving'] = $bundle['raw_price'] - $bundle['price'];
+        $bundle['saving'] = number_format($bundle['raw_price'] - $bundle['price'], 2);
         $bundle['disp_price'] = number_format($bundle['price'], 2);
         $bundle['is_bundle'] = true;
         if ($bundle['stock'] > 0) {

@@ -107,7 +107,7 @@ $m = new Mustache_Engine(array(
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
 ));
 
-if (!isset($_SESSION['items'])) {
+if (!isset($_SESSION['items']) && !isset($_SESSION['bundles'])) {
     error_log("order_id missing at do_checkout line " . __LINE__);
     session_destroy();
     echo "<script>window.location.replace('$host/shop?technical_error=true');</script>";

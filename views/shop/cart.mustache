@@ -1,14 +1,17 @@
 {{>html_header_shop}}
-{{>categories}}
-{{^empty}}
-    {{#cart_contents}}
-    <section class="cartContainer" hx-get="/functions/shop/cart_items.php" hx-trigger="load, cartUpdated from:body">
-    </section>
-    {{/cart_contents}}
-{{/empty}}
-{{#empty}}
-    <div class="shop-item">
-        <p>Your cart is currently empty</p>
-    </div>
-{{/empty}}
+{{>page_logo}}
+<section class="page-container">
+    {{>categories}}
+    {{^empty}}
+        {{#cart_contents}}
+        <section class="cartContainer" hx-get="/functions/shop/cart_items.php" hx-trigger="load, cartUpdated from:body">
+        </section>
+        {{/cart_contents}}
+    {{/empty}}
+    {{#empty}}
+        <div class="shop-item">
+            <p>Your cart is currently empty</p>
+        </div>
+    {{/empty}}
+</section>
 {{>html_footer}}

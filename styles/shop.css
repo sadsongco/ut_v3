@@ -70,6 +70,7 @@ section.items h2 {
 
 section.bundle,
 section.item {
+  width: fit-content;
   min-width: 25em;
   min-height: 18em;
   color: var(--articleText);

@@ -18,5 +18,6 @@ foreach ($carousel_tiles as &$tile) {
 echo $this->renderer->render('news_page', [
     'nav'=>$this->nav,
     'carousel_tiles'=>$carousel_tiles,
+    'socials'=>true,
     'env'=>$env
 ]);

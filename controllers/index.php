@@ -36,6 +36,7 @@ echo $this->renderer->render('index', [
     'background'=>$background_choice,
     'carousel_tiles'=>$carousel_tiles,
     "nav"=>$this->nav,
+    "socials"=>true,
     "modules"=>$modules,
     "env"=>$env
 ]);
