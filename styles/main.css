@@ -74,10 +74,14 @@ footer {
   width: 90%;
   margin: auto;
   padding: 0.2em;
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   background-color: var(--transBlack);
   background-image: linear-gradient(to right, var(--transparent), var(--transBlack), var(--transBlack), var(--transBlack), var(--transparent));
   backdrop-filter: blur(15px);
+  animation: none;
 }
 
 footer section.socials img {
@@ -272,8 +276,11 @@ a.button::after {
   padding: var(--stdPaddingSmall);
 }
 #callToAction {
-  animation: noBlurFade 5s both;
-  animation-delay: 3s;
+  animation: none;
+  position: absolute;
+  bottom: 10vh;
+  left: 0;
+  width: 100%;
 }
 
 #callToAction {
@@ -292,8 +299,10 @@ a.button::after {
 @media screen and (min-width: 900px) {
   #callToAction {
     position: fixed;
-    top: 85vh;
+    bottom: 12vh;
     width: 100%;
+    animation: noBlurFade 5s both;
+    animation-delay: 3s;
   }
   #callToAction .emailForm form {
     min-width: 28em;
