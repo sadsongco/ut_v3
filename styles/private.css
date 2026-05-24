@@ -2,9 +2,9 @@
   color: black;
   background-color: white;
   border-radius: 5px;
-  box-shadow: var(--darkShadow);
+  box-shadow: var(--dark-shadow);
   padding: 1em;
-  margin: var(--stdMarginSmall);
+  margin: var(--std-margin-small);
 }
 
 .content-container input {
@@ -20,13 +20,13 @@
   gap: 1em;
 }
 
-.carouselTilePreview {
+.carousel-tile-preview {
   margin: 0.5em;
   padding: 0.5em;
   border: 1px solid black;
 }
 
-.carouselTilePreview img {
+.carousel-tile-preview img {
   height: 300px;
 }
 
@@ -38,7 +38,7 @@
   height: auto;
 }
 
-.submitOrderSpinnerContainer img {
+.submit-order-spinner-container img {
   max-width: 70px;
   max-height: 70px;
 }
@@ -46,7 +46,7 @@
 .list {
 }
 
-.listRow {
+.list-row {
   display: grid;
   grid-template-columns: 25em 3em;
   column-gap: 0.5em;
@@ -54,10 +54,10 @@
   padding: 0.5em;
   margin-bottom: 0.1em;
 }
-.listRow:nth-child(even) {
+.list-row:nth-child(even) {
   background-color: #444;
 }
-.listRow:nth-child(odd) {
+.list-row:nth-child(odd) {
   background-color: #777;
 }
 
@@ -65,7 +65,7 @@
   float: right;
 }
 
-.priceHolder {
+.price-holder {
   width: 6em;
 }
 
@@ -79,8 +79,8 @@
 .accordion header {
   width: 100%;
   display: flex;
-  padding: var(--stdPaddingSmall);
-  /* margin: var(--stdMarginSmall) 0; */
+  padding: var(--std-padding-small);
+  /* margin: var(--std-margin-small) 0; */
   cursor: pointer;
   align-items: center;
   justify-content: space-between;
@@ -93,8 +93,8 @@ img.hidden {
 
 .accordion-content {
   width: 80%;
-  background-color: var(--tabBackground);
-  color: var(--tabColour);
+  background-color: var(--tab-background);
+  color: var(--tab-colour);
   max-height: 0;
   overflow: hidden;
   height: fit-content;

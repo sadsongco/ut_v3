@@ -16,7 +16,7 @@
   height: auto;
 }
 
-.userModal {
+.user-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -30,24 +30,24 @@
   border-radius: 5px;
 }
 
-.userModal.userHide {
+.user-modal.userHide {
   top: -120px;
 }
-.userModal.userShow {
+.user-modal.userShow {
   top: clamp(50px, 4.5vw, 80px);
 }
 
-.userModal.htmx-added {
+.user-modal.htmx-added {
   right: 10vw;
 }
 
-.userModal label {
+.user-modal label {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.7em;
   font-weight: 300;
 }
 
-.userModal form {
+.user-modal form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   justify-content: right;
@@ -55,14 +55,14 @@
   place-content: right;
 }
 
-.userModal form input {
+.user-modal form input {
   width: 10em;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.7em;
   font-weight: 300;
 }
 
-.userModal form input[type='submit'] {
+.user-modal form input[type='submit'] {
   width: auto;
   max-width: 14em;
 }
@@ -71,13 +71,13 @@
   color: #666;
 }
 
-.userModal a {
+.user-modal a {
   font-size: 0.8em;
   color: #ff99;
   transition: color 0.4s ease-in-out;
 }
 
-.userModal a:hover {
+.user-modal a:hover {
   cursor: pointer;
   color: #fff;
 }

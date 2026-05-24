@@ -6,15 +6,15 @@
   margin: auto;
 }
 .carousel-item {
-  padding: var(--stdPaddingSmall);
+  padding: var(--std-padding-small);
   position: absolute;
   width: 100%;
   max-width: 100%;
   min-height: 100vh;
   border: none;
   top: 0;
-  background-color: var(--tabBackground);
-  color: var(--tabColour);
+  background-color: var(--tab-background);
+  color: var(--tab-colour);
   transform: scale(0.7);
   opacity: 0;
   display: flex;
@@ -37,7 +37,7 @@
 }
 
 .carousel-item a:hover {
-  color: var(--compColBrt1);
+  color: var(--comp-col-brt-1);
   transition: color 0.3s ease-in-out;
 }
 
@@ -74,7 +74,7 @@
 
 .carousel-item .slide-text {
   height: fit-content;
-  padding: var(--stdPaddingSmall);
+  padding: var(--std-padding-small);
   text-align: left;
   flex-shrink: 2;
 }
@@ -107,8 +107,8 @@
   z-index: 4;
   left: 0;
   transition:
-    left var(--stdTransitionTime) ease-in-out,
-    transform var(--stdTransitionTime) ease-in-out;
+    left var(--std-transition-time) ease-in-out,
+    transform var(--std-transition-time) ease-in-out;
   opacity: 1;
   transform: scale(1);
   height: fit-content;

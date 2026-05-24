@@ -1,99 +1,101 @@
 /* **** Accordion to show comments ***** */
-.commentAcc {
-  margin: var(--stdMarginSmall) auto;
+.comment-acc {
+  margin: var(--std-margin-small) auto;
   width: 86%;
 }
 
-.commentAccCollapse,
-.commentAccExpand {
+.comment-comment-acc-collapse,
+.comment-comment-acc-expand {
   padding: 0.3em;
-  background-color: var(--headerBlockBackground);
-  color: var(--headerBlockColour);
-  border: 1px solid var(--commentBorder);
+  background-color: var(--header-block-background);
+  color: var(--header-block-colour);
+  border: 1px solid var(--comment-border);
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.commentHeadShow {
+.comment-head-show {
   font-size: 3em;
   font-weight: bold;
   cursor: pointer;
 }
 
 /* ***** comoments themseleves ***** */
-.commentHead {
+.comment-head {
   width: 100%;
   margin: 0.2em;
   display: flex;
   justify-content: space-between;
-  border-bottom: var(--commentBoxOutline);
+  border-bottom: var(--comment-box-outline);
 }
 
-.commentDate {
+.comment-date {
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.6em;
   justify-self: flex-end;
   align-self: flex-end;
 }
 
-.commentDate::before,
-.commentDate::after {
+.comment-date::before,
+.comment-date::after {
   content: '--';
 }
 
-.commentsContainer,
-.commentForm {
+.comments-container,
+.comment-form {
   max-height: 5000vh;
   opacity: 1;
-  transition: max-height 0.3s ease-in, opacity 0.3s ease-in;
+  transition:
+    max-height 0.3s ease-in,
+    opacity 0.3s ease-in;
 }
 
-.commentContainer,
-.commentForm {
-  padding: var(--stdPaddingSmall);
+.comment-container,
+.comment-form {
+  padding: var(--std-padding-small);
   margin-top: 2px;
 }
 
-.commentContainer {
-  border: var(--commentBoxOutline);
-  color: var(--tabColour);
+.comment-container {
+  border: var(--comment-box-outline);
+  color: var(--tab-colour);
   --indent: 0;
   /* margin-left: var(--indent); */
 }
 
-.commentBody {
+.comment-body {
   font-size: 0.8em;
   text-align: left;
 }
 
-.replyContainer {
+.reply-container {
   margin-left: 1em;
 }
 
-.commentContainer:nth-of-type(odd) {
-  background-color: var(--listOdd);
+.comment-container:nth-of-type(odd) {
+  background-color: var(--list-odd);
 }
 
-.commentContainer:nth-of-type(even) {
-  background-color: var(--listEven);
+.comment-container:nth-of-type(even) {
+  background-color: var(--list-even);
 }
 
-.replyContainer:nth-child(1) {
+.reply-container:nth-child(1) {
   --indent: 2vw;
-  border-left: 3px solid var(--compColBrt1);
+  border-left: 3px solid var(--comp-col-brt-1);
 }
-.replyContainer:nth-child(2) {
+.reply-container:nth-child(2) {
   --indent: 4vw;
-  border-left: 3px solid var(--compColBrt2);
+  border-left: 3px solid var(--comp-col-brt-2);
 }
-.replyContainer:nth-child(3) {
+.reply-container:nth-child(3) {
   --indent: 6vw;
-  border-left: 3px solid var(--compColBrt3);
+  border-left: 3px solid var(--comp-col-brt-3);
 }
-.replyContainer:nth-child(n + 4) {
+.reply-container:nth-child(n + 4) {
   --indent: 8vw;
-  border-left: 3px solid var(--compColBrt4);
+  border-left: 3px solid var(--comp-col-brt-4);
 }
 
 .comment-input {
@@ -104,39 +106,39 @@
   font-size: 0.8em;
 }
 
-.commentForm,
-.commentReply {
+.comment-form,
+.comment-reply {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
 }
 
-.commentForm input[type='text'] {
+.comment-form input[type='text'] {
   width: 50em;
   max-width: 97%;
   height: 3em;
   font-size: 0.8em;
 }
 
-.commentContainer input[type='submit'],
-.commentForm input[type='submit'],
-.replyForm {
+.comment-container input[type='submit'],
+.comment-form input[type='submit'],
+.reply-form {
   font-family: OpenSans;
   font-size: 0.7em;
   width: auto;
 }
 
-.commentNotify {
+.comment-notify {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.commentNotify label {
+.comment-notify label {
   font-family: OpenSans;
   font-size: 0.8em;
-  color: var(--commentBoxOutline);
+  color: var(--comment-box-outline);
   background-color: inherit;
 }
 

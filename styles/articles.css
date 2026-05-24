@@ -1,81 +1,81 @@
 /* articles */
-.articleContainer,
-.articleLinks,
-.commentForm,
+.article-container,
+.article-links,
+.comment-form,
 .comments {
   width: 90%;
   margin: auto;
 }
 
-.articleContainer {
-  padding: var(--stdPaddingMedium);
-  background-color: var(--articleBackground);
-  /* margin: var(--stdMarginSmall) 0; */
-  padding-bottom: var(--stdMarginSmall);
-  /* box-shadow: var(--articleShadow); */
+.article-container {
+  padding: var(--std-padding-medium);
+  background-color: var(--article-background);
+  /* margin: var(--std-margin-small) 0; */
+  padding-bottom: var(--std-margin-small);
+  /* box-shadow: var(--article-shadow); */
 }
 
-.articleContainer.hidden {
+.article-container.hidden {
   display: none;
 }
 
-.articleHead {
+.article-head {
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: baseline;
-  border-bottom: 1px solid var(--articleBorder);
+  border-bottom: 1px solid var(--article-border);
 }
 
 @media screen and (max-width: 900px) {
-  .articleHead {
+  .article-head {
     flex-direction: column;
   }
 }
 
-.articleBody {
-  color: var(--tabColour);
+.article-body {
+  color: var(--tab-colour);
   font-size: 0.9em;
-  padding: 0 var(--stdPaddingSmall);
+  padding: 0 var(--std-padding-small);
 }
 
-.articleContent {
-  padding: var(--stdPaddingMedium);
+.article-content {
+  padding: var(--std-padding-medium);
   text-align: left;
 }
 
-.articleContent a {
-  color: var(--tabColour);
+.article-content a {
+  color: var(--tab-colour);
 }
 
-.articleContent a:hover {
-  color: var(--tabHoverColour);
+.article-content a:hover {
+  color: var(--tab-hover-colour);
 }
 
 @media screen and (max-width: 900px) {
-  .articleBody,
-  .articleContent {
+  .article-body,
+  .article-content {
     padding: 0;
     width: 100%;
   }
-  .articleContent figure {
+  .article-content figure {
     border: 2px solid red;
   }
 }
 
-.articleContent br {
+.article-content br {
   content: 'A' !important;
   display: block !important;
   margin-bottom: 1.5em !important;
 }
-.audioPlayer h2 {
+.audio-player h2 {
   font: OpenSans;
   font-style: normal;
   font-size: 1.3em;
 }
 
-.audioPlayer p {
+.audio-player p {
   font-size: 0.8em;
 }
 
@@ -91,28 +91,28 @@ article img {
   height: auto;
 }
 
-.articleTitle {
+.article-title {
   justify-self: start;
   font: OpenSansBold;
   font-size: 1.5em;
 }
 
-.articleDate {
+.article-date {
   justify-self: end;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.8em;
 }
 
-.articleDate::before {
+.article-date::before {
   content: '--';
 }
 
-.articleDate::after {
+.article-date::after {
   content: '--';
 }
 
 @media screen and (max-width: 900px) {
-  .articleDate {
+  .article-date {
     width: 100%;
     justify-self: center;
   }
@@ -124,65 +124,67 @@ figure {
   margin: 0;
 }
 
-figure.floatLeft,
-figure.floatRight,
-figure.floatCentered {
+figure.float-left,
+figure.float-right,
+figure.float-centered {
   padding: 0.5em 1em;
   margin-bottom: 1em;
-  background-color: var(--headerBlockBackground);
-  border: 1px solid var(--commentBorder);
+  background-color: var(--header-block-background);
+  border: 1px solid var(--comment-border);
 }
 
-figure.floatLeft {
+figure.float-left {
   float: left;
   margin-right: 1em;
   text-align: left;
 }
 
-figure.floatRight {
+figure.float-right {
   float: right;
   margin-left: 1em;
   text-align: right;
 }
 
-figure.floatCentered {
+figure.float-centered {
   clear: both;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-figure.floatLeft,
-figure.floatRight {
+figure.float-left,
+figure.float-right {
   display: inline-block;
 }
-.imgTitle {
+.img-title {
   font-family: OpenSansBold;
 }
 
-.imgNotes {
+.img-notes {
   font-size: 0.7em;
 }
 
-section.articleLinks {
+section.article-links {
   padding: 0.5em;
   margin-top: 0.5em;
-  background-color: var(--articleBackground);
+  background-color: var(--article-background);
 }
 
-.articleLinks a.articleLink {
+.article-links a.article-link {
   display: block;
   color: #aaa;
   text-decoration: none;
   padding: 0.3em;
   margin: 0.3em;
-  background-color: var(--tabColour);
-  transition: background-color ease 0.5s, scale ease 0.5s;
+  background-color: var(--tab-colour);
+  transition:
+    background-color ease 0.5s,
+    scale ease 0.5s;
 }
 
-.articleLinks a.articleLink:hover {
+.article-links a.article-link:hover {
   color: #000;
   cursor: pointer;
-  background-color: var(--tabHoverColour);
+  background-color: var(--tab-hover-colour);
   scale: 1.01;
 }

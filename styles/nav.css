@@ -67,18 +67,15 @@ nav ul a li {
   width: 5em;
 }
 
-nav ul li:first-child {
-}
-
 nav ul a li:hover {
-  /* background-color: var(--headerBlockBackground); */
+  /* background-color: var(--header-block-background); */
   background-color: #000;
   color: #777;
   cursor: pointer;
 }
 
 nav ul a {
-  color: var(--stdColour);
+  color: var(--std-colour);
   text-decoration: none;
 }
 

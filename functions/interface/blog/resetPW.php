@@ -3,7 +3,7 @@
 include(__DIR__ . "/../../functions.php");
 include("includes/content_includes.php");
 
-$target = "userModal";
+$target = "user-modal";
 if (isset($_GET['target'])) $target = $_GET['target'];
 
 

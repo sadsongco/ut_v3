@@ -1,6 +1,6 @@
 let slides;
 let interval;
-let transitionTime = window.getComputedStyle(document.body).getPropertyValue('--stdTransitionTime');
+let transitionTime = window.getComputedStyle(document.body).getPropertyValue('--std-transition-time');
 transitionTime = transitionTime.substring(0, transitionTime.length - 2);
 const carouselWaitTime = 7500;
 
@@ -43,7 +43,7 @@ const startCarousel = () => {
   interval = setInterval(function () {
     for (let slide of slides) {
       if (slide.classList.contains('active')) {
-        slide.style.transition = 'opacity var(--stdTransitionTime) ease-in-out';
+        slide.style.transition = 'opacity var(--std-transition-time) ease-in-out';
         slide.style.zIndex = '-1';
         slide.style.opacity = '0';
         continue;

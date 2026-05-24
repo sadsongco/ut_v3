@@ -1,4 +1,4 @@
-        <section class="commentForm" id="commentForm_{{article_id}}">
+        <section class="comment-form" id="comment-form_{{article_id}}">
             {{#logged_in}}
                 {{>comment_form}}
             {{/logged_in}}
@@ -6,5 +6,5 @@
                 You need to be logged in to comment.
             {{/logged_in}}
         </section>
-        <form id="replyToComment{{comment_reply_id}}" class="commentReply" hx-swap-oob="true">
+        <form id="replyToComment{{comment_reply_id}}" class="comment-reply" hx-swap-oob="true">
         <input type="submit" value="Reply" disabled />

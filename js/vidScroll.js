@@ -1,6 +1,6 @@
-const heroVid = document.getElementById('heroVid');
+const heroVid = document.getElementById('hero-vid');
 heroVid.playbackRate = 0.5;
-const pageContainer = document.getElementById('pageContainer');
+const pageContainer = document.getElementById('page-container');
 let vidHeight = 0;
 let vidDuration = 0;
 

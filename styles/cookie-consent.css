@@ -1,4 +1,4 @@
-.cookieConsent {
+.cookie-consent {
   display: none;
   position: fixed;
   left: 0;
@@ -13,24 +13,24 @@
   transition: bottom 2s ease-in-out;
 }
 
-.cookieConsent.consentShow {
+.cookie-consent.consent-show {
   display: none;
   bottom: 3px;
 }
 
-.cookieConsent.consentHidden {
+.cookie-consent.consent-hidden {
   display: none;
   bottom: -10em;
 }
 
-.cookieConsentInnerContainer {
+.cookie-consent-inner-container {
   position: relative;
   width: clamp(30em, 40%, 80em);
   padding: 1.5em;
   background-color: #fff;
 }
 
-.closeConsent {
+.close-consent {
   position: absolute;
   top: 5px;
   right: 5px;

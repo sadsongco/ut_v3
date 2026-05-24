@@ -1,10 +1,10 @@
-<div class="commentContainer">
-    <div class="commentHead">
+<div class="comment-container">
+    <div class="comment-head">
         <div class="username{{#band_member}} band{{/band_member}}" >{{username}}</div>
-        <div class="commentDate">{{comment_date}}</div>
+        <div class="comment-date">{{comment_date}}</div>
     </div>
-    <div class="commentBody">{{{comment}}}</div>
-    <form id="replyToComment{{comment_id}}" class="commentReply" hx-post="/functions/interface/blog/reply_form.php" hx-target="#commentReply_{{comment_id}}" hx-swap="outerHTML">
+    <div class="comment-body">{{{comment}}}</div>
+    <form id="replyToComment{{comment_id}}" class="comment-reply" hx-post="/functions/interface/blog/reply_form.php" hx-target="#comment-reply_{{comment_id}}" hx-swap="outerHTML">
         <input type="hidden" name="replyTo_username" value="{{username}}" />
         <input type="hidden" name="replyTo_body" value="{{comment}}" />
         <input type="hidden" name="comment_id" value="{{comment_id}}" />
@@ -12,10 +12,10 @@
         <input type="hidden" name="tab_id" value="{{tab_id}}" />
         <input type="submit" value="Reply" />
     </form>
-    <div class="commentReply" id="commentReply_{{comment_id}}" onclick="resizeHTMX(event)"></div>
+    <div class="comment-reply" id="comment-reply_{{comment_id}}" onclick="resizeHTMX(event)"></div>
 </div>
 {{#replies}}
-    <div class="replyContainer">
+    <div class="reply-container">
         {{>comment_body}}
     </div>
 {{/replies}}

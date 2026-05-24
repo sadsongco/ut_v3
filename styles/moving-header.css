@@ -47,7 +47,7 @@ body {
   max-width: 80%;
 }
 
-.videoContainer video {
+.video-container video {
   object-fit: cover;
   width: 100%;
   height: auto;
@@ -58,14 +58,14 @@ body {
   mask-image: linear-gradient(to top, transparent 5%, black 100%);
 }
 
-.videoContainer {
+.video-container {
   display: none;
   width: 100%;
   aspect-ratio: 16 / 9;
 }
 
 @media screen and (min-width: 900px) {
-  .videoContainer {
+  .video-container {
     display: block;
     position: absolute;
     top: 0;
@@ -116,7 +116,7 @@ body {
   }
 }
 
-#heroVid {
+#hero-vid {
   filter: blur(8px);
 }
 

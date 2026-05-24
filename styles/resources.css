@@ -1,6 +1,6 @@
 /* general */
 
-.resourceItem a {
+.resource-item a {
   color: #228;
   text-decoration: underline;
 }
@@ -27,7 +27,7 @@ section.resource:nth-last-of-type(even) {
   background-color: #eee;
 }
 
-a.imgLink {
+a.img-link {
   display: block;
 }
 
@@ -35,7 +35,7 @@ a.imgLink {
   position: relative;
 }
 
-.resourceItem {
+.resource-item {
   padding-bottom: 0.3em;
   border-bottom: 1px solid #a9a9a9;
   margin-bottom: 0.3em;
@@ -47,7 +47,7 @@ a.imgLink {
   width: clamp(200px, 100%, 560px);
 }
 
-.responsiveIframe {
+.responsive-iframe {
   position: absolute;
   top: 0;
   left: 0;
@@ -58,6 +58,10 @@ a.imgLink {
 }
 
 nav {
+  position: relative;
+  height: fit-content;
+  left: 0;
+  top: 0;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -68,8 +72,10 @@ nav ul.nav,
 ul.nav {
   display: flex;
   flex-wrap: wrap;
+  flex-direction: row;
   justify-content: space-between;
-  width: clamp(60%, fit-content, 100%);
+  height: fit-content;
+  width: 100%;
 }
 
 nav ul.nav li,
@@ -128,15 +134,15 @@ nav ul.nav {
   color: #888;
 }
 
-.resource_container {
+.resource-container {
   padding: 0.5em;
   margin-bottom: 1em;
 }
 
-.resource_container:nth-child(odd) {
+.resource-container:nth-child(odd) {
   background-color: #afafcf;
 }
-.resource_container:nth-child(even) {
+.resource-container:nth-child(even) {
   background-color: #cfafaf;
 }
 
@@ -150,7 +156,7 @@ blockquote {
 }
 
 blockquote h3 {
-  font-family: var(--headingFont);
+  font-family: var(--heading-font);
   font-size: 1.6em;
   line-height: 1em;
 }
@@ -176,20 +182,20 @@ blockquote h3:after {
   color: #80808040;
 }
 
-.quoteSource {
+.quote-source {
   width: fit-content;
   font-size: 1em;
   font-style: italic;
   margin-top: 0.8em;
 }
 
-.resourceItem.pressQuote {
+.resource-item.press-quote {
   text-align: left;
-  border-bottom: 1px solid var(--articleBorder);
+  border-bottom: 1px solid var(--article-border);
   padding: 1em;
   margin-bottom: 0.5em;
 }
 
-.resourceItem.pressQuote:last-of-type {
+.resource-item.press-quote:last-of-type {
   border-bottom: none;
 }

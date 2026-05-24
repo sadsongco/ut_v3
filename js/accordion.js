@@ -29,7 +29,7 @@ const resize = async (e) => {
 const resizeHTMX = async (e) => {
   const urlParams = new URLSearchParams(window.location.search);
   if (!urlParams.has('article_id')) return;
-  if (e.target.classList.contains('blog') || e.target.classList.contains('audioPlayer') || e.target.classList.contains('comments-container') || e.target.classList.contains('commentReply')) {
+  if (e.target.classList.contains('blog') || e.target.classList.contains('audio-player') || e.target.classList.contains('comments-container') || e.target.classList.contains('comment-reply')) {
     const item = document.getElementById('blog-content');
     item.style.maxHeight = `${item.scrollHeight}px`;
     return;
@@ -58,7 +58,7 @@ const resizeAccordion = async (item) => {
     // Scrollheight property return the height of
     // an element including padding
     target.style.transition = 'max-height 0.5s ease-in-out, padding 0s linear';
-    target.style.padding = 'var(--stdPaddingSmall)';
+    target.style.padding = 'var(--std-padding-small)';
     target.style.maxHeight = `${target.scrollHeight}px`;
     item.querySelector('i').classList.replace('fa-plus', 'fa-minus');
   } else {

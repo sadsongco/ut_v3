@@ -79,7 +79,7 @@ if (isset($_POST['update'])) {
     header("HX-Trigger: shippingUpdated");
     echo number_format($shipping, 2);
     if ($tariff) {
-        echo "<div id='tariff' class='tariffMessage' hx-swap-oob='true'>This includes tariff costs of &pound;" . number_format($tariff, 2) . "</div>";
+        echo "<div id='tariff' class='tariff-message' hx-swap-oob='true'>This includes tariff costs of &pound;" . number_format($tariff, 2) . "</div>";
     } else {
         echo "<div id='tariff' hx-swap-oob='true'></div>";
     }

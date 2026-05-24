@@ -2,7 +2,7 @@
     <h2>{{name}}</h2>
     {{#resources}}
         {{^ext_media}}
-            <div class="resourceItem">
+            <div class="resource-item">
                 {{#img_preview}}
                     <img src="/resources/serve/{{path}}/thumbnail/{{serve_path}}" alt="Thumbnail image of {{resource}}" {{#thumbnail_size}}{{{3}}}{{/thumbnail_size}}/>
                     <br />
@@ -25,23 +25,23 @@
             </div>
         {{/ext_media}}
         {{#playlists}}
-            <div class="resourceItem">
+            <div class="resource-item">
                 {{>playlist}}
             </div>
         {{/playlists}}
         {{#videos}}
-            <div class="resourceItem">
+            <div class="resource-item">
                 {{>youtubeIframe}}
             </div>
         {{/videos}}
         {{#press_shots}}
-            <div class="resourceItem">
+            <div class="resource-item">
                 {{>pressShot}}
             </div>
         {{/press_shots}}
         {{#press_quotes}}
-            <div class="resourceItem pressQuote">
-                <blockquote><h3>{{quote}}</h3></blockquote><p class="quoteSource">{{source}}</p>
+            <div class="resource-item press-quote">
+                <blockquote><h3>{{quote}}</h3></blockquote><p class="quote-source">{{source}}</p>
             </div>
         {{/press_quotes}}
     {{/resources}}

@@ -1,10 +1,10 @@
 
-<section class="articleContainer">
+<section class="article-container">
     {{#article}}
         {{>article}}
     {{/article}}
 </section>
-<section class="articleLinks">
+<section class="article-links">
     {{#next_article}}
         <button hx-get="/content?article_id={{next_article}}" data-article_id="{{next_article}}" hx-target="#blog-content" hx-replace="innerHTML" hx-on:click="updateURL(event)">Next Blog</button>
     {{/next_article}}
@@ -12,7 +12,7 @@
         <button hx-get="/content?article_id={{prev_article}}" data-article_id="{{prev_article}}" hx-target="#blog-content" hx-replace="innerHTML" hx-on:click="updateURL(event)">Previous Blog</button>
     {{/prev_article}}
 </section>
-<section class="commentForm" hx-get="/functions/interface/blog/comment_form.php?article_id={{article_id}}" hx-trigger="load">
+<section class="comment-form" hx-get="/functions/interface/blog/comment_form.php?article_id={{article_id}}" hx-trigger="load">
 </section>
 <section class="comments">
     {{>comments}}

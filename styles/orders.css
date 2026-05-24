@@ -193,8 +193,8 @@ button:hover,
   display: grid;
   grid-template-columns: 1fr 1fr;
   column-gap: 1em;
-  padding: var(--stdPaddingMedium);
-  margin: var(--stdMarginSmall);
+  padding: var(--std-padding-medium);
+  margin: var(--std-margin-small);
   border: 1px solid black;
   border-radius: 3px;
 }

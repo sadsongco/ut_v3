@@ -15,7 +15,7 @@ if ((isset($_SESSION['bundles']) && sizeof($_SESSION['bundles']) > 0 ) || (isset
             $no_items += $bundle['quantity'];
         }
     }
-    echo '<a class="icon viewCartItems" href="/shop/cart"><div class="viewCartBadge">' . $no_items . '</div></a>';
+    echo '<a class="icon view-cart-items" href="/shop/cart"><div class="view-cart-badge">' . $no_items . '</div></a>';
 }
 
-else echo '<a class="icon viewCart" href="/shop/cart"></a>';
+else echo '<a class="icon view-cart" href="/shop/cart"></a>';

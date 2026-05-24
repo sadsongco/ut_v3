@@ -45,15 +45,15 @@ function getImage($image_id, $image_float, $db) {
     if ($image_float) {
         switch ($image_float) {
             case "l":
-                $image["float"] = "floatLeft";
+                $image["float"] = "float-left";
                 $image["template"] = "articles/inline_image";
                 break;
             case "r":
                 $image["template"] = "articles/inline_image";
-                $image["float"] = "floatRight";
+                $image["float"] = "float-right";
                 break;
             default:
-                $image["float"] = "floatCentered";
+                $image["float"] = "float-centered";
         }
     }
     return $image;
