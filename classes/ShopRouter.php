@@ -39,6 +39,7 @@ class ShopRouter extends Router
     ];
     function __construct($renderer)
     {
+        $v = VERSION;
         $this->renderer = $renderer;
         $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
         $uri = str_replace('/shop', '', $uri);

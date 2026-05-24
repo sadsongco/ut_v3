@@ -1,3 +1,3 @@
 <?php
 
-echo $this->renderer->render('index', ['nav'=>$this->nav]);
+echo $this->renderer->render('index', ['nav'=>$this->nav, 'v'=>$v]);

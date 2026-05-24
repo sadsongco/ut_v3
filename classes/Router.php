@@ -57,6 +57,7 @@ class Router
             foreach ($this->routes AS $route) {
                 $this->nav['endpoints'][] = $route;
             }
+            $v = VERSION;
             require base_path('controllers/' . $this->routes[$path]['controller'] . '.php');
         } else {
             $this->nav = [];

@@ -59,7 +59,7 @@
 
 .comment-container {
   border: var(--comment-box-outline);
-  color: var(--tab-colour);
+  color: var(--std-colour);
   --indent: 0;
   /* margin-left: var(--indent); */
 }
@@ -67,6 +67,7 @@
 .comment-body {
   font-size: 0.8em;
   text-align: left;
+  color: var(-std-colour);
 }
 
 .reply-container {
@@ -161,7 +162,7 @@ input[type='checkbox'] {
 
 .username.band {
   font-family: OpenSansBold;
-  color: #f00;
+  color: var(--error-colour);
 }
 
 .band::after {

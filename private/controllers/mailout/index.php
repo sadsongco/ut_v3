@@ -1,3 +1,3 @@
 <?php
 
-echo $this->renderer->render('mailout/index', ["stylesheets"=>["mailout-admin"]]);
+echo $this->renderer->render('mailout/index', ["stylesheets"=>["mailout-admin"], 'v'=>$v]);

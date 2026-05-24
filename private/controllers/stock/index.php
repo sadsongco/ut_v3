@@ -49,4 +49,11 @@ foreach ($items as &$item) {
     $item['options'] = $db->query($query, [$item['item_id']])->fetchAll();
 }
 
-echo $this->renderer->render('stock/index', ["items"=>$items, "bundles"=>$bundles, "categories"=>$categories, "packaging_options"=>$packaging_classifications, "stylesheets"=>["stock"]]);
+echo $this->renderer->render('stock/index', [
+    "items"=>$items,
+    "bundles"=>$bundles,
+    "categories"=>$categories,
+    "packaging_options"=>$packaging_classifications,
+    "stylesheets"=>["stock"],
+    'v'=>$v
+]);

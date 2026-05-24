@@ -51,6 +51,7 @@ class AdminRouter extends Router
             foreach ($this->routes AS $route) {
                 $this->nav['endpoints'][] = $route;
             }
+            $v = VERSION;
             require base_path('private/controllers/' . $this->routes[$path]['controller'] . '.php');
         } else {
             $this->nav = [];

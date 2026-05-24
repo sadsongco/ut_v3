@@ -1,3 +1,3 @@
 <?php
 
-echo $this->renderer->render('shows', ['nav'=>$this->nav, 'stylesheets'=>['shows']]);
+echo $this->renderer->render('shows', ['nav'=>$this->nav, 'stylesheets'=>['shows'], 'v'=>$v]);

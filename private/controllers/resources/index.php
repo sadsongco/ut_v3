@@ -1,3 +1,3 @@
 <?php
 
-echo $this->renderer->render('resources/index');
+echo $this->renderer->render('resources/index', ['v'=>$v]);

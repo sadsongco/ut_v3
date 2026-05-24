@@ -19,5 +19,6 @@ echo $this->renderer->render('news_page', [
     'nav'=>$this->nav,
     'carousel_tiles'=>$carousel_tiles,
     'socials'=>true,
-    'env'=>$env
+    'env'=>$env,
+    'v'=>$v
 ]);

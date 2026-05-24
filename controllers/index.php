@@ -38,6 +38,7 @@ echo $this->renderer->render('index', [
     "nav"=>$this->nav,
     "socials"=>true,
     "modules"=>$modules,
-    "env"=>$env
+    "env"=>$env,
+    "v"=>$v
 ]);
 

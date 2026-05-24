@@ -20,5 +20,6 @@ echo $this->renderer->render('blog_page', [
     'nav'=>$this->nav,
     'article_id'=>$article_id,
     'stylesheets'=>['articles', 'comments'],
-    'env'=>$env
+    'env'=>$env,
+    'v'=>$v
 ]);

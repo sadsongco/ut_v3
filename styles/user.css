@@ -68,7 +68,7 @@
 }
 
 .username {
-  color: #666;
+  color: var(--username-colour);
 }
 
 .user-modal a {

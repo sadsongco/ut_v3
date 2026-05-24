@@ -4,27 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/styles/reset.css" />
-    <link rel="stylesheet" href="/styles/imports.css" />
-    <link rel="stylesheet" href="/styles/vars.css?v=3" />
-    <link rel="stylesheet" href="/styles/main.css?v=4">
-    <link rel="stylesheet" href="/styles/nav.css?v=3">
-    <link rel="stylesheet" href="/styles/articles.css?v=3" />
-    <link rel="stylesheet" href="/styles/comments.css?v=2" />
-    <link rel="stylesheet" href="/styles/user.css?v=1" />
-    <link rel="stylesheet" href="/styles/moving-header.css?v=1" />
-    <link rel="stylesheet" href="/styles/shows.css?v=4">
+    <link rel="stylesheet" href="/styles/reset.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/imports.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/vars.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/main.css?v={{v}}">
+    <link rel="stylesheet" href="/styles/nav.css?v={{v}}">
+    <link rel="stylesheet" href="/styles/articles.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/comments.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/user.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/moving-header.css?v={{v}}" />
+    <link rel="stylesheet" href="/styles/shows.css?v={{v}}">
     {{#stylesheets}}
-    <link rel="stylesheet" href="/styles/{{.}}.css?v=1" />
+    <link rel="stylesheet" href="/styles/{{.}}.css?v={{v}}" />
     {{/stylesheets}}
-    <script defer src="/js/utils.js?v=3"></script>
+    <script defer src="/js/utils.js?v={{v}}"></script>
     <script src="/js/lib/htmx.min.js"></script>
     <script src="https://kit.fontawesome.com/865fbd0535.js" crossorigin="anonymous"></script>
     {{#scripts}}
-    <script defer src="/js/{{.}}.js?v=2"></script>
+    <script defer src="/js/{{.}}.js?v={{v}}"></script>
     {{/scripts}}
     {{#modules}}
-    <script defer type="module" src="/js/{{.}}.js?v=2"></script>
+    <script defer type="module" src="/js/{{.}}.js?v={{v}}"></script>
     {{/modules}}
 
     <title>Unbelievable Truth</title>

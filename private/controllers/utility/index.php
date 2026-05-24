@@ -80,7 +80,7 @@ while ($this_year >= $start_year) {
     $this_year--;
 }
 
-echo $this->renderer->render('utility/index', ["period_options" => $period_options]);
+echo $this->renderer->render('utility/index', ["period_options" => $period_options, 'v'=>$v]);
 
 function isLeapYear($year) {
     if (($year % 4 == 0 && $year % 100 != 0) 
