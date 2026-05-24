@@ -6,17 +6,8 @@
 const resize = async (e) => {
   const item = document.getElementById(e.target.dataset.targetid);
   closeOpenAccordion(item.id);
-  if (item.id !== 'blog') {
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.delete('article_id');
-    window.history.pushState({}, '', '/');
-  }
   if (item.id === 'blog') {
     updateURL();
-  }
-  if (item.id === 'hero') {
-    if (item.classList.contains('is-open')) setTimeout(stopCarousel, 500);
-    else startCarousel();
   }
   await resizeAccordion(item);
 };

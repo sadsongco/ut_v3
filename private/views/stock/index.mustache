@@ -1,13 +1,14 @@
 {{>html_header}}
-<section class="callout">
-    <h1>Stock Management Page</h1>
+    <h1>Stock Management</h1>
+    <section class="callout">
+    <h1>Items</h1>
 </section>
 {{#items}}
     <div id="item{{item_id}}-message"></div>
     <section class="show accordion" id="item{{item_id}}">
         <header data-targetid="item{{item_id}}">
-            <h2>{{name}}</h2>
-            <i class="fa-solid fa-plus"></i>
+            <h2 data-targetid="item{{item_id}}">{{name}}</h2>
+            <i class="fa-solid fa-plus" data-targetid="item{{item_id}}"></i>
         </header>
         <div class="accordion-content" id="item{{item_id}}-content">
             <form id="item{{item_id}}" hx-post="/private/functions/interface/stock/update_item.php" hx-target="#item{{item_id}}-message">

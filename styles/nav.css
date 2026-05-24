@@ -27,7 +27,7 @@
 nav {
   display: block;
   padding-left: 0.5em;
-  position: absolute;
+  position: fixed;
   left: -20vw;
   top: 0;
   height: 100vh;
