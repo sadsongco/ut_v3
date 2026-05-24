@@ -33,3 +33,10 @@ pre {
 .progress p {
   font-size: 0.8em;
 }
+
+.content-container,
+.html-preview,
+.text-preview {
+  padding: var(--std-padding-small);
+  border: var(--black-outline);
+}

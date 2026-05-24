@@ -1,21 +1,21 @@
 .pickingList,
-.orderList {
+.order-list {
   color: white;
 }
-.orderList,
+.order-list,
 .itemOption,
 .orderItemGrid {
   background-color: rgba(255, 255, 255, 0.6);
   color: black;
   font-size: 0.8em;
 }
-.orderList {
+.order-list {
   max-height: 0px;
   overflow: hidden;
   transition: max-height 0.5s ease-in-out;
 }
 
-.orderList.show {
+.order-list.show {
   max-height: 300000vh;
   transition: max-height 0.5s ease-in-out;
 }
@@ -143,7 +143,7 @@ button:hover,
   margin-bottom: 1em;
 }
 
-.pickingListRow {
+.picking-list-row {
   display: grid;
   grid-template-columns: 25em 3em;
   column-gap: 0.5em;
@@ -152,11 +152,11 @@ button:hover,
   margin-bottom: 0.1em;
 }
 
-.pickingListRow:nth-child(even) {
-  background-color: #444;
+.picking-list-row:nth-child(even) {
+  background-color: var(--list-even);
 }
-.pickingListRow:nth-child(odd) {
-  background-color: #777;
+.picking-list-row:nth-child(odd) {
+  background-color: var(--list-odd);
 }
 
 .itemFormGrid {
@@ -224,6 +224,17 @@ button:hover,
   transition:
     max-height 0.5s ease-in-out,
     padding 0.5s ease-in-out;
+}
+
+.content-header {
+  background-color: var(--header-block-background);
+  color: var(--header-block-colour);
+  padding: var(--std-padding-small);
+  cursor: pointer;
+  margin-top: var(--std-margin-small);
+  margin-bottom: var(--std-margin-small);
+  border: var(--black-outline);
+  border-radius: 3px;
 }
 
 .content-header.showing > .accordion-indicator {

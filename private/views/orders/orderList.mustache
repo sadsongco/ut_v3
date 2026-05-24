@@ -1,9 +1,9 @@
-    <header class="content-header" data-targetid="orderList" onclick="showHideOrders(event)">
+    <header class="content-header" data-targetid="order-list" onclick="showHideOrders(event)">
         <div class="accordion-title">{{num_orders}} order(s):</div>
         <div class="accordion-indicator"><i class="fa-solid fa-chevron-right"></i></div>
 
     </header>
-    <div id="filteredOrders" class="orderList">
+    <div id="filteredOrders" class="order-list">
         {{>filterBox}}
         {{#orders}} {{>order}} {{/orders}}
         {{^orders}} No orders in current filter {{/orders}}

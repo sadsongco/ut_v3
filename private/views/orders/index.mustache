@@ -34,11 +34,13 @@
     <section class="content-container">
       <h1>Current Picking List</h1>
       <div id="pickingList" class="pickingList" hx-get="/private/functions/interface/orders/picking.php" hx-trigger="load, updateOrderList from:body"></div>
+    </section>
+    <section class="content-container">
       <h1>Orders</h1>
       <div>
         <label for="orderFilter">Filter Orders:</label>
         <form id="orderFilterForm">
-            <select name="orderFilter" id="orderFilter" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="change" hx-target="#orderList">
+            <select name="orderFilter" id="orderFilter" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="change" hx-target="#order-list">
             <option value="all">All Orders</option>
             <option value="failed">Payment Failed</option>
             <option value="submitted">Submitted to RM</option>
@@ -50,7 +52,7 @@
             </select>
         </form>
       </div>
-      <div id="orderList" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="load, updateOrderList from:body" hx-include="#orderFilterForm"></div>
+      <div id="order-list" hx-post="/private/functions/interface/orders/order_list.php" hx-trigger="load, updateOrderList from:body" hx-include="#orderFilterForm"></div>
     </section>
     <section class="content-container">
       <h1>Transactions</h1>

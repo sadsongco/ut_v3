@@ -41,7 +41,7 @@ $output = '<div class="pickingList">';
 $shipped_arr = [];
 
 foreach ($responseObj as $order) {
-    $output .= '<div class="pickingListRow">';
+    $output .= '<div class="picking-list-row">';
     if (isset($order->code)) {
         $output .= "Error: " . $order->code . ": " . $order->message . "<br>";
         $output .= '</div>';
