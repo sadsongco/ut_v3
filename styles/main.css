@@ -51,12 +51,13 @@ section {
 
 article {
   background-color: #f8f8f8;
-  color: black;
+  color: var(--article-text);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 1em;
+  border: var(--article-border);
   border-radius: 5px;
   margin-bottom: 0.5rem;
 }
@@ -137,11 +138,20 @@ a {
   text-decoration: none;
   color: var(--std-colour);
   font-weight: bold;
+  transition: color 0.3s ease-in-out;
 }
 
 a:hover {
   color: var(--comp-col-brt-1);
   transition: color 0.3s ease-in-out;
+}
+
+article a {
+  color: var(--article-link);
+}
+
+article a:hover {
+  color: var(--article-link-hover);
 }
 
 .content-block {
