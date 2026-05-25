@@ -69,13 +69,11 @@ article {
 }
 
 footer {
-  width: 90%;
-  margin: auto;
-  padding: 0.2em;
-  position: absolute;
-  bottom: 0;
-  left: 0;
   width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: var(--std-padding-small);
+  position: relative;
   background-color: var(--trans-black);
   background-image: linear-gradient(to right, var(--transparent), var(--trans-black), var(--trans-black), var(--trans-black), var(--transparent));
   backdrop-filter: blur(15px);
@@ -109,6 +107,7 @@ footer section.socials img:hover {
     bottom: 0;
     left: 0;
     right: 0;
+    margin: auto;
     display: grid;
     grid-template-columns: 15em 1fr;
     z-index: 10;
