@@ -9,7 +9,8 @@ class Database
         'orders' => 'ut_o_connect.php',
         'admin' => 'ut_a_connect.php',
         'mailing_list' => 'ut_m_connect.php',
-        'content' => 'ut_c_connect.php'
+        'content' => 'ut_c_connect.php',
+        'members' => 'ut_mem_connect.php'
     ];
 
     function __construct($table='content')

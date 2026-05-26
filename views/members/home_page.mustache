@@ -1,0 +1,18 @@
+    {{^env}}
+        <h1>No page yet</h1>
+    {{/env}}
+
+    {{#env}}
+        {{#logged_in}}
+        <h1>Here's the page</h1>
+        <p>some other stuff</p>
+        {{>members/logout}}
+        {{/logged_in}}
+        {{^logged_in}}
+        <h2>You need to be logged in to see this page</h2>
+        <div id="login-container">
+            {{>members/login}}
+            {{>members/register}}
+        </div>
+        {{/logged_in}}
+    {{/env}}
