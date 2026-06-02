@@ -1,0 +1,12 @@
+      <form hx-post="/functions/interface/members/login.php" method="post" hx-target="#{{target}}">
+        <label for="userID">Email / Username</label>
+        <input type="text" name="username" id="userID" autocomplete="email" required />
+        <label for="userPassword">Password</label>
+        <input type="password" name="password" id="userPassword" autocomplete="current-password" required />
+        <label for="remember">Remember</label>
+        <input type="checkbox" id="remember" name="remember" />
+        <div class="spacer"></div>
+        <input type="submit" value="Log In" />
+      </form>
+      {{^logged_in}}
+      <a hx-post="/functions/interface/members/register_form.php?target={{target}}" hx-target="#{{target}}">Register</a> || {{/logged_in}}<a hx-post="/functions/interface/members/reset_pw.php?target={{target}}" hx-target="#{{target}}">Reset Password</a>

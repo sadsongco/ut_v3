@@ -23,7 +23,7 @@ function getCommentNotify($content_db, $reply) {
     }
 }
 
-function sendNotification($content_db, $m, $user_id, $article_id) {
+function sendNotification($content_db, $m_emails, $user_id, $article_id) {
     $email = "info@unbelievabletruth.co.uk";
     if ($user_id != "admin") {
         try {
@@ -38,8 +38,8 @@ function sendNotification($content_db, $m, $user_id, $article_id) {
 
     include(base_path("../secure/mailauth/ut.php"));
     $host = getHost();
-    $email_html = $m->render('replyNotificationEmailHTML', ["host"=>$host, "article_id"=>$article_id]);
-    $email_txt = $m->render('replyNotificationEmailTxt', ["host"=>$host, "article_id"=>$article_id]);
+    $email_html = $m_emails->render('authemails/replyNotificationEmailHTML', ["host"=>$host, "article_id"=>$article_id]);
+    $email_txt = $m_emails->render('authemails/replyNotificationEmailTxt', ["host"=>$host, "article_id"=>$article_id]);
     $subject = "Unbelievable Truth - there's a reply to your comment";
 
     // set up PHP Mailer
@@ -88,10 +88,10 @@ if (isset($_POST['comment_reply_id']) && intval($_POST['comment_reply_id']) != 0
     if (!validateCommentId($_POST['comment_reply_id'], $content_db)) exit ('Invalid comment id');
     $reply = intval($_POST['comment_reply_id']);
     $email_notification = getCommentNotify($content_db, $reply);
-    if ($email_notification['notify'] == 1) sendNotification($content_db, $m, $email_notification['user_id'], $_POST['article_id']);
+    if ($email_notification['notify'] == 1) sendNotification($content_db, $m_emails, $email_notification['user_id'], $_POST['article_id']);
 }
 
-sendNotification($content_db, $m, 'admin', $_POST['article_id']);
+sendNotification($content_db, $m_emails, 'admin', $_POST['article_id']);
 
 
 $params = [

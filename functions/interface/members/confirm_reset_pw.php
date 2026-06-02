@@ -14,8 +14,8 @@ function sendResetEmail ($email, $selector, $token, $m, $mail_auth) {
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
     $host = "$protocol://".$_SERVER['HTTP_HOST'];
-    $email_html = $m->render('resetPWEmail', ["host"=>$host, "selector"=>urlencode($selector), "token"=>urlencode($token)]);
-    $email_txt = $m->render('resetPWEmailTxt', ["host"=>$host, "selector"=>urlencode($selector), "token"=>urlencode($token)]);
+    $email_html = $m->render('authemails/resetPWEmail', ["host"=>$host, "selector"=>urlencode($selector), "token"=>urlencode($token)]);
+    $email_txt = $m->render('authemails/resetPWEmailTxt', ["host"=>$host, "selector"=>urlencode($selector), "token"=>urlencode($token)]);
     $subject = "Unbelievable Truth - password reset request";
 
     // set up PHP Mailer
@@ -55,7 +55,7 @@ try {
             echo "Couldn't send confirmation email: ";
             echo $e->getMessage();
         }
-    });
+    }, 5);
 
 }
 catch (\Delight\Auth\InvalidEmailException $e) {

@@ -7,7 +7,7 @@ if ($auth->isLoggedIn()) {
     echo $m->render('userLoggedIn', ["username"=>$auth->getUsername()]);
 } else {
     $host = getHost();
-    $target = "user-modal";
+    $target = "login-container";
     if (isset($_GET['target'])) $target = $_GET['target'];    
     echo $m->render('user_register', ["base_dir"=>$host, "target"=>$target]);
 }

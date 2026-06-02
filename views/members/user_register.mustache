@@ -1,4 +1,4 @@
-      <form hx-post="/functions/interface/blog/register.php" hx-target="#{{target}}">
+      <form hx-post="/functions/interface/members/register.php" hx-target="#{{target}}">
         <label for="userEmail">Email</label>
         <input type="email" name="email" id="userEmail" autocomplete="email" required />
         <label for="userPassword">Password</label>
@@ -7,4 +7,4 @@
         <input type="text" name="username" id="username" autocomplete="username" required />
         <div class="spacer"></div><input type="submit" value="Register" />
       </form>
-      <a hx-post="/functions/interface/blog/login_form.php" hx-target="#user-modal">Log In</a>
+      <a hx-post="/functions/interface/members/login_form.php" hx-target="#login-container">Log In</a>

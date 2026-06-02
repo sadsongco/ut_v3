@@ -7,8 +7,14 @@ include_once(base_path("/../secure/env/ut.members.config.php"));
 include_once(base_path("/../secure/env/ut_reserved_usernames.php"));
 include_once(base_path("/classes/Database.php"));
 
+p_2($_POST);
 try {
-    $auth->loginWithUsername($_POST['username'], $_POST['password']);
+
+    if (filter_var($_POST['username'], FILTER_VALIDATE_EMAIL)) {
+        $auth->login($_POST['username'], $_POST['password']);
+    } else {
+        $auth->loginWithUsername($_POST['username'], $_POST['password']);
+    }
     header ('HX-Trigger:loginStatusChanged');
     echo 'User is logged in';
 }

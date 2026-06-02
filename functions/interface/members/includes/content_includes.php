@@ -11,11 +11,6 @@ include_once(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
 Mustache_Autoloader::register();
 
 $m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader(base_path("views/blog")),
-    'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/blog/partials"))
-));
-
-$m_emails = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members")),
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members/partials"))
 ));

@@ -6,13 +6,11 @@
         {{#logged_in}}
         <h1>Here's the page</h1>
         <p>some other stuff</p>
-        {{>members/logout}}
+        {{>logout}}
         {{/logged_in}}
         {{^logged_in}}
         <h2>You need to be logged in to see this page</h2>
-        <div id="login-container">
-            {{>members/login}}
-            {{>members/register}}
+        <div id="login-container" hx-get="/functions/interface/members/login_form.php" hx-trigger="load">
         </div>
         {{/logged_in}}
     {{/env}}
