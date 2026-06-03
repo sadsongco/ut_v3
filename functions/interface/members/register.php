@@ -1,7 +1,7 @@
 <?php
 
-include(__DIR__ . "/../../functions.php");
-include("includes/content_includes.php");
+include_once(__DIR__ . "/../../functions.php");
+include_once("includes/content_includes.php");
 global $auth;
 
 function SendConfirmationEmail ($email, $selector, $token, $m, $mail_auth) {

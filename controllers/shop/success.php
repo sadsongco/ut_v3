@@ -2,7 +2,6 @@
 
 if(session_status() === PHP_SESSION_NONE) session_start();
 
-include(__DIR__ . "/../../functions/functions.php");
 require (base_path("/functions/utility/create_unique_token.php"));
 require (base_path("/functions/utility/send_customer_email.php"));
 require (base_path("/functions/utility/create_order_pdf.php"));

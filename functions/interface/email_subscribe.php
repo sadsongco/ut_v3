@@ -1,6 +1,5 @@
 <?php
 require_once(__DIR__ . "/../functions.php");
-
 require_once(base_path("functions/email/email_includes.php"));
 
 $output = json_encode(['success'=> false, 'status'=>'not found']);

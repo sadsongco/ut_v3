@@ -8,7 +8,7 @@ require(base_path("../secure/scripts/ut_c_connect.php"));
 
 $m_emails = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members/authemails")),
-    'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members/partials"))
+    'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/partials/members"))
 ));
 
 // auth

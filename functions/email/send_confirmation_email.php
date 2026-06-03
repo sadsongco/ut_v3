@@ -9,20 +9,11 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
-// Load Mustache
-require base_path('../lib/mustache.php-main/src/Mustache/Autoloader.php');
-Mustache_Autoloader::register();
-
 date_default_timezone_set('Europe/London');
 
 function sendConfirmationEmail($row, $option=null) {
-    if (ENV !== 'production') {
-        $row['email'] = 'nigel@thesadsongco.com';
-        $row['name'] = 'Nigel Powell';
-        $row['email_id'] = 999;
-    };
     $mail = new PHPMailer(true);
-    $m = new Mustache_Engine(array(
+    $m_emails = new Mustache_Engine(array(
         'loader' => new Mustache_Loader_FilesystemLoader(base_path('views/emails/customer/')),
         'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
     ));
@@ -30,8 +21,8 @@ function sendConfirmationEmail($row, $option=null) {
         $row['host'] = getHost();
         $row['secure_id'] = generateSecureId($row['email'], $row['email_id']);
         $params = [...$row, "$option"=>true];
-        $body = $m->render('confirmationEmailHtml', $params);
-        $text_body = $m->render('confirmationEmailText', $params);
+        $body = $m_emails->render('confirmationEmailHtml', $params);
+        $text_body = $m_emails->render('confirmationEmailText', $params);
         $subject = 'Unbelievable Truth - confirm your email';
         require_once(base_path("../secure/mailauth/ut.php"));
 
@@ -46,7 +37,8 @@ function sendConfirmationEmail($row, $option=null) {
         $mail->setFrom($mail_auth['from']['address'], $mail_auth['from']['name']);
         $mail->addReplyTo($mail_auth['reply']['address'], $mail_auth['reply']['name']);
         //Recipients
-        $mail->addAddress($row['email'], $row['name']);     //Add a recipient
+        if (ENV === 'production') $mail->addAddress($row['email'], $row['name']);
+        else $mail->addAddress('nigel@thesadsongco.com', 'TESTING');
 
         //Content
         $mail->isHTML(true);                                  //Set email format to HTML
