@@ -8,8 +8,8 @@ function SendConfirmationEmail ($email, $selector, $token, $m, $mail_auth) {
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
     $host = "$protocol://".$_SERVER['HTTP_HOST'];
-    $email_html = $m->render('authemails/confirmRegisterEmail', ["host"=>$host, "selector"=>$selector, "token"=>$token]);
-    $email_txt = $m->render('authemails/confirmRegisterEmailTxt', ["host"=>$host, "selector"=>$selector, "token"=>$token]);
+    $email_html = $m_emails->render('confirmRegisterEmail', ["host"=>$host, "selector"=>$selector, "token"=>$token]);
+    $email_txt = $m_emails->render('confirmRegisterEmailTxt', ["host"=>$host, "selector"=>$selector, "token"=>$token]);
     $subject = "Unbelievable Truth - please confirm your email";
 
     // set up PHP Mailer
@@ -53,22 +53,22 @@ try {
 
 catch (\Delight\Auth\InvalidEmailException $e) {
     echo '<p class="error">Invalid email address</p>';
-    echo $m->render('user_register', ["error"=>$e->getMessage()]);
+    echo $m->render('members/user_register', ["error"=>$e->getMessage()]);
     exit();
 }
 catch (\Delight\Auth\InvalidPasswordException $e) {
     echo '<p class="error">Invalid password</p>';
-    echo $m->render('user_register', ["error"=>$e->getMessage()]);
+    echo $m->render('members/user_register', ["error"=>$e->getMessage()]);
     exit();
 }
 catch (\Delight\Auth\UserAlreadyExistsException $e) {
    echo "<p class='error'>That email is already registered!</p>";
-   echo $m->render('user_register', ["error"=>$e->getMessage()]);
+   echo $m->render('members/user_register', ["error"=>$e->getMessage()]);
    exit();
 }
 catch (\Delight\Auth\DuplicateUsernameException $e) {
    echo "<p class='error'>That username is already registered!</p>";
-   echo $m->render('user_register', ["error"=>$e->getMessage()]);
+   echo $m->render('members/user_register', ["error"=>$e->getMessage()]);
    exit();
 }
 catch (\Delight\Auth\TooManyRequestsException $e) {

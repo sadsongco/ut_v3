@@ -6,12 +6,8 @@ $content_db = new Database('content');
 
 require(base_path("../secure/scripts/ut_c_connect.php"));
 
-// templating
-include_once(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
-Mustache_Autoloader::register();
-
-$m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members")),
+$m_emails = new Mustache_Engine(array(
+    'loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members/authemails")),
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/members/partials"))
 ));
 

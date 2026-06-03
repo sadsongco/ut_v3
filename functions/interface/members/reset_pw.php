@@ -7,6 +7,6 @@ $target = "login-container";
 if (isset($_GET['target'])) $target = $_GET['target'];
 
 
-echo $m->render("request_pw_reset", ["base_dir"=>getHost(), "target"=>$target]);
+echo $m->render("members/request_pw_reset", ["base_dir"=>getHost(), "target"=>$target]);
 
 ?>

@@ -25,9 +25,9 @@ function getSouncloudPlaylists($path) {
 
 function getYouTubeVideos($path) {
     $file_string = file_get_contents(base_path(RESOURCE_ASSET_PATH . $path."youtube_videos.txt"));
-    $videeos_arr = explode("\n", $file_string);
+    $videos_arr = explode("\n", $file_string);
     $videos = [];
-    foreach ($videeos_arr as $video) {
+    foreach ($videos_arr as $video) {
         if ($video == "") continue;
         $video_data = explode("|", $video);
         $videos[] = [

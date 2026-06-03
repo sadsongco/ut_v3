@@ -11,7 +11,6 @@ ini_set('error_log', './debug.log'); // Logging file path
 
 require_once(__DIR__ . "/../functions/functions.php");
 require(base_path('classes/Database.php'));
-require_once(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
 include_once("./includes/html_head.php");
 include_once(base_path('../secure/secure_id/secure_id_ut.php'));
 
@@ -24,10 +23,7 @@ include_once('./includes/set_last_mailout_sent.php');
 use Database\Database;
 $db = new Database('mailing_list');
 
-// Load Mustache
-Mustache_Autoloader::register();
-
-$m = new Mustache_Engine(array(
+$m_mailout = new Mustache_Engine(array(
 'loader' => new Mustache_Loader_FilesystemLoader(base_path('/private/views/mailout/')),
 'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/mailout/partials/'))
 ));
@@ -53,7 +49,7 @@ if (isset($_GET) && isset($_GET['email'])) {
     }
     $data = [...$_GET];
     $data['email_id'] = $email_id_result['email_id'];
-    $last_mailout_result = sendLastMailout($data, $email_id_result['last_sent'], $db, $m);
+    $last_mailout_result = sendLastMailout($data, $email_id_result['last_sent'], $db, $m_mailout);
     if ($last_mailout_result["success"]) {
         setLastMailoutSent($email_id_result['email_id'], $last_mailout_result["last_mailout"], $db);
     }

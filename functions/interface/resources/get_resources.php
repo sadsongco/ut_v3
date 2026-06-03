@@ -1,15 +1,6 @@
 <?php
 
 require_once(__DIR__ . "/../../../functions/functions.php");
-include_once(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
-
-Mustache_Autoloader::register();
-
-$m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader(base_path('views/resources')),
-    'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/resources/partials'))
-));
-
 include("get_resource.php");
 
 $resource_sections = [];
@@ -28,5 +19,5 @@ foreach ($resource_sections AS $resource_section) {
     $resources[] = getResource($resource_section, base_path(RESOURCE_ASSET_PATH));
 }
 // p_2($resources);
-echo $m->render('resourcePage',["sections"=>$sections, "resources"=>$resources]);
+echo $m->render('resources/resourcePage',["sections"=>$sections, "resources"=>$resources]);
 // echo $m->render('resourceSection', $resources);

@@ -9,5 +9,5 @@ if ($auth->isLoggedIn()) {
     $host = getHost();
     $target = "login-container";
     if (isset($_GET['target'])) $target = $_GET['target'];    
-    echo $m->render('user_register', ["base_dir"=>$host, "target"=>$target]);
+    echo $m->render('members/user_register', ["base_dir"=>$host, "target"=>$target]);
 }

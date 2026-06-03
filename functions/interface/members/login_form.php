@@ -6,4 +6,4 @@ include("includes/content_includes.php");
 $host = getHost();
 $target = "login-container";
 if (isset($_GET['target'])) $target = $_GET['target'];
-echo $m->render('login_form', ["base_dir"=>$host, "target"=>$target, "logged_in"=>$auth->isLoggedIn()]);
+echo $m->render('members/login_form', ["base_dir"=>$host, "target"=>$target, "logged_in"=>$auth->isLoggedIn()]);

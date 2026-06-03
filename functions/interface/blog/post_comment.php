@@ -114,4 +114,4 @@ catch (Exception $e) {
 }
 
 header ('HX-Trigger:refreshComments');
-echo $m->render("comment_form_solo", ["article_id"=>$params['article_id'], "logged_in"=>$auth->isLoggedIn()]);
+echo $m->render("blog/comment_form_solo", ["article_id"=>$params['article_id'], "logged_in"=>$auth->isLoggedIn()]);

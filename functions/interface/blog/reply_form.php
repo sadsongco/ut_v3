@@ -11,4 +11,4 @@ $params = [
     "comment_reply_id"=>$_POST["comment_id"]
 ];
 
-echo $m->render("comment_form_solo", $params);
+echo $m->render("blog/comment_form_solo", $params);
