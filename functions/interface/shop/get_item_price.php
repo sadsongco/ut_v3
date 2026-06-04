@@ -1,7 +1,6 @@
 <?php
 
 include(__DIR__ . "/../../functions.php");
-include(base_path("classes/Database.php"));
 
 use Database\Database;
 $db = new Database('orders');

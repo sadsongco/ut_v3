@@ -6,7 +6,6 @@ if (ENV === 'dev') $env = 'dev';
 include(base_path("private/functions/utility/nl2p.php"));
 
 use Database\Database;
-
 $db = new Database();
 
 $carousel_tiles = $db->query("SELECT img_url, tile_title, tile_text FROM carousel ORDER BY tile_order ASC")->fetchAll();

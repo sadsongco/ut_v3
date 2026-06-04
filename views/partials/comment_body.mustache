@@ -4,6 +4,7 @@
         <div class="comment-date">{{comment_date}}</div>
     </div>
     <div class="comment-body">{{{comment}}}</div>
+    {{#logged_in}}
     <form id="replyToComment{{comment_id}}" class="comment-reply" hx-post="/functions/interface/blog/reply_form.php" hx-target="#comment-reply_{{comment_id}}" hx-swap="outerHTML">
         <input type="hidden" name="replyTo_username" value="{{username}}" />
         <input type="hidden" name="replyTo_body" value="{{comment}}" />
@@ -12,6 +13,7 @@
         <input type="hidden" name="tab_id" value="{{tab_id}}" />
         <input type="submit" value="Reply" />
     </form>
+    {{/logged_in}}
     <div class="comment-reply" id="comment-reply_{{comment_id}}" onclick="resizeHTMX(event)"></div>
 </div>
 {{#replies}}

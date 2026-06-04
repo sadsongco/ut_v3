@@ -1,6 +1,5 @@
 <?php
 
-include_once(base_path("classes/Database.php"));
 use Database\Database;
 $content_db = new Database('content');
 

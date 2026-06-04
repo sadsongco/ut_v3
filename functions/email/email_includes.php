@@ -1,6 +1,5 @@
 <?php
 
-require_once(base_path("classes/Database.php"));
 use Database\Database;
 $db = new Database('admin');
 require_once(base_path("functions/email/send_confirmation_email.php"));

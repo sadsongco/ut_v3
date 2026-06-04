@@ -3,7 +3,7 @@
 include_once("./includes/html_head.php");
 
 require(__DIR__ . "/../functions/functions.php");
-require_once(base_path("classes/Database.php"));
+
 use Database\Database;
 $db = new Database('mailing_list');
 

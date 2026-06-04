@@ -2,7 +2,6 @@
 
 
 include("../../functions.php");
-require(base_path("classes/Database.php"));
 require(base_path("classes/SUCheckout.php"));
 require(base_path("functions/shop/get_cart_contents.php"));
 require(base_path("functions/shop/calculate_cart_subtotal.php"));
@@ -10,6 +9,8 @@ require(base_path("functions/interface/shop/calculate_shipping.php"));
 require(base_path("functions/shop/insert_order_into_db.php"));
 
 if (session_status() == PHP_SESSION_NONE) session_start();
+
+use Database\Database;
 
 function reduceStock($item, $db) {
     if ($item['option_id']) {
@@ -96,8 +97,6 @@ function validArtprintOrder($db) {
 
 $host = getHost();
 
-// load mustache template engine
-use Database\Database;
 $db = new Database('orders');
 
 if (!isset($_SESSION['items']) && !isset($_SESSION['bundles'])) {

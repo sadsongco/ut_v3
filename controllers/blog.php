@@ -6,7 +6,6 @@ if (ENV === 'dev') $env = 'dev';
 include(base_path("private/functions/utility/nl2p.php"));
 
 use Database\Database;
-
 $db = new Database();
 
 

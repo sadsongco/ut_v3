@@ -3,7 +3,7 @@
 if(session_status() === PHP_SESSION_NONE) session_start();
 
 include_once(__DIR__ . "/../../functions.php");
-include(base_path("classes/Database.php"));
+
 use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 

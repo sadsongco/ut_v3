@@ -143,6 +143,7 @@ a {
 a:hover {
   color: var(--comp-col-brt-1);
   transition: color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 article a {

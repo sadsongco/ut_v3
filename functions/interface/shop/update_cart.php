@@ -5,7 +5,6 @@ include_once(base_path("functions/shop/get_cart_contents.php"));
 include_once(base_path("functions/shop/get_package_specs.php"));
 include_once(base_path("functions/shop/calculate_cart_subtotal.php"));
 
-include_once(base_path("classes/Database.php"));
 use Database\Database;
 if (!isset($db)) $db = new Database('orders');
 

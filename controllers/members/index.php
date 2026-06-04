@@ -1,7 +1,6 @@
 <?php
 
 use Database\Database;
-
 $conn = new Database('members');
 global $auth;
 

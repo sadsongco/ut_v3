@@ -6,6 +6,9 @@ if (!isset($_SESSION['order_id'])) exit(); // no order id, nothing we can do her
 
 if (!defined('ENV')) include_once(__DIR__ ."/../../../functions/functions.php");
 
+
+use Database\Database;
+
 //Load Composer's autoloader
 require base_path('../lib/vendor/autoload.php');
 //Import PHPMailer classes into the global namespace
@@ -37,9 +40,6 @@ function email_admin($mail) {
         error_log("Message could not be sent. Mailer Error: " . $mail->ErrorInfo);
     }
 }
-
-require_once(base_path("classes/Database.php"));
-use Database\Database;
 
 if (!isset($db)) $db = new Database('orders');
 

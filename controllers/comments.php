@@ -1,8 +1,8 @@
 <?php
 
 require_once(__DIR__ . "/../functions/functions.php");
-include_once(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
-include_once(base_path("classes/Database.php"));
+include(base_path("/functions/interface/blog/includes/content_includes.php"));
+
 use Database\Database;
 $db = new Database('content');
 
@@ -61,4 +61,4 @@ catch (Exception $e) {
     $output = ["success"=>false, "message"=>"Couldn't retrieve comments: ".$e->getMessage()];
 }
 
-echo $this->renderer->render("comment", $output);
+echo $this->renderer->render("comment", [...$output, "logged_in"=>$auth->isLoggedIn()]);

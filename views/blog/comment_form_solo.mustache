@@ -1,10 +1,18 @@
         <section class="comment-form" id="comment-form_{{article_id}}">
             {{#logged_in}}
                 {{>blog/comment_form}}
+                {{>logout}}
             {{/logged_in}}
             {{^logged_in}}
-                You need to be logged in to comment.
+                You need to log in to comment.
             {{/logged_in}}
         </section>
-        <form id="replyToComment{{comment_reply_id}}" class="comment-reply" hx-swap-oob="true">
-        <input type="submit" value="Reply" disabled />
+        {{#logged_in}}
+            <form id="replyToComment{{comment_reply_id}}" class="comment-reply" hx-swap-oob="true">
+            <input type="submit" value="Reply!" disabled />
+        {{/logged_in}}
+        {{^logged_in}}
+            <section class="user" id="login-container">
+                {{>members/login_form}}
+            </section>
+        {{/logged_in}}
