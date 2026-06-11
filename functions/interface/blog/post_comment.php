@@ -12,11 +12,11 @@ use PHPMailer\PHPMailer\Exception;
 use Database\Database;
 $content_db = new Database('content');
 
-function getCommentNotify($auth_db, $reply) {
+function getCommentNotify($content_db, $reply) {
     try {
         $query = "SELECT notify, user_id FROM comments WHERE comment_id = ?;";
-        $result = $auth_db->query($query, [$reply])->fetchAll();
-        return $result[0];
+        $result = $content_db->query($query, [$reply])->fetch();
+        return $result;
     }
     catch (Exception $e) {
         return 0;
@@ -28,8 +28,11 @@ function sendNotification($auth_db, $m_emails, $user_id, $article_id) {
     if ($user_id != "admin") {
         try {
             $query = "SELECT email FROM users WHERE id = ?;";
-            $result = $auth_db->query($query, [$user_id])->fetch();
-            $email = $result['email'];
+            $stmt = $auth_db->prepare($query);
+            $stmt->execute([$user_id]);
+            $result = $stmt->fetch();
+            if (ENV !== "production") $email = "spam@thesadsongco.com";
+            else $email = $result['email'];
         } catch (Exception $e) {
             error_log($e);
             return;
@@ -45,7 +48,6 @@ function sendNotification($auth_db, $m_emails, $user_id, $article_id) {
     // set up PHP Mailer
     //Passing `true` enables PHPMailer exceptions
     $mail = new PHPMailer(true);
-
     // setup email variables
     $mail->isSMTP();
     $mail->Host = $mail_auth['host'];
@@ -87,7 +89,7 @@ if (isset($_POST['notify'])) $notify = true; // doesn't need sanitisation? if it
 if (isset($_POST['comment_reply_id']) && intval($_POST['comment_reply_id']) != 0) {
     if (!validateCommentId($_POST['comment_reply_id'], $content_db)) exit ('Invalid comment id');
     $reply = intval($_POST['comment_reply_id']);
-    $email_notification = getCommentNotify($auth_db, $reply);
+    $email_notification = getCommentNotify($content_db, $reply);
     if ($email_notification['notify'] == 1) sendNotification($auth_db, $m_emails, $email_notification['user_id'], $_POST['article_id']);
 }
 
