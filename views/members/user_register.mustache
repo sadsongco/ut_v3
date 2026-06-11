@@ -7,4 +7,4 @@
         <input type="text" name="username" id="username" autocomplete="username" required />
         <div class="spacer"></div><input type="submit" value="Register" />
       </form>
-      <a hx-post="/functions/interface/members/login_form.php" hx-target="#login-container">Log In</a>
+      <a hx-post="/functions/interface/members/login_form.php" hx-target="#login-container" hx-swap="innerHTML">Log In</a>

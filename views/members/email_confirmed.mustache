@@ -1,0 +1,15 @@
+{{>html_header}}
+{{>page_logo}}
+
+<section class='page-container'>
+    {{^error}}
+        <h2>Your email has been confirmed, and you are now logged in. You can close this page, return to the site and continue whatever you were doing.</h2>
+    {{/error}}
+
+    {{#error}}
+        <h2>There has been a problem with confirming your email</h2>
+        <p>{{message}}</p>
+    {{/error}}
+</section>
+
+{{>html_footer}}

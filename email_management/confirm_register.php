@@ -1,21 +1,21 @@
 <?php
 
 // database
-require_once("../../secure/scripts/ut_a_connect.php");
+require_once("../../secure/scripts/ut_u_connect.php");
 
 // templating system
-require '../lib/mustache.php-main/src/Mustache/Autoloader.php';
+require '../../lib/mustache.php-main/src/Mustache/Autoloader.php';
 Mustache_Autoloader::register();
 
 $m = new Mustache_Engine(array(
-    'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../php/templates'),
-    'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../php/templates/partials')
+    'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../views/members/'),
+    'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/../views/partials/')
 ));
 
 // auth
-require __DIR__ . '/../php/vendor/autoload.php';
+require __DIR__ . '/../../lib/vendor/autoload.php';
 try {
-    $auth = new \Delight\Auth\Auth($db);
+    $auth = new \Delight\Auth\Auth($auth_db);
 }
 catch (Exception $e) {
     error_log($e);
@@ -24,7 +24,6 @@ catch (Exception $e) {
 
 function addEmailToList($email) {
     require_once("../../secure/scripts/ut_m_connect.php");
-    echo "Add Email $email To List";
 
     try {
         $stmt = $db->prepare("INSERT INTO ut_mailing_list (email, name, domain, subscribed, confirmed, date_added) VALUES (?, ?, SUBSTRING_INDEX(?, '@', -1), ?, ?, NOW());");
@@ -42,19 +41,19 @@ function addEmailToList($email) {
 try {
     $auth->confirmEmailAndSignIn($_GET['selector'], $_GET['token']);
     addEmailToList($auth->getEmail());
-    echo $m->render('emailConfirmed');
+    echo $m->render('email_confirmed');
 }
 catch (\Delight\Auth\InvalidSelectorTokenPairException $e) {
-    die ($m->render('emailConfirmed', ["error"=>true, "message"=>"Invalid token - make sure you're coming to this site from the link in your email"]));
+    die ($m->render('email_confirmed', ["error"=>true, "message"=>"Invalid token - make sure you're coming to this site from the link in your email"]));
 }
 catch (\Delight\Auth\TokenExpiredException $e) {
-    die ($m->render('emailConfirmed', ["error"=>true, "message"=>"Token expired - make sure you're coming to this site from the link in your email"]));
+    die ($m->render('email_confirmed', ["error"=>true, "message"=>"Token expired - make sure you're coming to this site from the link in your email"]));
 }
 catch (\Delight\Auth\UserAlreadyExistsException $e) {
-    die ($m->render('emailConfirmed', ["error"=>true, "message"=>"Email address already exists"]));
+    die ($m->render('email_confirmed', ["error"=>true, "message"=>"Email address already exists"]));
 }
 catch (\Delight\Auth\TooManyRequestsException $e) {
-    die ($m->render('emailConfirmed', ["error"=>true, "message"=>"Too many requests"]));
+    die ($m->render('email_confirmed', ["error"=>true, "message"=>"Too many requests"]));
 }
 
 require_once("../../secure/scripts/ut_disconnect.php");

@@ -1,7 +1,7 @@
 
 <section class="article-container">
     {{#article}}
-        {{>article}}
+        {{>blog/article}}
     {{/article}}
 </section>
 <section class="article-links">
@@ -15,5 +15,5 @@
 <section class="comment-form" hx-get="/functions/interface/blog/comment_form.php?article_id={{article_id}}" hx-trigger="load" hx-swap="outerHTML">
 </section>
 <section class="comments">
-    {{>comments}}
+    {{>blog/comments}}
 </section>

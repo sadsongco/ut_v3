@@ -9,4 +9,4 @@
         <input type="submit" value="Log In" />
       </form>
       {{^logged_in}}
-      <a hx-post="/functions/interface/members/register_form.php?target={{target}}" hx-target="#{{target}}">Register</a> || {{/logged_in}}<a hx-post="/functions/interface/members/reset_pw.php?target={{target}}" hx-target="#{{target}}">Reset Password</a>
+      <a hx-post="/functions/interface/members/register_form.php?target={{target}}" hx-target="#{{target}}" hx-swap="innerHTML">Register</a> || {{/logged_in}}<a hx-post="/functions/interface/members/reset_pw.php?target={{target}}" hx-target="#{{target}}" hx-swap="innerHTML">Reset Password</a>

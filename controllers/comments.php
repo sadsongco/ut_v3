@@ -27,7 +27,7 @@ function getReplies ($db, $article_id, $comment_id=null) {
                 AND reply_comments.reply = top_comment.comment_id
             ) AS no_replies
         FROM comments AS top_comment
-        LEFT JOIN users ON users.id = top_comment.user_id
+        LEFT JOIN thesadso_ut_users.users ON users.id = top_comment.user_id
         WHERE top_comment.article_id = ?
         $no_reply_comments
         AND top_comment.reply_to IS NULL

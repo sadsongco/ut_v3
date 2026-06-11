@@ -2,9 +2,21 @@
 
 include_once(__DIR__ . "/../../functions.php");
 include_once("includes/content_includes.php");
+//Load Composer's autoloader
+require base_path('../lib/vendor/autoload.php');
+
+//Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 global $auth;
 
-function SendConfirmationEmail ($email, $selector, $token, $m, $mail_auth) {
+function SendConfirmationEmail ($email, $selector, $token, $mail_auth) {
+    $m_emails = new Mustache_Engine(array(
+        'loader' => new Mustache_Loader_FilesystemLoader(base_path('views/emails/customer/')),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
+    ));
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
     $host = "$protocol://".$_SERVER['HTTP_HOST'];
@@ -36,12 +48,13 @@ function SendConfirmationEmail ($email, $selector, $token, $m, $mail_auth) {
     $mail->send();
 }
 
+
 try {
     if (in_array($_POST['username'], RESERVED_USERNAMES)) throw new \Delight\Auth\UserAlreadyExistsException;
     $userId = $auth->registerWithUniqueUsername($_POST['email'], $_POST['password'], $_POST['username'], function ($selector, $token) {
         require_once(base_path("../secure/mailauth/ut.php"));
         try {
-            SendConfirmationEmail($_POST['email'], $selector, $token, $m, $mail_auth);
+            SendConfirmationEmail($_POST['email'], $selector, $token, $mail_auth);
             echo "<p>Confirmation email sent to ".$_POST['email']."</p>";
         }
         catch (Exception $e) {

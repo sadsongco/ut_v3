@@ -10,7 +10,11 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 // local functions
-function sendResetEmail ($email, $selector, $token, $m, $mail_auth) {
+function sendResetEmail ($email, $selector, $token, $mail_auth) {
+    $m_emails = new Mustache_Engine(array(
+        'loader' => new Mustache_Loader_FilesystemLoader(base_path('views/emails/customer/')),
+        'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('views/partials'))
+    ));
     $protocol = 'http';
     if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] != 'off') $protocol .= 's';
     $host = "$protocol://".$_SERVER['HTTP_HOST'];
@@ -45,17 +49,17 @@ function sendResetEmail ($email, $selector, $token, $m, $mail_auth) {
 $host = getHost();
 
 try {
-    $auth->forgotPassword($_POST['email'], function ($selector, $token) use ($m) {
+    $auth->forgotPassword($_POST['email'], function ($selector, $token) {
         require_once(base_path("../secure/mailauth/ut.php"));
         try {
-            sendResetEmail($_POST['email'], $selector, $token, $m, $mail_auth);
+            sendResetEmail($_POST['email'], $selector, $token, $mail_auth);
             echo "<p>Confirmation email sent to ".$_POST['email']."</p>";
         }
         catch (Exception $e) {
             echo "Couldn't send confirmation email: ";
             echo $e->getMessage();
         }
-    }, 5);
+    });
 
 }
 catch (\Delight\Auth\InvalidEmailException $e) {
