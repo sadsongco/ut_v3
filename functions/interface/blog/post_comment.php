@@ -12,10 +12,10 @@ use PHPMailer\PHPMailer\Exception;
 use Database\Database;
 $content_db = new Database('content');
 
-function getCommentNotify($content_db, $reply) {
+function getCommentNotify($auth_db, $reply) {
     try {
         $query = "SELECT notify, user_id FROM comments WHERE comment_id = ?;";
-        $result = $content_db->query($query, [$reply])->fetchAll();
+        $result = $auth_db->query($query, [$reply])->fetchAll();
         return $result[0];
     }
     catch (Exception $e) {
@@ -23,13 +23,13 @@ function getCommentNotify($content_db, $reply) {
     }
 }
 
-function sendNotification($content_db, $m_emails, $user_id, $article_id) {
+function sendNotification($auth_db, $m_emails, $user_id, $article_id) {
     $email = "info@unbelievabletruth.co.uk";
     if ($user_id != "admin") {
         try {
             $query = "SELECT email FROM users WHERE id = ?;";
-            $result = $content_db->query($query, [$user_id])->fetchAll();
-            $email = $result[0]['email'];
+            $result = $auth_db->query($query, [$user_id])->fetch();
+            $email = $result['email'];
         } catch (Exception $e) {
             error_log($e);
             return;
@@ -87,11 +87,11 @@ if (isset($_POST['notify'])) $notify = true; // doesn't need sanitisation? if it
 if (isset($_POST['comment_reply_id']) && intval($_POST['comment_reply_id']) != 0) {
     if (!validateCommentId($_POST['comment_reply_id'], $content_db)) exit ('Invalid comment id');
     $reply = intval($_POST['comment_reply_id']);
-    $email_notification = getCommentNotify($content_db, $reply);
-    if ($email_notification['notify'] == 1) sendNotification($content_db, $m_emails, $email_notification['user_id'], $_POST['article_id']);
+    $email_notification = getCommentNotify($auth_db, $reply);
+    if ($email_notification['notify'] == 1) sendNotification($auth_db, $m_emails, $email_notification['user_id'], $_POST['article_id']);
 }
 
-sendNotification($content_db, $m_emails, 'admin', $_POST['article_id']);
+sendNotification($auth_db, $m_emails, 'admin', $_POST['article_id']);
 
 
 $params = [
