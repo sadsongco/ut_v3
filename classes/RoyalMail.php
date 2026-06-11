@@ -292,7 +292,7 @@ class RoyalMail {
             "extendedCustomsDescription"=>$item['name'],
             "customsCode"=>$item['customs_code'],
             "originCountryCode"=>"GBR",
-            "customsDeclarationCategory"=>"SaleOfGoods",
+            "customsDeclarationCategory"=>"eCommerceSaleOfGoods",
             "requiresExportLicence"=>false,
             "stockLocation"=>"GB"
         ];
