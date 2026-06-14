@@ -4,4 +4,10 @@
       <div class="spacer"></div>
       <input type="submit" value="Reset Password" />
     </form>
+    {{^manage}}
     <a hx-post="/functions/interface/members/register_form.php?target={{target}}" hx-target="#{{target}}" hx-swap="innerHTML">Register</a> ||       <a hx-post="/functions/interface/members/login_form.php?target={{target}}" hx-target="#{{target}}" hx-swap="innerHTML">Log In</a> 
+    {{/manage}}
+    {{#manage}}
+        <a hx-post="/functions/interface/members/delete_account.php?target={{target}}" hx-target="#{{target}}" hx-swap="innerHTML">Delete Your Account</a>
+
+    {{/manage}}

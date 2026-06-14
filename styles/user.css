@@ -84,3 +84,35 @@
   cursor: pointer;
   color: #fff;
 }
+
+.user-management-container {
+  margin-bottom: var(--std-margin-medium);
+  background-color: #222;
+  padding: var(--std-padding-medium);
+}
+
+.user-management-container form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--std-margin-small);
+  row-gap: var(--std-margin-small);
+}
+
+.user-manage-options {
+  display: grid;
+  grid-template-columns: 1fr;
+  column-gap: 0.5em;
+  row-gap: 0.5em;
+}
+
+.user-manage-options a {
+  display: block;
+  margin: auto;
+  padding: var(--std-padding-small);
+  transition: background-color 0.3s ease-in-out;
+  border-radius: 5px;
+}
+
+.user-manage-options a:hover {
+  background-color: white;
+}

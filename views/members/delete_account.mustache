@@ -1,0 +1,9 @@
+<h2 class='error'>Delete your user account</h2>
+<p>To delete your account please confirm your email address or username, and your password</p>
+<form hx-post="/functions/interface/members/delete.php" hx-confirm="Are you sure you want to delete your account?" hx-target="#{{target}}" hx-swap="innerHTML">
+    <label for="userID">Email / Username</label>
+    <input type="text" name="username" id="userID" autocomplete="email" required />
+    <label for="userPassword">Password</label>
+    <input type="password" name="password" id="userPassword" autocomplete="current-password" required />
+    <input type="submit" value="Delete Account">
+</form>

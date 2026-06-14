@@ -4,13 +4,15 @@
 
     {{#env}}
         {{#logged_in}}
-        <h1>Here's the page</h1>
-        <p>some other stuff</p>
+        <h1>Member Page</h1>
+        <p>There will be more here in the future. For now you can manage your login.</p>
+        <div id="user-management" class="user-management-container" hx-get="/functions/interface/members/manage.php" hx-trigger="load">
+        </div>
         {{>logout}}
         {{/logged_in}}
         {{^logged_in}}
         <h2>You need to be logged in to see this page</h2>
-        <div id="login-container" hx-get="/functions/interface/members/login_form.php" hx-trigger="load">
+        <div class="user" id="login-container" hx-get="/functions/interface/members/login_form.php" hx-trigger="load">
         </div>
         {{/logged_in}}
     {{/env}}
