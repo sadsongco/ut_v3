@@ -5,7 +5,6 @@ global $auth;
 
 include_once(base_path("../secure/env/ut.members.config.php"));
 include_once(base_path("../secure/env/ut_reserved_usernames.php"));
-include_once(base_path("classes/Database.php"));
 
 try {
 

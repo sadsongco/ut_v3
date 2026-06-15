@@ -1,7 +1,6 @@
 <?php
 
 include_once (__DIR__ . "/../../../../../functions/functions.php");
-require_once(base_path("classes/Database.php"));
 use Database\Database;
 
 if (!isset($db)) $db = new Database('mailing_list');

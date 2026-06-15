@@ -6,7 +6,6 @@ cd /home/thesadso/unbelievabletruth.co.uk/private/functions/cron/mailout/; /usr/
 *** */
 
 include(__DIR__ . "/../../../../functions/functions.php");
-require(base_path("classes/Database.php"));
 require_once(base_path('private/functions/interface/mailout/includes/mailout_includes.php'));
 
 use Database\Database;

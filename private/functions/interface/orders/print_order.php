@@ -2,7 +2,6 @@
 
 include(__DIR__ . "/../../../../functions/functions.php");
 
-require(base_path("classes/Database.php"));
 require (base_path("/functions/utility/decrypt_token.php"));
 require (base_path("/functions/utility/trigger_download.php"));
 require (base_path("/functions/utility/create_order_pdf.php"));

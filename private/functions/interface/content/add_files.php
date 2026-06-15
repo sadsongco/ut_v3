@@ -1,7 +1,6 @@
 <?php
 
 include(__DIR__ . "/../../../../functions/functions.php");
-require_once(base_path("classes/Database.php"));
 require_once(base_path("/private/classes/FileUploader.php"));
 
 use Database\Database;

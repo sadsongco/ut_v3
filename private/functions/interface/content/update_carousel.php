@@ -2,10 +2,8 @@
 
 include(__DIR__ . "/../../../../functions/functions.php");
 include(base_path("private/functions/utility/nl2p.php"));
-include(base_path("classes/Database.php"));
 include(base_path("private/classes/FileUploader.php"));
-include(base_path("../lib/mustache.php-main/src/Mustache/Autoloader.php"));
-Mustache_Autoloader::register();
+
 $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/content/')),
     'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/content/partials/'))

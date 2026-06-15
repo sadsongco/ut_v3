@@ -3,7 +3,6 @@
 if(session_status() === PHP_SESSION_NONE) session_start();
 
 require(__DIR__ . "/../../../../functions/functions.php");
-require(base_path("classes/Database.php"));
 include(base_path("functions/shop/insert_order_into_db.php"));
 include_once(base_path("functions/shop/get_cart_contents.php"));
 include_once(base_path("functions/shop/get_package_specs.php"));

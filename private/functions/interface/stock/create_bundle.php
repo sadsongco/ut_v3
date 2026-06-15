@@ -1,7 +1,6 @@
 <?php
 
 require(__DIR__ . "/../../../../functions/functions.php");
-require(base_path("classes/Database.php"));
 
 use Database\Database;
 $db = new Database('orders');
