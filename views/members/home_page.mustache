@@ -5,6 +5,8 @@
     {{#env}}
         {{#logged_in}}
         <h1>Member Page</h1>
+        <section id="member-content" hx-get="/functions/interface/members/member_content.php" hx-trigger="load">
+        </section>
         <p>There will be more here in the future. For now you can manage your login.</p>
         <div id="user-management" class="user-management-container" hx-get="/functions/interface/members/manage.php" hx-trigger="load">
         </div>

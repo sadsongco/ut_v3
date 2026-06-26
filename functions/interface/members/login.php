@@ -19,6 +19,9 @@ try {
 catch (\Delight\Auth\UnknownUsernameException $e) {
     die('Unknown username');
 }
+catch (\Delight\Auth\InvalidEmailException $e) {
+    die('That email is invalid');
+}
 catch (\Delight\Auth\AmbiguousUsernameException $e) {
     die('Ambiguous username');
 }

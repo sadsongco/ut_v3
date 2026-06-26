@@ -1,6 +1,6 @@
 <div class="comment-container">
     <div class="comment-head">
-        <div class="username{{#band_member}} band{{/band_member}}" >{{username}}</div>
+        <div class="username{{#band_member}} band{{/band_member}}" >{{#username}}{{username}}{{/username}}{{^username}}DELETED USER{{/username}}</div>
         <div class="comment-date">{{comment_date}}</div>
     </div>
     <div class="comment-body">{{{comment}}}</div>
