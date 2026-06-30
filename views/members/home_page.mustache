@@ -5,8 +5,16 @@
     {{#env}}
         {{#logged_in}}
         <h1>Member Page</h1>
-        <section id="member-content" hx-get="/functions/interface/members/member_content.php" hx-trigger="load">
+        {{#subscribed}}
+            <section id="member-content" hx-get="/functions/interface/members/member_content.php" hx-trigger="load">
         </section>
+        {{/subscribed}}
+        {{^subscribed}}
+            <p>You are currently logged in but not subscribed. You can post comments on blog posts, but not see all the exclusive members content like blah blah blah.</p>
+            <p>Subscribing costs &pound;<span hx-get="/functions/interface/members/get_sub_price.php?form=true&subscription-level=STANDARD" hx-trigger="load"></span> per month (that's &pound;1 plus our credit card and tax costs), and we'll be posting new songs early, video blogs and all sorts of other things that we can think of. If you want to be a premium subscriber that is &pound;<span hx-get="/functions/interface/members/get_sub_price.php?form=true&subscription-level=PREMIUM" hx-trigger="load"></span> per month, and that will allow you to download all of the content (including the new songs) so you don't need to be on our website to listen / watch.</p>
+            <p>It gives the band a regular income that we can spend on finishing and promoting the new record, so it is an amazing way to support our music if you can stretch to it. We will do our best to make it good value for money!</p>
+            <p>If you'd like to join our lovely community, click <a class="button" href="/members/subscribe">here</a>.</p>
+        {{/subscribed}}
         <p>There will be more here in the future. For now you can manage your login.</p>
         <div id="user-management" class="user-management-container" hx-get="/functions/interface/members/manage.php" hx-trigger="load">
         </div>
@@ -17,4 +25,7 @@
         <div class="user" id="login-container" hx-get="/functions/interface/members/login_form.php" hx-trigger="load">
         </div>
         {{/logged_in}}
+        {{^subscribed}}
+            <div id="subscribe-popover" class="form-popover"></div>
+        {{/subscribed}}
     {{/env}}

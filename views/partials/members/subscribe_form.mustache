@@ -1,0 +1,45 @@
+            <form hx-post="/functions/interface/members/do_subscribe.php" hx-disabled-elt="#confirmSubmit" hx-target="#paymentTarget" hx-swap="innerHTML" autocomplete="on">
+                {{#failed}}
+                    <h1 class="error">CREDIT CARD PAYMENT FAILED</h1>
+                    <p>Please check your details and try again</p>
+                {{/failed}}
+                <section class="checkout-form">
+                    <label for="customerName">Name*</label>
+                    <input type="text" name="name" id="customerName" {{#name}}value="{{name}}"{{/name}} autocomplete="name" required>
+                    <label for="customerEmail">Contact Email*</label>
+                    <input type="text" name="email" id="customerEmail" {{#email}}value="{{email}}"{{/email}} autocomplete="email" required>
+                    <input type="hidden" name="customer_id" value="{{user_id}}">
+                </section>
+                <div id="errorTarget"></div>
+                <section class="checkout-form address billing-address" id="billingAddress">
+                    <h2 class="span2">Billing Address</h2>
+                    <label for="billing-address1">Address Line 1*</label>
+                    <input type="text" name="billing-address1" id="billing-address1" {{#billing-address1}}value="{{billing-address1}}"{{/billing-address1}} required>
+                    <label for="billing-address2">Address Line 2</label>
+                    <input type="text" name="billing-address2" id="billing-address2" {{#billing-address2}}value="{{billing-address2}}"{{/billing-address2}}>
+                    <label for="billing-city">Town / City*</label>
+                    <input type="text" name="billing-town" id="billing-city" {{#billing-town}}value="{{billing-town}}"{{/billing-town}} required>
+                    <label for="billing-postcode">Postcode / ZIP (including state / province if applicable)*</label>
+                    <input type="text" name="billing-postcode" id="billing-postcode" {{#billing-postcode}}value="{{billing-postcode}}"{{/billing-postcode}} required>
+                    <label for="billing-country">Country*</label>
+                    <select name="billing-country" id="billing-country" required>
+                            <option value="31" selected>United Kingdom</option>
+                        {{#countries}}
+                            <option value="{{country_id}}" {{selected}}>{{name}}</option>
+                        {{/countries}}
+                    </select>
+                </section>
+                <section class="checkout-form" id="subscriptionLevel">
+                    <select name="subscription-level">
+                        <option value="STANDARD" selected>Standard</option>
+                        <option value="PREMIUM">Premium</option>
+                    </select>
+                    <div>
+                        &pound;<span id="sub-price" hx-get="/functions/interface/members/get_sub_price.php?form=true" hx-include="#subscriptionLevel" hx-trigger="load, change from:#subscriptionLevel" hx-target="#sub-price" hx-swap="innerHTML">
+                    </div>
+                </section>
+                <section class="checkout-form" id="paymentResponse">
+                    {{>members/subscribe}}
+                </section>
+            </form>
+            <div id="paymentTarget"></div>

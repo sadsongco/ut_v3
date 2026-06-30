@@ -15,7 +15,11 @@ class MembersRouter extends Router
         '/login' => [
             'name' => 'Login',
             'controller' => 'members/login'
-        ]
+        ],
+        '/subscribe' => [
+            'name' => 'Subscribe',
+            'controller' => 'members/subscribe'
+        ],
     ];
     function __construct($renderer)
     {

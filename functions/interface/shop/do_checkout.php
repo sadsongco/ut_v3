@@ -161,17 +161,40 @@ $saved_order = insertOrderIntoDB($order_details, $db);
 $_SESSION['order_id'] = $saved_order['order_id'];
 
 use SUCheckout\SUCheckout;
-$checkout = new SUCheckout($saved_order);
+try {
+    $checkout = new SUCheckout($saved_order, getHost());
+}
+catch (Exception $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+}
 
 $response = $checkout->createCheckout()->getResponse();
 
 if (isset($response->error_code)) {
     switch($response->error_code) {
         case "DUPLICATED_CHECKOUT":
+            $query = "SELECT checkout_id FROM New_Orders WHERE order_id = ?";
+            try {
+                $result = $db->query($query, [$saved_order['order_id']])->fetch();
+            } catch (Exception $e) {
+                error_log($e);
+                exit("There has been an error. Please contact the webmaster.");
+            }
             session_destroy();
             error_log(print_r($response, true));
             echo "<script>window.location.replace('$host/shop?technical_error=true');</script>";
     }
+}
+
+$query = "UPDATE New_Orders SET checkout_id = ? WHERE order_id = ?";
+$order_db_id = explode("-", $saved_order['order_id'])[1];
+try {
+    $db->query($query, [$checkout->getCheckoutId(), $order_db_id]);
+}
+catch (Exception $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
 }
 
 if (isset($order_details['items']['bundles']['items'])) $items = array_merge($order_details['items']['items'], $order_details['items']['bundles']['items']);
