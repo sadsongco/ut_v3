@@ -1,0 +1,15 @@
+{{#shipping}}
+    &pound;<span id="shipping" class="price">{{shipping}}</span>
+    <div id="tariff-legend" class="totals-legend hidden" hx-swap-oob="true">
+    </div>
+    <div id="tariff" class="subtotal hidden" hx-swap-oob="true">
+    </div>
+    <div id="tariff-spacer" class="hidden" hx-swap-oob="true"></div>
+{{/shipping}}
+{{#tariff}}
+    <div id="tariff-legend" class="totals-legend" hx-swap-oob="true">Tariff Charges</div>
+    <div id="tariff" class="subtotal span2" hx-swap-oob="true">
+        &pound;<span class="price">{{tariff}}</span>
+    </div>
+    <div id="tariff-spacer" class="" hx-swap-oob="true"></div>
+{{/tariff}}

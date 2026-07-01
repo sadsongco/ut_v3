@@ -214,6 +214,10 @@ section#page-container {
   grid-column: span 4;
 }
 
+.hidden {
+  display: none;
+}
+
 a.button {
   font-size: 0.9em;
   text-decoration: none;

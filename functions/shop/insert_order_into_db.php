@@ -98,7 +98,7 @@ function insertOrderIntoOrderTable($order_details, $db) {
             $order_details['customer_id'],
             $order_details['shipping_method'],
             $order_details['totals']['subtotal'],
-            $order_details['totals']['shipping'],
+            $order_details['totals']['shipping'] + $order_details['totals']['tariff'],
             $order_details['totals']['vat'],
             $order_details['totals']['total'],
             json_encode($order_details['package_specs'])

@@ -144,7 +144,8 @@ $order_details['billing-country-code'] = $country_code['country_code'];
 $order_details['items'] = getCartContents($db);
 $order_details['totals']['subtotal'] = calculateCartSubtotal($order_details['items']);
 
-
+if (isset($_SESSION['tariff'])) $order_details['totals']['tariff'] = $_SESSION['tariff'];
+else $order_details['totals']['tariff'] = 0;
 $order_details['totals']['shipping'] = $_SESSION['shipping'];
 $order_details['shipping_method'] = 1;
 if ($_SESSION['shipping_method']['shipping_method_id'] == 7) $order_details['shipping_method'] = 7;
@@ -153,7 +154,7 @@ if ($_SESSION['shipping_method']['shipping_method_id'] != 1 && $_SESSION['shippi
     $order_details['shipping_method'] = $_SESSION['shipping_method']['shipping_method_id'];
 }
 
-$order_details['totals']['total'] = round($order_details['totals']['subtotal'] + $order_details['totals']['shipping'], 4);
+$order_details['totals']['total'] = round($order_details['totals']['subtotal'] + $order_details['totals']['shipping'] + $order_details['totals']['tariff'], 4);
 // VAT payable on orders for UK or Isle Of Man
 $order_details['totals']['vat'] = $order_details['delivery-country'] == '31' || $order_details['delivery-country'] == '215' ? calculateVAT($order_details) : NULL;
 $order_details['package_specs'] = $_SESSION['package_specs'];

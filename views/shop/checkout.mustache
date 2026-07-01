@@ -18,13 +18,21 @@
     <section class="cartContainer">
         <div class="cart-item">
             <div class="totals-legend">Subtotal</div>
-            <div class='subtotal'>&pound;<span id="subtotal" class="price" hx-post="/functions/interface/shop/get_subtotal.php" hx-trigger="cartUpdated from:body">{{subtotal}}</span></div><div></div>
-            <div class="totals-legend">Shipping</div>
             <div class='subtotal'>
-                &pound;
-                <span id="shipping" class="price" hx-post="/functions/interface/shop/calculate_shipping.php" hx-trigger="change from:#shippingMethod, shippingMethodUpdated from:body, cartUpdated from:body" hx-vars="{'update': 'true'}" hx-include="#delivery-country, #shipping-method">{{shipping}}</span>
+                &pound;<span id="subtotal" class="price" hx-post="/functions/interface/shop/get_subtotal.php" hx-trigger="cartUpdated from:body">{{subtotal}}</span>
             </div>
-            <div id="tariff"></div>
+            <div></div>
+            <div class="totals-legend">Shipping</div>
+            <div class='subtotal' hx-post="/functions/interface/shop/calculate_shipping.php" hx-swap="innerHTML" hx-trigger="change from:#shippingMethod, shippingMethodUpdated from:body, cartUpdated from:body" hx-vars="{'update': 'true'}" hx-include="#delivery-country, #shipping-method">
+                &pound;
+                <span id="shipping" class="price">{{shipping}}</span>
+            </div>
+            <div></div>
+            <div id="tariff-legend" class="totals-legend hidden">
+            </div>
+            <div id="tariff" class="subtotal hidden">
+            </div>
+            <div id="tariff-spacer" class="hidden"></div>
             <div class="totals-legend">Total</div>
             <div class='subtotal'>&pound;<span class="price" hx-post="/functions/interface/shop/calculate_total.php" hx-trigger="shippingUpdated from:body, cartUpdated from:body" hx-include="#shipping, #subtotal">{{total}}</span></div>
         </div>

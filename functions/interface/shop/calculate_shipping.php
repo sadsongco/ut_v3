@@ -70,20 +70,15 @@ if (isset($_POST['update'])) {
     if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
         [$shipping, $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $shipping_method);
         $tariff = getTariffCosts($_POST['delivery-country'], $db);
-        $_SESSION['shipping'] = round($shipping + $tariff, 2);
-        $_SESSION['total'] = $_SESSION['subtotal'] + $_SESSION['shipping'];
+        $_SESSION['shipping'] = round($shipping + $tariff, 4);
+        $_SESSION['tariff'] = round($tariff, 4);
+        $_SESSION['total'] = $_SESSION['subtotal'] + $_SESSION['shipping'] + $_SESSION['tariff'];
     }
 
-
-    $shipping += $tariff;
+    if ($tariff) $tariff = number_format($tariff, 2);
 
     header("HX-Trigger: shippingUpdated");
-    echo number_format($shipping, 2);
-    if ($tariff) {
-        echo "<div id='tariff' class='tariff-message' hx-swap-oob='true'>This includes tariff costs of &pound;" . number_format($tariff, 2) . "</div>";
-    } else {
-        echo "<div id='tariff' hx-swap-oob='true'></div>";
-    }
+    echo $m->render('shop/shipping_price', ["shipping"=>number_format($shipping, 2), "tariff"=>$tariff]);
 }
 
 
