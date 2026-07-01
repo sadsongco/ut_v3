@@ -137,21 +137,23 @@ catch (Exception $e) {
     exit();
 }
 $order_details = $_POST;
+
 $country_code = $db->query("SELECT country_code FROM Countries WHERE country_id = ?", [$_POST['billing-country']])->fetch();
 $order_details['billing-country-code'] = $country_code['country_code'];
 
 $order_details['items'] = getCartContents($db);
 $order_details['totals']['subtotal'] = calculateCartSubtotal($order_details['items']);
-$order_details['totals']['shipping'] = 0;
+
+
+$order_details['totals']['shipping'] = $_SESSION['shipping'];
 $order_details['shipping_method'] = 1;
 if ($_SESSION['shipping_method']['shipping_method_id'] == 7) $order_details['shipping_method'] = 7;
 
 if ($_SESSION['shipping_method']['shipping_method_id'] != 1 && $_SESSION['shipping_method']['shipping_method_id'] != 7) {
-    [$order_details['totals']['shipping'], $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $_SESSION['shipping_method'], $order_details['billing-country']);
     $order_details['shipping_method'] = $_SESSION['shipping_method']['shipping_method_id'];
 }
 
-$order_details['totals']['total'] = $order_details['totals']['subtotal'] + $order_details['totals']['shipping'];
+$order_details['totals']['total'] = round($order_details['totals']['subtotal'] + $order_details['totals']['shipping'], 4);
 // VAT payable on orders for UK or Isle Of Man
 $order_details['totals']['vat'] = $order_details['delivery-country'] == '31' || $order_details['delivery-country'] == '215' ? calculateVAT($order_details) : NULL;
 $order_details['package_specs'] = $_SESSION['package_specs'];

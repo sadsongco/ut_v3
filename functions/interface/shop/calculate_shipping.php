@@ -69,10 +69,11 @@ if (isset($_POST['update'])) {
     $shipping = 0;
     if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
         [$shipping, $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $shipping_method);
-        $_SESSION['shipping'] = round($shipping, 2);
+        $tariff = getTariffCosts($_POST['delivery-country'], $db);
+        $_SESSION['shipping'] = round($shipping + $tariff, 2);
+        $_SESSION['total'] = $_SESSION['subtotal'] + $_SESSION['shipping'];
     }
 
-    $tariff = getTariffCosts($_POST['delivery-country'], $db);
 
     $shipping += $tariff;
 
