@@ -21,7 +21,7 @@
                     <input type="text" name="delivery-postcode" id="delivery-postcode" onchange="mirrorDeliveryAddress(event)" {{#postcode}}value="{{postcode}}"{{/postcode}} required>
                     <label for="delivery-country">Country*</label>
                     <select name="delivery-country" id="delivery-country" hx-post="/functions/interface/shop/update_country.php" hx-swap="innerHTML" hx-target="#errorTarget" hx-on:change="mirrorDeliveryAddress(event)" required>
-                            <option value="31" selected>United Kingdom</option>
+                            <option value="31">United Kingdom</option>
                         {{#countries}}
                             <option value="{{country_id}}" {{selected}}>{{name}}</option>
                         {{/countries}}

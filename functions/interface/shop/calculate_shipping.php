@@ -55,6 +55,7 @@ function calculateShipping($db, $zone, $method) {
             $package_specs['name']
         ];
     } catch (Exception $e) {
+        error_log($e);
         error_log($query);
         error_log(print_r($params, true));
         throw new Exception($e);
@@ -70,9 +71,10 @@ if (isset($_POST['update'])) {
     if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['package_specs']['ship_with_order'])) {
         [$shipping, $package_id, $package_name] = calculateShipping($db, $_SESSION['rm_zone'], $shipping_method);
         $tariff = getTariffCosts($_POST['delivery-country'], $db);
-        $_SESSION['shipping'] = round($shipping + $tariff, 4);
-        $_SESSION['tariff'] = round($tariff, 4);
-        $_SESSION['total'] = $_SESSION['subtotal'] + $_SESSION['shipping'] + $_SESSION['tariff'];
+        $_SESSION['shipping'] = round($shipping, 4);
+        if (!$tariff && isset($_SESSION['tariff'])) unset($_SESSION['tariff']);
+        else $_SESSION['tariff'] = round($tariff, 4);
+        $_SESSION['total'] = isset($_SESSION['tariff']) ? $_SESSION['subtotal'] + $_SESSION['shipping'] + $_SESSION['tariff'] : $_SESSION['subtotal'] + $_SESSION['shipping'];
     }
 
     if ($tariff) $tariff = number_format($tariff, 2);
@@ -148,8 +150,8 @@ function calculateNoHSCodes($db) {
         foreach ($_SESSION['bundles'] as $bundle) {
             $bundle_items = getCartItems($bundle['items'], $db);
             foreach($bundle_items as $item) {
-                if ($item['e_delivery']) continue;
-                if ($item['add_to_order']) continue;
+                if (isset($item['e_delivery'])) continue;
+                if (isset($item['add_to_order'])) continue;
                 $hs_codes[] = $item['customs_description'];
             }
         }
@@ -159,7 +161,7 @@ function calculateNoHSCodes($db) {
 }
 
 function convertCurrency($amt, $currency, $db) {
-    $query = "SELECT conversion_json FROM Currency_conversion WHERE next_update > " . time();
+    $query = "SELECT conversion_json FROM Currency_conversion WHERE next_update > " . time() . " ORDER BY next_update DESC LIMIT 1";
     $result = $db->query($query)->fetch();
     if (!$result) {
         $conversion_json = getCurrentCurrencyConversion($db);

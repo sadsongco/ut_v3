@@ -13,7 +13,7 @@ $_SESSION['rm_zone'] = $country['rm_zone'];
 $_SESSION['zone'] =  "ROW";
 if ($country['rm_zone'] == "UK") $_SESSION['zone'] = "UK";
 if ($_POST['delivery-country'] == 1) $_SESSION['zone'] = "USA";
-
+$_SESSION['delivery-country-id'] = $_POST['delivery-country'];
 
 $shipping_options = [
     "shipping_method_id" => 1,

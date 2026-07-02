@@ -23,8 +23,15 @@ if ((!isset($_SESSION['bundles']) || sizeof($_SESSION['bundles']) == 0) && (!iss
 }
 
 $default_zone = 'UK';
+$default_country_id = 31;
 $_SESSION['zone'] = $default_zone;
 $_SESSION['rm_zone'] = $default_zone;
+$_SESSION['delivery-country-id'] = $default_country_id;
+
+foreach($countries as &$country) {
+    // var_dump($country['country_id']); echo  " :: "; var_dump($_SESSION['delivery-country-id']); echo "<br>";
+    if ($country['country_id'] === $_SESSION['delivery-country-id']) $country['selected'] = 'selected';
+}
 
 $cart_contents = getCartContents($db);
 $subtotal = calculateCartSubtotal($cart_contents);
@@ -62,8 +69,11 @@ if (!isset($_SESSION['package_specs']['e_delivery']) && !isset($_SESSION['packag
     $_SESSION['shipping_method'] = $default_method;
     
     [$shipping, $package_id, $package_name] = calculateShipping($db, $default_zone, $default_method);
-    $_SESSION['shipping'] = round($shipping, 2);
+    $tariffs = getTariffCosts($_SESSION['delivery-country-id'], $db);
+    $_SESSION['shipping'] = round($shipping, 4);
     $shipping_disp = number_format($shipping, 2);
+    if (!$tariffs && isset($_SESSION['tariff'])) unset($_SESSION['tariff']);
+    else $_SESSION['tariff'] = round($tariffs, 4);
 }
 
 $total = $subtotal + $shipping;
