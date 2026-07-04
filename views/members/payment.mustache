@@ -1,0 +1,44 @@
+<div id="sumup-card" class="payment-popover">
+  <i class="fa-solid fa-rectangle-xmark cancel" onclick="cancelOrder()"></i>
+</div>
+
+<script type="text/javascript">
+
+  var paymentTimeout = setTimeout(async () => {
+      document.getElementById("sumup-card").style.display = "none";
+      let res = {status: 'timeout'};
+      const postBody = new FormData();
+      postBody.append('status', 'FAILED');
+      postBody.append('reason', 'TIMEOUT');
+      const apiURL = '/functions/interface/shop/update_order.php';
+      try {
+        const res = await fetch(apiURL, {
+          method: 'POST',
+          body: postBody,
+        });
+      } catch (err) {
+        const errorBody = new FormData();
+        errorBody.append('error', message);
+        const res = awaitfetch("/functions/interface/shop/log_error.php", {
+          method: 'POST',
+          body: errorBody,
+        });
+      }
+      const output = await getResponseScreen(res.status);
+      document.getElementById('paymentResponse').innerHTML = output;
+      delete window.paymentTimeout;
+    },
+  180000);
+
+  document.getElementById('sumup-card').style.display = "block";
+  SumUpCard.mount({
+    id: 'sumup-card',
+    checkoutId: '{{checkout_id}}',
+    currency: 'GBP',
+    locale: 'en-GB',
+    country: 'GB',
+    showAmount: {{amount}},
+    onResponse: (type, body) => {processSubscription(type, body,  {order_id : "{{order_id}}"}, paymentTimeout)},
+  });
+
+</script>

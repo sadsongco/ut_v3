@@ -4,15 +4,11 @@ include("../../functions.php");
 require(base_path("classes/SUCheckout.php"));
 require(base_path("functions/interface/members/get_sub_price.php"));
 
-/* **
-customer response when exists
-stdClass Object
-(
-    [error_code] => CUSTOMER_ALREADY_EXISTS
-    [instance] => c1c6000f-99c2-44bd-8ed5-a76de565ba9b
-    [message] => Customer already exists
-)
-*/
+use SumUp\SumUp;
+use SumUp\Exception\SDKException;
+
+$sumup = new SumUp();
+
 use Database\Database;
 $mem_db = new Database('members');
 $db = new Database('orders');
@@ -42,8 +38,9 @@ if (isset($_POST['make_payment'])) {
         ]
     ];
     p_2($order_details);
+    p_2($result);
 
-    echo $m->render('shop/payment', [
+    echo $m->render('members/payment', [
         "checkout_id"=>$result['su_checkout_id'],
         "order_id"=>$order_details['order_id'],
         "name"=>$order_details['name'],
@@ -107,7 +104,36 @@ catch (Exception $e) {
     exit("There has been an error. Please contact the webmaster.");
 }
 
-$response = $checkout->createCustomer()->getResponse();
+$encrypted_id = openssl_encrypt($order_details['customer_id'], SU_ENCRYPTION_CIPHER, SU_ENCRYPTION_KEY, false, SU_ENCRYPTION_IV);
+
+try {
+$customer = $sumup->customers()->create([
+            'customer_id' => $encrypted_id,
+            'personal_details' => [
+                'first_name'=>$order_details['name'], 
+                'last_name'=>$order_details['name'],
+                'email'=>$order_details['email'],
+                'address'=>[
+                    'city'=>$order_details['billing-town'],
+                    'country'=>$order_details['billing-country-code'],
+                    'line1'=>$order_details['billing-address1'],
+                    'line2'=>$order_details['billing-address2'],
+                    'postal_code'=>$order_details['billing-postcode']
+                ]
+            ]
+        ]);
+} catch (\SumUp\Exception\ApiException $e) {
+    p_2($e->getResponseBody()->errorCode === "CUSTOMER_ALREADY_EXISTS");
+    if (!$e->getResponseBody()->errorCode === "CUSTOMER_ALREADY_EXISTS") {
+        error_log($e);
+        error_log(json_encode($e->getResponseBody(), JSON_PRETTY_PRINT) . "\n");
+        exit("There has been an error. Please contact the webmaster.");
+    }
+}
+
+$order_details['customer_su_id'] = $encrypted_id;
+
+// $response = $checkout->createCustomer()->getResponse();
 
 if (isset($response->error_code)) {
     switch($response->error_code) {
@@ -116,8 +142,49 @@ if (isset($response->error_code)) {
             break;
     }
 }
+p_2(SU_MERCHANT_CODE);
+try {
+    $checkout = $sumup->checkouts()->create(new \SumUp\Types\CheckoutCreateRequest(
+        checkoutReference: $order_details['order_id'],
+        amount: $order_details['totals']['total'],
+        currency: 'GBP',
+        merchantCode: SU_MERCHANT_CODE,
+        description: "Subscription",
+        purpose: 'SETUP_RECURRING_PAYMENT',
+        customerId: $order_details['customer_su_id']
+    ));
+}
+catch (\SumUp\Exception\ApiException $e) {
+    if ($e->getResponseBody()->errorCode === "DUPLICATED_CHECKOUT") {
+        $query = "SELECT su_checkout_id FROM Subscriptions WHERE subscription_id = ? AND user_id = ?";
+        try {
+            $result = $mem_db->query($query, [$order_details['order_id'], $auth->getUserId()])->fetch();
+        } catch (Exception $e) {
+            error_log($e);
+            exit("There has been an error. Please contact the webmaster.");
+        }
+        if (!$result) {
+            exit("There has been an error. Please contact the webmaster.");
+        }
+        $checkout = $sumup->checkouts()->get($result['su_checkout_id']);
+    } else {
+        error_log($e);
+        error_log(json_encode($e->getResponseBody(), JSON_PRETTY_PRINT) . "\n");
+        exit("There has been an error. Please contact the webmaster.");
+    }
+}
+catch (\SumUp\Exception\UnexpectedApiException $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+}
+catch (\SumUp\Exception\SDKException $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+}
 
-$response = $checkout->createCheckout(true)->getResponse();
+dd($checkout);
+
+// $response = $checkout->createCheckout(true)->getResponse();
 
 if (isset($response->id)) {
     $query = "UPDATE Subscriptions SET su_checkout_id = ? WHERE subscription_id = ?";

@@ -208,7 +208,7 @@ if (!isset($response->id)) {
     exit("Error: Payment not completed");
 }
 
-echo $m->render('shop/payment', [
+echo $m->render('members/payment', [
     "checkout_id"=>$response->id,
     "order_id"=>$saved_order['order_id'],
     "name"=>$order_details['name'],
