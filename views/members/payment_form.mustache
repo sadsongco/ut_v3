@@ -1,0 +1,25 @@
+{{#payment_message}}
+    <p>{{{.}}}</p>
+{{/payment_message}}
+{{#order_details}}
+<form hx-post="/functions/interface/members/do_subscribe.php">
+    <input type="hidden" name="make_payment" value="true">
+    <input type="hidden" name="name" id="customerName" {{#name}}value="{{name}}"{{/name}}>
+    <input type="hidden" name="email" id="customerEmail" {{#email}}value="{{email}}"{{/email}}>
+    <input type="hidden" name="billing-address1" id="billing-address1" {{#billing-address1}}value="{{billing-address1}}"{{/billing-address1}}>
+    <input type="hidden" name="billing-address2" id="billing-address2" {{#billing-address2}}value="{{billing-address2}}"{{/billing-address2}}>
+    <input type="hidden" name="billing-town" id="billing-city" {{#billing-town}}value="{{billing-town}}"{{/billing-town}}>
+    <input type="hidden" name="billing-postcode" id="billing-postcode" {{#billing-postcode}}value="{{billing-postcode}}"{{/billing-postcode}}>
+    <input type="hidden" name="billing-country" value="{{billing-country}}">
+    <input type="hidden" name="billing-country-code" value="{{billing-country-code}}">
+    <input type="hidden" name="subscription-level" value="{{subscription-level}}">
+    <input type="hidden" name="order_id" value="{{order_id}}">
+    <input type="hidden" name="cc_type" value="unknown">
+    {{#totals}}
+        <input type="hidden" name="total" value="{{total}}">
+    {{/totals}}
+
+    <input type="submit" value="Subscribe Now">
+    <a class="button" href="/members/subscribe">Go Back</a>
+</form>
+{{/order_details}}
