@@ -40,6 +40,7 @@ window.addEventListener('keydown', async (e) => {
 });
 
 const requiredFormElements = ['customerName', 'customerEmail', 'delivery-address1', 'delivery-city', 'delivery-postcode', 'delivery-country'];
+const requiredSubscribeElements = ['customerName', 'customerEmail', 'billing-address1', 'billing-city', 'billing-postcode', 'billing-country'];
 
 const validateEmail = (email) => {
   const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -56,6 +57,27 @@ const validateCheckoutForm = (e) => {
       validated = false;
     } else {
       requiredFormElement.classList.remove('form-error');
+    }
+  }
+  if (!validateEmail(document.getElementById('customerEmail').value)) {
+    deactivateCheckoutSubmit();
+    document.getElementById('customerEmail').classList.add('form-error');
+    validated = false;
+  }
+  if (!validated) return false;
+  activateCheckoutSubmit();
+};
+
+const validateSubscribeForm = (e) => {
+  let validated = true;
+  for (const requiredSubscribeElementId of requiredSubscribeElements) {
+    const requiredSubscribeElement = document.getElementById(requiredSubscribeElementId);
+    if (!requiredSubscribeElement.value) {
+      requiredSubscribeElement.classList.add('form-error');
+      deactivateCheckoutSubmit();
+      validated = false;
+    } else {
+      requiredSubscribeElement.classList.remove('form-error');
     }
   }
   if (!validateEmail(document.getElementById('customerEmail').value)) {
