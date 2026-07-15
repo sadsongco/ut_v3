@@ -47,19 +47,24 @@ const validateEmail = (email) => {
 };
 
 const validateCheckoutForm = (e) => {
+  let validated = true;
   for (const requiredFormElementId of requiredFormElements) {
     const requiredFormElement = document.getElementById(requiredFormElementId);
     if (!requiredFormElement.value) {
+      requiredFormElement.classList.add('form-error');
       deactivateCheckoutSubmit();
-      return false;
+      validated = false;
+    } else {
+      requiredFormElement.classList.remove('form-error');
     }
   }
   if (!validateEmail(document.getElementById('customerEmail').value)) {
     deactivateCheckoutSubmit();
-    return false;
+    document.getElementById('customerEmail').classList.add('form-error');
+    validated = false;
   }
+  if (!validated) return false;
   activateCheckoutSubmit();
-  console.log('FORM VALIDATED');
 };
 
 const deactivateCheckoutSubmit = () => {

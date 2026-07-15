@@ -262,6 +262,10 @@ a.view-cart-items .view-cart-badge {
   display: block;
 }
 
+.checkout-form input.form-error {
+  border: 1px solid red;
+}
+
 .checkout-form input[type='submit'],
 .checkout-form select {
   width: fit-content;
@@ -405,6 +409,7 @@ a.view-cart-items .view-cart-badge {
       grid-column: 3;
     }
   }
+
   .checkout-form input,
   .checkout-form label {
     min-width: auto;
