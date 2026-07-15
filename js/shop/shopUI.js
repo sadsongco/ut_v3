@@ -38,3 +38,36 @@ window.addEventListener('keydown', async (e) => {
   if (e.key !== 'Escape') return;
   cancelOrder();
 });
+
+const requiredFormElements = ['customerName', 'customerEmail', 'delivery-address1', 'delivery-city', 'delivery-postcode', 'delivery-country'];
+
+const validateEmail = (email) => {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+
+const validateCheckoutForm = (e) => {
+  for (const requiredFormElementId of requiredFormElements) {
+    const requiredFormElement = document.getElementById(requiredFormElementId);
+    if (!requiredFormElement.value) {
+      deactivateCheckoutSubmit();
+      return false;
+    }
+  }
+  if (!validateEmail(document.getElementById('customerEmail').value)) {
+    deactivateCheckoutSubmit();
+    return false;
+  }
+  activateCheckoutSubmit();
+  console.log('FORM VALIDATED');
+};
+
+const deactivateCheckoutSubmit = () => {
+  document.getElementById('confirmSubmit').disabled = true;
+  document.getElementById('confirmSubmit').classList.add('disabled');
+};
+
+const activateCheckoutSubmit = () => {
+  document.getElementById('confirmSubmit').disabled = false;
+  document.getElementById('confirmSubmit').classList.remove('disabled');
+};
