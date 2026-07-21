@@ -238,6 +238,7 @@ a.button:hover {
 }
 
 a.button.disabled,
+input.disabled,
 input.button.disabled {
   padding: var(--std-padding-small) var(--std-padding-medium);
   pointer-events: none;

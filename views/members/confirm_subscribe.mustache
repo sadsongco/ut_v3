@@ -1,0 +1,14 @@
+<section id="confirmSubscribe">
+    {{#order_details}}
+        <p>You are creating a {{subscription-level}} subscription at &pound;{{total_disp}} per month.</p>
+        <p>Your payment will be taken on the {{sub_day_disp}} of each month{{#sub_day_near}}, or the closest possible day{{/sub_day_near}}.</p>
+        <p>You can cancel at any time</p>
+        <form hx-post="/functions/interface/members/do_subscribe.php" hx-disabled-elt="#payWithCard" hx-swap="outerHTML" autocomplete="on">
+            <input type="hidden" name="order_id" value="{{order_id}}">
+            <input type="hidden" name="subscription_level" value="{{subscription-level}}">
+            <input type="hidden" name="make_payment">
+            <input type="hidden" name="name" value="{{name}}">
+            <input id="payWithCard" type="submit" value="Pay With Card">
+        </form>
+    {{/order_details}}
+</section>

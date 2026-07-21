@@ -1,11 +1,8 @@
-    <script src="/js/shop/shopUI.js"></script>
-    <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
-
     <div id="processing-order" class="processing-defeat">
         <div><h1>...processing order, please wait</h1></div>
         <img src="/serve/images/graphics/loading/gif/inline" />
     </div>
-            <form hx-post="/functions/interface/members/do_subscribe.php" hx-disabled-elt="#confirmSubmit" hx-target="#paymentTarget" hx-swap="innerHTML" autocomplete="on">
+            <form hx-post="/functions/interface/members/do_subscribe.php" hx-disabled-elt="#confirmSubmit" hx-swap="outerHTML" autocomplete="on">
                 {{#failed}}
                     <h1 class="error">CREDIT CARD PAYMENT FAILED</h1>
                     <p>Please check your details and try again</p>
@@ -37,7 +34,7 @@
                     </select>
                 </section>
                 <section class="checkout-form" id="subscriptionLevel">
-                    <select name="subscription-level">
+                    <select name="subscription-level" onchange="validateSubscribeForm(event)">
                         <option value="STANDARD" selected>Standard</option>
                         <option value="PREMIUM">Premium</option>
                     </select>
@@ -46,7 +43,12 @@
                     </div>
                 </section>
                 <section class="checkout-form" id="paymentResponse">
-                    {{>members/subscribe}}
+                    <input id="confirmSubmit" type="submit" value="Confirm and Pay" disabled class="disabled">
+                    <input type='hidden' name='cc_type' id='ccType' value='unknown'>
+                    <a class="button" href="/members">Back to members area</a>
                 </section>
             </form>
             <div id="paymentTarget"></div>
+    <script src="/js/shop/shopUI.js"></script>
+    <script src="https://gateway.sumup.com/gateway/ecom/card/v2/sdk.js"></script>
+
