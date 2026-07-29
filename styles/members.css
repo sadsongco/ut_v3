@@ -1,6 +1,83 @@
+.payment-container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: auto;
+  min-height: 100vh;
+  width: 100vw;
+  background-color: #00000099;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+  transform: translateX(0);
+}
+
+.payment-container.hidden {
+  transform: translateX(-100vw);
+  -webkit-transform: translateX(-100vw);
+}
+
+.slide-in {
+  animation: slide-in 0.5s forwards;
+  -webkit-animation: slide-in 0.5s forwards;
+}
+
+.slide-out {
+  animation: slide-out 0.5s forwards;
+  -webkit-animation: slide-out 0.5s forwards;
+}
+
+@keyframes slide-in {
+  100% {
+    transform: translateX(0vw);
+  }
+}
+
+@-webkit-keyframes slide-in {
+  100% {
+    -webkit-transform: translateX(0vw);
+  }
+}
+
+@keyframes slide-out {
+  0% {
+    transform: translateX(0vw);
+  }
+  100% {
+    transform: translateX(-100vw);
+  }
+}
+
+@-webkit-keyframes slide-out {
+  0% {
+    -webkit-transform: translateX(0vw);
+  }
+  100% {
+    -webkit-transform: translateX(-100vw);
+  }
+}
+
+.inner-payment-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  height: auto;
+  padding: var(--std-padding-medium);
+  background-color: #eee;
+}
+
 .payment-title {
   width: 100%;
   text-align: center;
+}
+
+.payment-target {
+  position: relative;
+  margin-top: 10em;
 }
 
 .form-container .field-container:first-of-type {
@@ -30,12 +107,7 @@
 
 .form-container {
   display: grid;
-  grid-column-gap: 10px;
-  grid-template-columns: auto auto;
-  grid-template-rows: 90px 90px 90px;
-  grid-template-areas: 'name name' 'number number' 'expiration security';
-  max-width: 400px;
-  padding: 20px;
+  padding: var(--std-padding-small);
   color: #707070;
 }
 

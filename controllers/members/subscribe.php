@@ -7,6 +7,11 @@ global $auth;
 $env = false;
 if (ENV === 'dev') $env = 'dev';
 
+if (!$auth->isLoggedIn()) {
+    header("Location: /members/");
+    exit();
+}
+
 echo $this->renderer->render('members/subscribe', [
     "env"=>$env,
     "stylesheets"=>["members", "shop"],

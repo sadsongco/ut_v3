@@ -26,34 +26,59 @@ const luhnCheck = (val) => {
   return sum % 10 == 0;
 };
 
+const showPayment = () => {
+  document.getElementById('payment-container').classList.remove('slide-out');
+  document.getElementById('payment-container').classList.add('slide-in');
+};
+
+const closePayment = () => {
+  document.getElementById('payment-container').classList.remove('slide-in');
+  document.getElementById('payment-container').classList.add('slide-out');
+};
+
 const formValidationCheck = (card_type) => {
   let valid = true;
   if (name.value.length < 1) valid = false;
-  if (expirationdate.value.length < 5) valid = false;
-  if (securitycode.value.length < 3 || securitycode.value.length > 4) valid = false;
+  console.log(expirationdate.value.toString().replace(/_/g, '').split('/').join(''));
+  console.log('expiration date length: ' + expirationdate.value.toString().replace(/_/g, '').split('/').join('').length);
+  if (expirationdate.value.toString().replace(/_/g, '').split('/').join('').length < 4) valid = false;
+  console.log('cvv length: ' + securitycode.value.toString().length);
+  if (securitycode.value.toString().length < 3 || securitycode.value.toString().length > 4) valid = false;
   const card_number = cardnumber.value.replace(/\s/g, '');
   switch (card_number.length) {
     case 14:
-      if (cardnumber_mask.masked.currentMask.cardtype != 'diners') valid = false;
-      else cardnumber.classList.remove('invalid');
+      console.log('14 digits');
+      if (cardnumber_mask.masked.currentMask.cardtype != 'diners') {
+        valid = false;
+        cardnumber.classList.add('invalid');
+      } else cardnumber.classList.remove('invalid');
       break;
     case 15:
-      if (cardnumber_mask.masked.currentMask.cardtype != 'amex' && cardnumber_mask.masked.currentMask.cardtype != 'jcb15') valid = false;
-      else cardnumber.classList.remove('invalid');
+      console.log('15 digits');
+      if (cardnumber_mask.masked.currentMask.cardtype != 'amex' && cardnumber_mask.masked.currentMask.cardtype != 'jcb15') {
+        valid = false;
+        cardnumber.classList.add('invalid');
+      } else cardnumber.classList.remove('invalid');
       break;
     case 16:
-      if (!luhnCheck(card_number)) valid = false;
-      else cardnumber.classList.remove('invalid');
+      console.log('16 digits');
+      if (!luhnCheck(card_number)) {
+        valid = false;
+        cardnumber.classList.add('invalid');
+      } else cardnumber.classList.remove('invalid');
       break;
     default:
+      console.log('not enough digists');
       valid = false;
       cardnumber.classList.add('invalid');
       break;
   }
   if (valid) {
+    console.log('VALID');
     cardsubmit.classList.remove('disabled');
     cardsubmit.disabled = false;
   } else {
+    console.log('INVALID');
     cardsubmit.classList.add('disabled');
     cardsubmit.disabled = true;
   }

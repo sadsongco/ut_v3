@@ -4,6 +4,11 @@ include("../../functions.php");
 require(base_path("classes/SUCheckout.php"));
 require(base_path("functions/interface/members/get_sub_price.php"));
 
+if (!$auth->getUserId()) {
+    header('Location: /members/');
+    exit();
+}
+
 use SumUp\SumUp;
 use SumUp\Exception\SDKException;
 
@@ -32,7 +37,10 @@ function getOrderDetails($order_id, $mem_db, $auth) {
 }
 
 if (isset($_POST['make_payment'])) {
-    if (!isset($_POST['order_id']) || !is_numeric($_POST['order_id']) || !isset($_POST['subscription_level'])) exit("There has been an error. Please contact the webmaster.");
+    if (!isset($_POST['order_id']) || !is_numeric($_POST['order_id']) || !isset($_POST['subscription_level'])) {
+        error_log("No order id or subscription level posted from subscribe form");
+        exit("There has been an error. Please contact the webmaster.");
+    }
     $order_id = $_POST['order_id'];
     $order_details = getOrderDetails($order_id, $mem_db, $auth);
     [$order_details['totals']['subtotal'], $order_details['totals']['vat'], $order_details['totals']['total']] = getSubPrice($_POST['subscription_level']);
@@ -41,42 +49,6 @@ if (isset($_POST['make_payment'])) {
     $order_details['order_name'] = $_POST['name'];
     // p_2($order_details);
     echo $m->render("members/payment", ["order_details"=>$order_details]);
-    // $order_details = [...$_POST];
-    // unset($order_details['make_payment']);
-    // [$order_details['totals']['subtotal'], $order_details['totals']['vat'], $order_details['totals']['total']] = getSubPrice($order_details['subscription-level']);
-    // if ($order_details['totals']['total'] != $order_details['total']) {
-    //     exit("There has been an error. Please contact the webmaster.");
-    // }
-    // $query = "SELECT su_checkout_id FROM Subscriptions WHERE subscription_id = ? AND user_id = ?";
-    // try {
-    //     $result = $mem_db->query($query, [$order_details['order_id'], $auth->getUserId()])->fetch();
-    // } catch (Exception $e) {
-    //     error_log($e);
-    //     exit("There has been an error. Please contact the webmaster.");
-    // }
-    // if (!$result) {
-    //     exit("There has been an error. Please contact the webmaster.");
-    // }
-    // $items = [
-    //     [
-    //     "item_id"=>99991,
-    //     "name"=>$order_details['subscription-level']. " Subscription",
-    //     "price"=>$order_details['totals']['total']
-    //     ]
-    // ];
-    // p_2($order_details);
-    // p_2($result);
-
-    // echo $m->render('members/payment', [
-    //     "checkout_id"=>$result['su_checkout_id'],
-    //     "order_id"=>$order_details['order_id'],
-    //     "name"=>$order_details['name'],
-    //     "items"=>$items,
-    //     "subtotal"=>$order_details['totals']['subtotal'],
-    //     "shipping"=>0,
-    //     "vat"=>$order_details['totals']['vat'],
-    //     "amount"=>$order_details['totals']['total']
-    // ]);
     exit();
 }
 
@@ -192,14 +164,12 @@ catch (\SumUp\Exception\ApiException $e) {
         $query = "SELECT su_checkout_id FROM Subscriptions WHERE subscription_id = ? AND user_id = ?";
         try {
             $result = $mem_db->query($query, [$order_details['order_id'], $auth->getUserId()])->fetch();
+            p_2($result);
         } catch (Exception $e) {
             error_log($e);
             exit("There has been an error. Please contact the webmaster.");
         }
-        if (!$result) {
-            exit("There has been an error. Please contact the webmaster.");
-        }
-        if (!$result) {
+        if (!$result['su_checkout_id']) {
             error_log("No stored checkout id for duplicated checkout");
             exit("There has been an error. Please contact the webmaster");
         }
@@ -219,6 +189,22 @@ catch (\SumUp\Exception\SDKException $e) {
     exit("There has been an error. Please contact the webmaster.");
 }
 
+/*
+try {
+    $result = $sumup->checkouts()->deactivate($checkout->id);
+} catch (\SumUp\Exception\ApiException $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+} catch (\SumUp\Exception\UnexpectedApiException $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+} catch (\SumUp\Exception\SDKException $e) {
+    error_log($e);
+    exit("There has been an error. Please contact the webmaster.");
+}
+    */
+
+
 $query = "UPDATE Subscriptions SET su_checkout_id = ? WHERE subscription_id = ?";
 try {
     $mem_db->query($query, [$checkout->id, (int)$checkout->checkoutReference]);
@@ -231,6 +217,7 @@ $order_details['su_checkout_id'] = $checkout->id;
 $order_details['total_disp'] = number_format($order_details['totals']['total'], 2);
 if ((int)date('j') > 28) $order_details['sub_day_near'] = true;
 $order_details['sub_day_disp'] = date('jS');
+
 
 // p_2($order_details);
 // p_2($_SERVER['HTTP_USER_AGENT']);
