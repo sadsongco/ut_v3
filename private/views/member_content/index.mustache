@@ -1,0 +1,27 @@
+{{>html_header}}
+<section class="callout">
+      <h1>Member Content Management Page</h1>
+</section>
+<section>
+      <h2>Create New Content</h2>
+      <section class="content-container">
+        <form class="form-container" hx-post="/private/functions/interface/member_content/create_content.php" hx-target="#content-update-feedback" hx-replace="innerHTML" enctype="multipart/form-data">
+            <label for="content-type">Content Type</label>
+            <select id="content-type" type="select" name="content_type" hx-post="/private/functions/interface/member_content/contextual_content_form.php" hx-trigger="change" hx-target="#contextual-form" hx-replace="innerHTML">
+                <option value="" selected>Select...</option>
+                <option value="text">Text</option>
+                <option value="audio">Audio</option>
+                <option value="video">Video</option>
+            </select>
+            <div id="contextual-form"></div>
+        </form>
+      </section>
+      <section id="content-update-feedback"></section>
+</section>
+<section>
+      <h2>Edit Content</h2>
+      <h2>CONTENT PREVIEW</h2>
+      <div id="articlePreviewContainer" class="articlePreview"></div>
+      </section>
+</section>
+{{>html_footer}}

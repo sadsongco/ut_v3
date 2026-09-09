@@ -1,0 +1,20 @@
+{{#text_fields}}
+    <label for="content-heading">Content Heading</label>
+    <input id="content-heading" type="text" name="content_heading" placeholder="content heading" value="{{content_heading}}"">
+    <label for="content-body">Content Body</label>
+    <textarea id="content-body" name="content_body" placeholder="content body">{{content_body}}</textarea>
+{{/text_fields}}
+{{#file_field}}
+    <label for="content-upload">Content Upload</label>
+    <input id="content-upload" type="file" name="files[]" accept="{{accept}}">
+{{/file_field}}
+
+{{^text_fields}}
+    INVALID CONTENT TYPE
+{{/text_fields}}
+
+{{#text_fields}}
+    <label for="content-pub-date">Content Publication Date</label>
+    <input id="content-pub-date" type="datetime-local" name="content_pub_date" value="{{date}}">
+    <input type="submit" id="member-content-subscribe" value="Create Member Content">
+{{/text_fields}}

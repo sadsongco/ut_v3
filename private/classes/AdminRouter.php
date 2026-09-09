@@ -35,6 +35,10 @@ class AdminRouter extends Router
         'utility' => [
             'name' => 'Utilities',
             'controller' => 'utility/index'
+        ],
+        'member_content' => [
+            'name' => 'Member Content',
+            'controller' => 'member_content/index'
         ]
     ];
     function __construct($renderer)
