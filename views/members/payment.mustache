@@ -40,7 +40,7 @@
     locale: 'en-GB',
     country: 'GB',
     showAmount: {{amount}},
-    onResponse: (type, body) => {processPayment(type, body,  {order_id : "{{order_id}}"}, paymentTimeout)},
+    onResponse: (type, body) => {processSubscription(type, body,  {order_id : "{{order_id}}"}, paymentTimeout)},
     });
 
 </script>
