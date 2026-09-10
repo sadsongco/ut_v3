@@ -35,7 +35,7 @@ foreach ($uploaded_files as &$uploaded_file) {
 echo $m->render("uploadedFiles", ["uploaded_files"=>$uploaded_files]);
 
 function insertMediaDB ($uploaded_file, $db) {
-    $table_name = $uploaded_file['type'] === "images" ? "Content_Images" : "Content_Audio";
+    $table_name = $uploaded_file['type'] === "images" ? "images" : "Content_Audio";
     try {
         $query = "INSERT INTO $table_name (title, filename, notes)VALUES (?, ?, ?);";
         $params = [
@@ -57,7 +57,7 @@ function getMediaId ($uploaded_file, $db) {
         $table = "Content_Audio";
         $tag = "a";
     } else {
-        $table = "Content_Images";
+        $table = "images";
         $tag = "i";
     }
     $query =  "SELECT content_image_id FROM $table WHERE filename = ?";

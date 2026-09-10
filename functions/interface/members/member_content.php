@@ -1,7 +1,7 @@
 <?php
 
 require_once(__DIR__ . "/../../functions.php");
-include(base_path('functions/interface/members/render_article.php'));
+include(base_path('classes/ArticleRenderer.php'));
 
 use Database\Database;
 
@@ -46,6 +46,7 @@ catch (Exception $e) {
     exit("DATABASE ERROR: " . $e->getMessage());
 }
 
+use ArticleRenderer\ArticleRenderer;
 $rendered_content = "";
 
 foreach ($scheduled_content as &$content) {
@@ -62,8 +63,8 @@ foreach ($scheduled_content as &$content) {
         ];
         $content['track'] = json_encode($track);
     }
-    $rendered_content .= renderArticle($content);
+    $renderer = new ArticleRenderer($content, "members");
+    $rendered_content .= $renderer->renderArticle();
 }
-
 
 echo $m->render('members/member_content', ["scheduled_content"=>$rendered_content]);
