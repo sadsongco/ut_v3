@@ -1,15 +1,10 @@
 <?php
 
 require_once(__DIR__ . "/../functions/functions.php");
+include(base_path('classes/ArticleRenderer.php'));
 
 use Database\Database;
 $db = new Database('content');
-
-include(base_path("functions/interface/blog/get_article_media.php"));
-
-$auth = [];
-
-$host = getHost();
 
 try {
     $query = "SELECT
@@ -29,14 +24,7 @@ catch (Exception $e) {
     die("DATABASE ERROR: ".$e->getMessage());
 }
 
-
 $article = $result[0];
-$article["body"] = parseBody($article["body"], $db, $auth, $m, $host);
-$article["username"] = "USER";
-$article["tab_id"] = 1; //VALIDATE POST below?
-$article["show_comments"] = isset($_POST['show_comments']) ? true : false;
-$article["host"] = $host;
-if (isset($_POST['hide'])) $article["hide"] = $_POST['hide'];
-if ($article["tab_name"] == "blogs") $article["blog"] = true;
-
-echo $m->render("articles/article", $article);
+use ArticleRenderer\ArticleRenderer;
+$renderer = new ArticleRenderer($article, "members");
+echo $renderer->renderArticle();
