@@ -15,7 +15,7 @@ echo $renderer->renderArticle();
 exit();
 
 try {
-    $article["content_body"] = parseBody($article["content_body"], $db, $auth, $m, $host);
+    $article["body"] = parseBody($article["body"], $db, $auth, $m, $host);
 }
 catch (Exception $e){
     echo $e->getMessage();

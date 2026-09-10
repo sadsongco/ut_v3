@@ -1,17 +1,17 @@
 <section class="article-container">
 {{#content}}
     <article class="article-body">
-    {{#content_heading}}
+    {{#title}}
         <div class="article-head">
-         <div class="article-title">{{content_heading}}</div>
+         <div class="article-title">{{title}}</div>
          <div class="article-date">{{date}}</div>
         </div>
-    {{/content_heading}}
-    {{#content_body}}
+    {{/title}}
+    {{#body}}
         <div class="article-content">
-            <p>{{{content_body}}}</p>
+            <p>{{{body}}}</p>
         </div>
-    {{/content_body}}
+    {{/body}}
     {{#audio}}
         <div class="spinner htmx-indicator" id="spinner">
             <img src="/serve/images/graphics/loading/gif/inline" alt="loading spinner" />

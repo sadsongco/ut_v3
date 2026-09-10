@@ -12,13 +12,13 @@ if (!empty($_FILES)) {
     if ($uploaded_file['success'] || (!$uploaded_file['success'] && $uploaded_file['message'] == $uploaded_file['filename'] . " already exists")) {
         try {
             $query = "INSERT INTO
-                Scheduled_Content (content_pub_date, content_type, content_heading, content_body, content_filename)
+                Scheduled_Content (pub_date, content_type, title, body, filename)
             VALUES (?, ?, ?, ?, ?);";
             $params = [
-                $_POST['content_pub_date'],
+                $_POST['pub_date'],
                 $_POST['content_type'],
-                $_POST['content_heading'],
-                $_POST['content_body'],
+                $_POST['title'],
+                $_POST['body'],
                 $uploaded_file['filename']
             ];
             $mem_db->query($query, $params);
@@ -30,13 +30,13 @@ if (!empty($_FILES)) {
 } else {
     try {
         $query = "INSERT INTO
-            Scheduled_Content (content_pub_date, content_type, content_heading, content_body)
+            Scheduled_Content (pub_date, content_type, title, body)
         VALUES (?, ?, ?, ?);";
         $params = [
-            $_POST['content_pub_date'],
+            $_POST['pub_date'],
             $_POST['content_type'],
-            $_POST['content_heading'],
-            $_POST['content_body']
+            $_POST['title'],
+            $_POST['body']
         ];
         $mem_db->query($query, $params);
     } catch (Exception $e) {

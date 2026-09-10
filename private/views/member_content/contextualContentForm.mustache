@@ -3,9 +3,9 @@
     <input
         id="content-heading"
         type="text"
-        name="content_heading"
+        name="title"
         placeholder="content heading"
-        value="{{content_heading}}"
+        value="{{title}}"
         hx-post="/private/functions/interface/member_content/article_preview.php"
         hx-trigger="keyup changed delay:1s"
         hx-target="#articlePreviewContainer" 
@@ -13,12 +13,12 @@
     <label for="content-body">Content Body</label>
     <textarea
         id="content-body"
-        name="content_body"
+        name="body"
         placeholder="content body"
         hx-post="/private/functions/interface/member_content/article_preview.php"
         hx-trigger="keyup changed delay:1s"
         hx-target="#articlePreviewContainer"
-    >{{content_body}}</textarea>
+    >{{body}}</textarea>
 {{/text_fields}}
 {{#file_field}}
     <label for="content-upload">Content Upload</label>
@@ -31,6 +31,6 @@
 
 {{#text_fields}}
     <label for="content-pub-date">Content Publication Date</label>
-    <input id="content-pub-date" type="datetime-local" name="content_pub_date" value="{{date}}">
+    <input id="content-pub-date" type="datetime-local" name="pub_date" value="{{date}}">
     <input type="submit" id="member-content-subscribe" value="Create Member Content">
 {{/text_fields}}

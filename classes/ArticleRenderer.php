@@ -7,14 +7,15 @@ use Database\Database;
 use \DateTime;
 use \Mustache_Engine;
 use \Mustache_Loader_FilesystemLoader;
+use \PDOException;
 
 
 class ArticleRenderer {
 
     protected const CONTEXTS = [
-        'article' => [
+        'blog' => [
             "db" => "content",
-            "media_path" => "",
+            "media_path" => ARTICLE_ASSET_PATH,
             "view_path" => "articles",
         ],
         'members' => [
@@ -26,12 +27,13 @@ class ArticleRenderer {
     private object $db;
     private string $media_path;
     private string $host;
-    private array $auth;
+    private  $auth;
     private object $renderer;
     private array $article = [];
 
     function __construct(array $article, string $context='article')
     {
+        global $auth;
         $this->host = getHost();
         $this->db = new Database(self::CONTEXTS[$context]["db"]);
         $this->media_path = self::CONTEXTS[$context]["media_path"];
@@ -40,33 +42,32 @@ class ArticleRenderer {
             'partials_loader' => new Mustache_Loader_FilesystemLoader(base_path("views/partials/" . self::CONTEXTS[$context]["view_path"]))
         ));
         $this->article = $article;
-        return $this;
+        $this->auth = $auth;
     }
 
-    function makeUniqueToken($auth, $track) {
-    return;
-    return hash('sha1', $auth->getUsername().$track["filename"]);
+    private function makeUniqueToken(array $track) : string {
+    return hash('sha1', $this->auth->getUsername().$track["filename"]);
 }
 
-    private function getMediaArr($table, $id) {
+    private function getMediaArr(string $table, int $id) : array {
         $id_id = $table == "media" ? "media_id" : "image_id";
         $query = "SELECT $id_id, filename, title, notes FROM $table WHERE $id_id = ?";
         $result = $this->db->query($query, [$id])->fetch();
         return $result;
     }
 
-    private function removeExpiredStreamingTokens($db) {
+    private function removeExpiredStreamingTokens() {
         $query = "DELETE FROM streaming_tokens WHERE timestamp < ?;";
-        $db->query($query, [time()-(60*30)]); // remove timestamps longer than 30 minutes ago
+        $this->db->query($query, [time()-(60*30)]); // remove timestamps longer than 30 minutes ago
     }
 
-    private function getAudio($audio_id, $db, $auth) {
-        $track = getMediaArr("media", $audio_id, $db);
-        $track["token"] = makeUniqueToken($auth, $track);
+    private function getAudio(int $audio_id) : array {
+        $track = $this->getMediaArr("media", $audio_id);
+        $track["token"] = $this->makeUniqueToken($track);
         try {
             $query = "INSERT INTO streaming_tokens VALUES (0, ?, ?, ?)
             ON DUPLICATE KEY UPDATE timestamp = ?;";
-            $db->query($query, [$track["token"], $track["media_id"], time(), time()]);
+            $this->db->query($query, [$track["token"], $track["media_id"], time(), time()]);
         }
         catch (PDOException $e) {
             die($e->getMessage());
@@ -76,7 +77,7 @@ class ArticleRenderer {
         return $track;
     }
 
-    private function getImage(int $image_id, string $image_float) {
+    private function getImage(int $image_id, string $image_float) : array {
         $image = $this->getMediaArr("images", $image_id);
         $image["path"] = $this->media_path . "images/" . $image["filename"];
         $image["thumbpath"] = "/serve/" . $this->media_path . "images/thumbnail/" . str_replace(".", "/", $image["filename"]);
@@ -102,13 +103,13 @@ class ArticleRenderer {
         return $image;
     }
 
-    private function getMedia(string $line) {
+    private function getMedia(string $line) : string {
             // Get audio
             preg_match_all('/{{a::([0-9])+}}/', $line, $audio_ids);
             if (sizeof($audio_ids[1]) > 0) {
                 $nl_flag = false;
                 foreach ($audio_ids[1] as $key=>$audio_id) {
-                    $track = getAudio($audio_id, $this->db, $this->auth);
+                    $track = $this->getAudio($audio_id, $this->db, $this->auth);
                     $replace_el = $this->renderer->render("audio_loader", ["track"=>json_encode($track), "base_dir"=>$this->host]);
                     $replace_str = $audio_ids[0][$key];
                     $line = preg_replace("/$replace_str/", $replace_el, $line);
@@ -130,7 +131,7 @@ class ArticleRenderer {
             return $line;
     }
 
-    private function parseLinks(string $line) {
+    private function parseLinks(string $line) : string {
         $links = [];
         preg_match_all('/({{link}}([^}]*){{\/link}})/', $line, $links);
         $replacements = [];
@@ -152,7 +153,7 @@ class ArticleRenderer {
         return $line;
     }
 
-    private function parseBody(string $body) {
+    private function parseBody(string $body) : string{
         $content = explode("\n", str_replace("\n\r", "\n", $body));
         // removeExpiredStreamingTokens($db);
         $output = "<p>";
@@ -170,15 +171,14 @@ class ArticleRenderer {
         return $output;
     }
 
-    public function renderArticle() {
-        $date = new DateTime($this->article["content_pub_date"]);
+    public function renderArticle() : string {
+        $date = new DateTime($this->article["pub_date"]);
         $this->article['date'] = $date->format("jS M Y - g:iA");
-        $this->article['content_body'] = $this->parseBody($this->article['content_body']);
-        $this->article['content_body'] = nl2br($this->article['content_body']);
+        $this->article['body'] = $this->parseBody($this->article['body']);
+        $this->article['body'] = nl2br($this->article['body']);
 
         return $this->renderer->render("article", [
             "content" => $this->article
         ]);
-
     }
 }

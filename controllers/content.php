@@ -1,6 +1,6 @@
 <?php
 
-include(base_path("functions/interface/blog/get_article_media.php"));
+include(base_path('classes/ArticleRenderer.php'));
 
 use Database\Database;
 $db = new Database('content');
@@ -18,7 +18,7 @@ function getLatestArticleId ($db) {
 
 function getArticle($db, $article_id) {
     try {
-        $query = "SELECT title, body, DATE_FORMAT(added, '%d %M %Y') as added FROM articles WHERE article_id = ?;";
+        $query = "SELECT title, body, pub_date, DATE_FORMAT(added, '%d %M %Y') as added FROM articles WHERE article_id = ?;";
         return $db->query($query, [$article_id])->fetch();
     }
     catch (PDOException $e) {
@@ -61,12 +61,14 @@ if (isset($_GET['article_id']) && is_numeric($_GET['article_id'])) {
     $show_article = $_GET['article_id'];
 }
 
+use ArticleRenderer\ArticleRenderer;
+$rendered_article = "";
 try {
     $article = getArticle($db, $show_article);
     $prev_article = getPrevArticle($db, $show_article);
     $next_article = getNextArticle($db, $show_article);
-    $auth = [];
-    $article['body'] = parseBody($article['body'], $db, $auth, $this->renderer, $host);
+    $renderer = new ArticleRenderer($article, "blog");
+    $rendered_article = $renderer->renderArticle();
 }
 catch (Exception $e) {
     die ("System error: ".$e->getMessage());
@@ -74,4 +76,4 @@ catch (Exception $e) {
 
 $blog_stylesheets = ['articles'];
 
-echo $this->renderer->render('blog', ['article'=>$article, 'article_id'=>$show_article,'next_article'=>$next_article, 'prev_article'=>$prev_article]);
+echo $this->renderer->render('blog', ['article'=>$rendered_article, 'article_id'=>$show_article,'next_article'=>$next_article, 'prev_article'=>$prev_article]);

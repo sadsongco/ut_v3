@@ -8,7 +8,7 @@ use Database\Database;
 $member_db = new Database('members');
 
 function makeUniqueToken($auth, $track) {
-    return hash('sha1', $auth->getUsername().$track["content_filename"]);
+    return hash('sha1', $auth->getUsername().$track["filename"]);
 }
 
 if (!$auth->isLoggedIn()) {
@@ -37,7 +37,7 @@ catch (Exception $e) {
     exit("DATABASE ERROR: " . $e->getMessage());
 }
 
-$query = "SELECT * FROM Scheduled_Content WHERE content_pub_date < NOW() ORDER BY content_pub_date DESC";
+$query = "SELECT * FROM Scheduled_Content WHERE pub_date < NOW() ORDER BY pub_date DESC";
 
 try {
     $scheduled_content = $member_db->query($query)->fetchAll();
@@ -55,7 +55,7 @@ foreach ($scheduled_content as &$content) {
         $content['token'] = makeUniqueToken($auth, $content);
         $track = [
             "id" => $content['scheduled_content_id'],
-            "filename" => $content['content_filename'],
+            "filename" => $content['filename'],
             "title" => "",
             "notes" => "",
             "token" => $content['token'],
