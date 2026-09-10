@@ -4,6 +4,6 @@ use Database\Database;
 $db = new Database('content');
 
 echo $this->renderer->render('member_content/index', [
-    "stylesheets"=>["members", "user"],
+    "stylesheets"=>["members", "user", "articles"],
     'v'=>$v
  ]);

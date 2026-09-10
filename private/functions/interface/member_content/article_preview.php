@@ -1,6 +1,6 @@
 <?php
 
 include(__DIR__ . "/../../../../functions/functions.php");
-include(base_path('functions/interface/members/article_render.php'));
+include(base_path('functions/interface/members/render_article.php'));
 
-echo renderArticle($_POST["content_heading"], $_POST["content_body"], $_POST["content_pub_date"]);
+echo renderArticle($_POST);
