@@ -113,6 +113,8 @@ label {
   border-radius: 3px;
   border: 1px solid #dcdcdc;
   width: 100%;
+  height: fit-content;
+  min-height: 10em;
 }
 
 .form-container input[type='submit'],

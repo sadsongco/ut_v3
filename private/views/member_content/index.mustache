@@ -16,12 +16,16 @@
             <div id="contextual-form"></div>
         </form>
       </section>
+      <section class="content-container">
+            <p>Upload images and audio clips to use in content body. Tags for inclusion will be displayed after upload</p>
+            <div hx-get="/private/functions/interface/member_content/file_upload_form.php" hx-trigger="load" hx-target="this" hx-replace="innerHTML"></div>
       <section id="content-update-feedback"></section>
 </section>
 <section>
       <h2>Edit Content</h2>
+</section>
+<section class = "content-container">
       <h2>CONTENT PREVIEW</h2>
       <div id="articlePreviewContainer" class="articlePreview"></div>
-      </section>
 </section>
 {{>html_footer}}

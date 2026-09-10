@@ -1,8 +1,24 @@
 {{#text_fields}}
     <label for="content-heading">Content Heading</label>
-    <input id="content-heading" type="text" name="content_heading" placeholder="content heading" value="{{content_heading}}"">
+    <input
+        id="content-heading"
+        type="text"
+        name="content_heading"
+        placeholder="content heading"
+        value="{{content_heading}}"
+        hx-post="/private/functions/interface/member_content/article_preview.php"
+        hx-trigger="keyup changed delay:1s"
+        hx-target="#articlePreviewContainer" 
+    >
     <label for="content-body">Content Body</label>
-    <textarea id="content-body" name="content_body" placeholder="content body">{{content_body}}</textarea>
+    <textarea
+        id="content-body"
+        name="content_body"
+        placeholder="content body"
+        hx-post="/private/functions/interface/member_content/article_preview.php"
+        hx-trigger="keyup changed delay:1s"
+        hx-target="#articlePreviewContainer"
+    >{{content_body}}</textarea>
 {{/text_fields}}
 {{#file_field}}
     <label for="content-upload">Content Upload</label>

@@ -1,9 +1,6 @@
 <?php
 
 include(__DIR__ . "/../../../../functions/functions.php");
-// templating
-require base_path('../lib/mustache.php-main/src/Mustache/Autoloader.php');
-Mustache_Autoloader::register();
 
 $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(base_path('private/views/content/')),
@@ -12,6 +9,10 @@ $m = new Mustache_Engine(array(
 
 $id = $_GET["fileId"];
 
-echo $m->render("file_upload", ["id"=>$id, "max_size"=>MAX_FILE_SIZE]);
+echo $m->render("file_upload", [
+    "id"=>$id,
+    "max_size"=>MAX_FILE_SIZE,
+    "accept"=>"image/jpeg, , image/gif, audio/mp3"
+]);
 
 ?>

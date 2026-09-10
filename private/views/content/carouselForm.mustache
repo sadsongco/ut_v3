@@ -8,7 +8,7 @@
 {{/uploaded_file}}
 <form class="grid-2col" hx-post="/private/functions/interface/content/update_carousel.php" enctype="multipart/form-data">
     <label for="heroImg">Image File</label>
-    <input id="heroImg" name="files[]" type="file" accept="image/png, image/jpeg" required />
+    <input id="heroImg" name="files[]" type="file" accept="image/png, image/jpeg, image/gif" required />
     <label for="tileTitle">Tile Title</label>
     <input type="text" id="tileTitle" name="tile_title[]" cols="40" rows="10" placeholder="tile title" />
     <label for="tileText">Text Content</label>
