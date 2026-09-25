@@ -25,6 +25,5 @@ catch (Exception $e) {
 }
 
 $article = $result[0];
-use ArticleRenderer\ArticleRenderer;
 $renderer = new ArticleRenderer($article, "members");
 echo $renderer->renderArticle();

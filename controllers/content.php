@@ -61,7 +61,6 @@ if (isset($_GET['article_id']) && is_numeric($_GET['article_id'])) {
     $show_article = $_GET['article_id'];
 }
 
-use ArticleRenderer\ArticleRenderer;
 $rendered_article = "";
 try {
     $article = getArticle($db, $show_article);

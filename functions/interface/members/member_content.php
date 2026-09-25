@@ -46,7 +46,6 @@ catch (Exception $e) {
     exit("DATABASE ERROR: " . $e->getMessage());
 }
 
-use ArticleRenderer\ArticleRenderer;
 $rendered_content = "";
 
 foreach ($scheduled_content as &$content) {

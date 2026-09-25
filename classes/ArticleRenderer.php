@@ -1,13 +1,9 @@
 <?php
 
-namespace ArticleRenderer;
 include_once(__DIR__ . "/../functions/functions.php");
+require_once(base_path('../lib/getid3/getid3.php'));
 
 use Database\Database;
-use \DateTime;
-use \Mustache_Engine;
-use \Mustache_Loader_FilesystemLoader;
-use \PDOException;
 
 
 class ArticleRenderer {
@@ -75,6 +71,18 @@ class ArticleRenderer {
         $track["title"] = str_replace(" ", "_", $track["title"]);
         $track["notes"] = str_replace(" ", "_", $track["notes"]);
         return $track;
+    }
+
+    private function getVideo() : string {
+        $getId3 = new getID3();
+        $fileinfo = $getId3->analyze(base_path(WEB_ASSET_PATH . $this->media_path . "video/" . $this->article["filename"]));
+        return $this->renderer->render("video_element", [
+            "file_path" => $this->media_path . "video/",
+            "file_name"=>str_replace(".", "/", $this->article["filename"]),
+            "file_format"=>$fileinfo["fileformat"],
+            "width"=>$fileinfo["video"]["resolution_x"],
+            "height"=>$fileinfo["video"]["resolution_y"]
+        ]);
     }
 
     private function getImage(int $image_id, string $image_float) : array {
@@ -153,10 +161,11 @@ class ArticleRenderer {
         return $line;
     }
 
-    private function parseBody(string $body) : string{
+    private function parseBody(string $body) : string {
         $content = explode("\n", str_replace("\n\r", "\n", $body));
         // removeExpiredStreamingTokens($db);
         $output = "<p>";
+        if (isset($this->article["video"])) $output .= $this->getVideo();
         for ($x = 0; $x < sizeof($content); $x++) {
             if ($content[$x] == "" || $content[$x] == "\n") continue;
             $content[$x] = $this->parseLinks($content[$x]);

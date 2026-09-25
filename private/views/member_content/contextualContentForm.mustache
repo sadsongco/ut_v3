@@ -25,6 +25,20 @@
     <input id="content-upload" type="file" name="files[]" accept="{{accept}}">
 {{/file_field}}
 
+{{#manual_upload_field}}
+    <label for = "manual-upload">Video Filename</label>
+    <input
+        id="manual-upload"
+        type="text"
+        name="filename"
+        placeholder="Video Filename"
+        hx-post="/private/functions/interface/member_content/article_preview.php"
+        hx-trigger="keyup changed delay:1s"
+        hx-target="#articlePreviewContainer"
+    >
+    <div>Video files are usually too big for our upload form here. Upload it directly to web_assets/ut/members/video or ask Nigel to</div>
+{{/manual_upload_field}}
+
 {{^text_fields}}
     INVALID CONTENT TYPE
 {{/text_fields}}

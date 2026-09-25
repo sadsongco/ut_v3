@@ -3,7 +3,8 @@ include(__DIR__ . "/../../../../functions/functions.php");
 include(__DIR__ . "/includes/member_content_includes.php");
 
 $text_fields = $_POST['content_type'] == "text" || $_POST['content_type'] == "audio" || $_POST['content_type'] == "video";
-$file_field = $_POST['content_type'] == "audio" || $_POST['content_type'] == "video";
+$file_field = $_POST['content_type'] == "audio";
+$manual_upload_field = $_POST['content_type'] == "video";
 $accept = $_POST['content_type'] . "/*";
 $title = isset($_POST['title']) ? $_POST['title'] : "";
 $body = isset($_POST['body']) ? $_POST['body'] : "";
@@ -17,6 +18,7 @@ echo $m->render("contextualContentForm", [
     "body" => $body,
     "text_fields" => $text_fields,
     "file_field" => $file_field,
+    "manual_upload_field" => $manual_upload_field,
     "accept" => $accept,
     "date" => $date->format("Y-m-d\TH:i")
 ]);

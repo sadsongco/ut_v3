@@ -7,8 +7,7 @@ use Database\Database;
 $db = new Database('members');
 
 $article = $_POST;
-
-use ArticleRenderer\ArticleRenderer;
+if ($article["content_type"] == "video") $article["video"] = true;
 $renderer = new ArticleRenderer($article, "members");
 echo $renderer->renderArticle();
 
