@@ -1,0 +1,6 @@
+<article class="content-preview-container">
+{{#other_content}}
+    <div class="loading" hx-get="/members/preview_content/{{scheduled_content_id}}" hx-trigger="intersect" hx-swap="outerHTML">
+    </div>
+{{/other_content}}
+</article>

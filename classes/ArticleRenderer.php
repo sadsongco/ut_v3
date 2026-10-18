@@ -85,6 +85,17 @@ class ArticleRenderer {
         ]);
     }
 
+    private function getMemberAudio() : string {
+        $track = [];
+        $track["path"] = "/serve/" . $this->media_path . "audio/" . str_replace(".", "/", $this->article["filename"]);
+        $track["host"] = getHost();
+        $track["title"] = $track["notes"] = "";
+        $track["filename"] = $this->article["filename"];
+        $track["token"] = $this->makeUniqueToken($track);
+        $this->article["audio"] = false;
+        return $this->renderer->render("audio_element", $track);
+    }
+
     private function getImage(int $image_id, string $image_float) : array {
         $image = $this->getMediaArr("images", $image_id);
         $image["path"] = $this->media_path . "images/" . $image["filename"];
@@ -112,12 +123,13 @@ class ArticleRenderer {
     }
 
     private function getMedia(string $line) : string {
-            // Get audio
-            preg_match_all('/{{a::([0-9])+}}/', $line, $audio_ids);
+        preg_match_all('/{{a::([0-9])+}}/', $line, $audio_ids);
+         // Get audio
             if (sizeof($audio_ids[1]) > 0) {
                 $nl_flag = false;
                 foreach ($audio_ids[1] as $key=>$audio_id) {
                     $track = $this->getAudio($audio_id, $this->db, $this->auth);
+                    // p_2($track);
                     $replace_el = $this->renderer->render("audio_loader", ["track"=>json_encode($track), "base_dir"=>$this->host]);
                     $replace_str = $audio_ids[0][$key];
                     $line = preg_replace("/$replace_str/", $replace_el, $line);
@@ -166,6 +178,7 @@ class ArticleRenderer {
         // removeExpiredStreamingTokens($db);
         $output = "<p>";
         if (isset($this->article["video"])) $output .= $this->getVideo();
+        if (isset($this->article["audio"])) $output .= $this->getMemberAudio();
         for ($x = 0; $x < sizeof($content); $x++) {
             if ($content[$x] == "" || $content[$x] == "\n") continue;
             $content[$x] = $this->parseLinks($content[$x]);
@@ -180,11 +193,12 @@ class ArticleRenderer {
         return $output;
     }
 
-    public function renderArticle() : string {
+    public function renderArticle(bool $preview = false) : string {
         $date = new DateTime($this->article["pub_date"]);
         $this->article['date'] = $date->format("jS M Y - g:iA");
+        if ($preview) return $this->renderer->render("article_preview", ["content"=>$this->article]);
         $this->article['body'] = $this->parseBody($this->article['body']);
-        $this->article['body'] = nl2br($this->article['body']);
+        // $this->article['body'] = nl2br($this->article['body']);
 
         return $this->renderer->render("article", [
             "content" => $this->article

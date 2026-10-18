@@ -3,6 +3,7 @@
 include (__DIR__ . "/../functions/functions.php");
 
 $track = $_POST; //VALIDATE?
+p_2($track);
 $audio_path = isset($track["members"]) ? MEMBERS_ASSET_PATH : ARTICLE_ASSET_PATH;
 $track["host"] = getHost();
 $track["title"] = str_replace("_", " ", $track["title"]);

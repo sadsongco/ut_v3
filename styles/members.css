@@ -121,3 +121,21 @@ label {
 .form-container select {
   width: fit-content;
 }
+
+.content-preview-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.content-preview-list {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content-preview {
+  cursor: pointer;
+}

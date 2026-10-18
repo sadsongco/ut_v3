@@ -20,6 +20,18 @@ class MembersRouter extends Router
             'name' => 'Subscribe',
             'controller' => 'members/subscribe'
         ],
+        'show_content' => [
+            'name' => 'Show Content',    
+            'controller' => 'members/show_content'
+        ],
+        'other_content' => [
+            'name' => 'Other Content',    
+            'controller' => 'members/other_content'
+        ],
+        'preview_content' => [
+            'name' => 'Preview Content',    
+            'controller' => 'members/preview_content'
+        ]
     ];
     function __construct($renderer)
     {
@@ -37,6 +49,7 @@ class MembersRouter extends Router
             exit();
         }
         $paths = explode('/', $uri);
+        // p_2($paths);
         if (isset($paths[1]) && array_key_exists($paths[1], $this->routes)) {
             require base_path('controllers/' . $this->routes[$paths[1]]['controller'] . '.php');
             exit();

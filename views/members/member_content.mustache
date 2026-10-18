@@ -1,5 +1,12 @@
-<section class="available-content">
-{{#scheduled_content}}
-    {{{scheduled_content}}}
- {{/scheduled_content}}
+<div class="spinner htmx-indicator" id="spinner">
+    <img src="/serve/images/graphics/loading/gif/inline" alt="loading spinner" />
+</div>
+<section id="show-content" hx-get="/members/show_content/" hx-trigger="load" hx-replace="outerHTML" hx-indicator="#spinner">
 </section>
+<div class="content-preview-container">
+    <section class="content-preview-list">
+        <h2>Other Member Content</h2>
+        <section id="other-content" hx-get="/members/other_content/" hx-trigger="load" hx-replace="outerHTML" hx-indicator="#spinner">
+        </section>
+    </section>
+</div>

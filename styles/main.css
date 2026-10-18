@@ -164,6 +164,9 @@ article a:hover {
 }
 
 .htmx-indicator {
+  position: absolute;
+  left: 50%;
+  top: 50%;
   opacity: 0;
   height: 0px;
   max-height: 0px;

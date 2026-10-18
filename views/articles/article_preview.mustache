@@ -1,0 +1,12 @@
+<section class="article-container article-preview">
+{{#content}}
+    <article class="article-body" hx-post="/members/show_content/{{scheduled_content_id}}" hx-target="#member-content">
+    {{#title}}
+        <div class="article-head">
+         <div class="article-title">{{title}}</div>
+         <div class="article-date">{{date}}</div>
+        </div>
+    {{/title}}
+    </article>
+{{/content}}
+</section>

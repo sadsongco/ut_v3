@@ -3,8 +3,10 @@
 require_once(__DIR__ . "/../../functions.php");
 include(base_path('classes/ArticleRenderer.php'));
 
-use Database\Database;
+echo $m->render("members/member_content");
+exit();
 
+use Database\Database;
 $member_db = new Database('members');
 
 function makeUniqueToken($auth, $track) {
@@ -48,6 +50,11 @@ catch (Exception $e) {
 
 $rendered_content = "";
 
+$latest_content = array_shift($scheduled_content);
+$latest_content[$latest_content['content_type']] = true;
+$renderer = new ArticleRenderer($latest_content, "members");
+$rendered_latest_content = $renderer->renderArticle();
+
 foreach ($scheduled_content as &$content) {
     $content[$content['content_type']] = true;
     if ($content['content_type'] == 'audio') {
@@ -63,7 +70,11 @@ foreach ($scheduled_content as &$content) {
         $content['track'] = json_encode($track);
     }
     $renderer = new ArticleRenderer($content, "members");
-    $rendered_content .= $renderer->renderArticle();
+    $rendered_content .= $renderer->renderArticle(true);
 }
 
-echo $m->render('members/member_content', ["scheduled_content"=>$rendered_content]);
+echo $m->render('members/member_content', [
+    "latest_content"=>$rendered_latest_content,
+    "scheduled_content"=>$rendered_content
+    ]
+);
